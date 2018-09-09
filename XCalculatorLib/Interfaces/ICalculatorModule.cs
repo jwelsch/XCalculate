@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace XCalculatorLib.Interfaces
 {
@@ -21,6 +20,6 @@ namespace XCalculatorLib.Interfaces
             get;
         }
 
-        ICalculatorValue Calculate(Func<ICalculatorPhase, ICalculatorPhase> phaseHandler);
+        ICalculatorValue Calculate(Func<ICalculatorPhase, IEnumerable<ICalculatorValue>> phaseHandler);
     }
 }

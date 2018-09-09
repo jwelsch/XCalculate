@@ -20,7 +20,5 @@ namespace XCalculatorLib.Interfaces
         {
             get;
         }
-
-        void SetInputs(IEnumerable<ICalculatorValue> inputs);
     }
 }

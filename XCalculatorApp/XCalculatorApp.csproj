@@ -5,4 +5,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TestCalculators\TestCalculators.csproj" />
+    <ProjectReference Include="..\XCalculatorManagerLib\XCalculatorManagerLib.csproj" />
+  </ItemGroup>
+
 </Project>

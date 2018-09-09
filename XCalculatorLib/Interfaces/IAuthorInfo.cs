@@ -2,24 +2,19 @@
 
 namespace XCalculatorLib.Interfaces
 {
-    public interface ICalculatorValueInfo
+    public interface IAuthorInfo
     {
         string Name
         {
             get;
         }
 
-        string Description
+        string Email
         {
             get;
         }
 
-        Type ValueType
-        {
-            get;
-        }
-
-        string UnitName
+        Uri Site
         {
             get;
         }

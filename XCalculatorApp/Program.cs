@@ -1,4 +1,5 @@
 ﻿using System;
+using XCalculatorManagerLib;
 
 namespace XCalculatorApp
 {
@@ -6,7 +7,10 @@ namespace XCalculatorApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var moduleLoader = new CalculatorModuleLoader();
+            var assemblyProvider = new DirectoryCalculatorAssemblyProvider(Environment.CurrentDirectory);
+
+            var modules = moduleLoader.Load(assemblyProvider);
         }
     }
 }
