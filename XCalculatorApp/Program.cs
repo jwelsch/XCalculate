@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using XCalculatorManagerLib;
 
 namespace XCalculatorApp
@@ -7,10 +9,19 @@ namespace XCalculatorApp
     {
         static void Main(string[] args)
         {
-            var moduleLoader = new CalculatorModuleLoader();
-            var assemblyProvider = new DirectoryCalculatorAssemblyProvider(Environment.CurrentDirectory);
+            try
+            {
+                var directoryPath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
 
-            var modules = moduleLoader.Load(assemblyProvider);
+                var moduleFactory = new CalculatorModuleFactory();
+                var modules = moduleFactory.Create(directoryPath);
+            }
+            catch (Exception ex)
+            {
+                var message = $"Unhandled exception:{Environment.NewLine}{ex}";
+                System.Diagnostics.Trace.WriteLine(message);
+                Console.WriteLine(message);
+            }
         }
     }
 }

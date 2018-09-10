@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace XCalculatorLib.Interfaces
+namespace XCalculatorLib
 {
     public interface ICalculatorModule
     {

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using XCalculatorLib;
-using XCalculatorLib.Attributes;
-using XCalculatorLib.Interfaces;
 
 namespace TestCalculators
 {

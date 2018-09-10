@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace XCalculatorLib.Interfaces
+namespace ExtensionLib
 {
-    public interface IAuthorInfo
+    public interface IExtensionAuthorInfo
     {
         string Name
         {

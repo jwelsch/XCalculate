@@ -1,17 +1,18 @@
-﻿using System;
+﻿using ExtensionLib;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using XCalculatorManagerLib.Interfaces;
 
 namespace XCalculatorManagerLib
 {
-    public class DirectoryCalculatorAssemblyProvider : ICalculatorAssemblyProvider
+    public class DirectoryAssemblyEnumerator : IAssemblyEnumerator
     {
+        private readonly static string AssemblySearchPattern = "*.dll";
+
         private readonly string[] directoryPaths;
 
-        public DirectoryCalculatorAssemblyProvider(params string[] directoryPaths)
+        public DirectoryAssemblyEnumerator(params string[] directoryPaths)
         {
             this.directoryPaths = directoryPaths;
         }
@@ -36,7 +37,7 @@ namespace XCalculatorManagerLib
 
             foreach (var directoryPath in this.directoryPaths)
             {
-                var filePaths = Directory.GetFiles(directoryPath, "*.dll", SearchOption.AllDirectories);
+                var filePaths = Directory.GetFiles(directoryPath, AssemblySearchPattern, SearchOption.AllDirectories);
 
                 foreach (var filePath in filePaths)
                 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XCalculatorLib.Attributes
+namespace XCalculatorLib
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     public sealed class CalculatorVersionAttribute : Attribute

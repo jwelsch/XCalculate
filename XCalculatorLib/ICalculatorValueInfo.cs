@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XCalculatorLib.Interfaces
+namespace XCalculatorLib
 {
     public interface ICalculatorValueInfo
     {

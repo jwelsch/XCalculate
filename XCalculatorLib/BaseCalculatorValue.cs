@@ -1,5 +1,4 @@
-﻿using XCalculatorLib.Interfaces;
-
+﻿
 namespace XCalculatorLib
 {
     public abstract class BaseCalculatorValue<T> : ICalculatorValue
