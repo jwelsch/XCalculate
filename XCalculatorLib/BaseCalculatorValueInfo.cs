@@ -27,7 +27,7 @@ namespace XCalculatorLib
             get;
         }
 
-        public BaseCalculatorValueInfo(string name = null, string description = null, string unitName = null)
+        protected BaseCalculatorValueInfo(string name = null, string description = null, string unitName = null)
         {
             this.Name = name;
             this.Description = description;

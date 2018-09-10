@@ -4,31 +4,17 @@ using XCalculatorLib;
 
 namespace TestCalculators
 {
-    [CalculatorVersion("1.0.0")]
-    public class AddCalculatorModule : ICalculatorModule
+    public class AddCalculatorModule : ICalculatorFunction
     {
-        public string Name
+        public ICalculatorFunctionInfo FunctionInfo
         {
-            get
-            {
-                return "Addition";
-            }
+            get;
+            private set;
         }
 
-        public string Description
+        public AddCalculatorModule()
         {
-            get
-            {
-                return "Adds two numbers together";
-            }
-        }
-
-        public string[] Tags
-        {
-            get
-            {
-                return new string[] { "add" };
-            }
+            this.FunctionInfo = new DefaultCalculatorFunctionInfo("Addition", "Adds two addends together.", "add");
         }
 
         public ICalculatorValue Calculate(Func<ICalculatorPhase, IEnumerable<ICalculatorValue>> phaseHandler)

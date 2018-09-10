@@ -20,23 +20,26 @@ namespace ExtensionLib
             this.SupportedVersions = new List<Version>(supportedVersions);
         }
 
-        public IEnumerable<IExtensionObject> Create(IExtensionAssemblyTypes extensionAssembly)
+        public IExtensionAssemblyObjects Create(IExtensionAssemblyTypes extensionAssembly)
         {
-            if (extensionAssembly.AssemblyInfo == null)
+            var extensionAssemblyObjects = new ExtensionAssemblyObjects()
             {
-                throw new InvalidOperationException($"Extension version not found.{Environment.NewLine}  Assembly: {extensionAssembly.Assembly.FullName}");
-            }
+                Assembly = extensionAssembly.Assembly
+            };
 
-            var extensionObjectList = new List<IExtensionObject>();
+            //if (extensionAssembly.AssemblyInfo == null)
+            //{
+            //    throw new InvalidOperationException($"Extension version not found.{Environment.NewLine}  Assembly: {extensionAssembly.Assembly.FullName}");
+            //}
 
-            var assemblyInfo = (IExtensionAssemblyInfo)this.instantiator.Create(extensionAssembly.AssemblyInfo);
+            //var assemblyInfo = (IExtensionAssemblyInfo)this.instantiator.Create(extensionAssembly.AssemblyInfo);
 
-            var version = this.SupportedVersions.FirstOrDefault(i => i.Major == assemblyInfo.Version.Major);
+            //var version = this.SupportedVersions.FirstOrDefault(i => i.Major == assemblyInfo.Version.Major);
 
-            if (version == null)
-            {
-                throw new InvalidOperationException($"Unsupported extension version.{Environment.NewLine}  Assembly: {extensionAssembly.Assembly.FullName}{Environment.NewLine}  Assembly Extension Version: {assemblyInfo.Version}{Environment.NewLine}  Supported Extension Versions: {this.SupportedVersions.ToDelimitedString(", ")}");
-            }
+            //if (version == null)
+            //{
+            //    throw new InvalidOperationException($"Unsupported extension version.{Environment.NewLine}  Assembly: {extensionAssembly.Assembly.FullName}{Environment.NewLine}  Assembly Extension Version: {assemblyInfo.Version}{Environment.NewLine}  Supported Extension Versions: {this.SupportedVersions.ToDelimitedString(", ")}");
+            //}
 
             foreach (var exportedType in extensionAssembly.ExportedTypes)
             {
@@ -44,16 +47,16 @@ namespace ExtensionLib
 
                 extensionObject.ExtensionAssembly = new ExtensionAssembly()
                 {
-                    AssemblyInfo = assemblyInfo,
+                    //AssemblyInfo = assemblyInfo,
                     Assembly = extensionAssembly.Assembly
                 };
 
                 extensionObject.Instance = this.instantiator.Create(exportedType);
 
-                extensionObjectList.Add(extensionObject);
+                extensionAssemblyObjects.ExtensionObjects.Add(extensionObject);
             }
 
-            return extensionObjectList;
+            return extensionAssemblyObjects;
         }
     }
 }

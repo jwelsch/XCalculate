@@ -14,7 +14,7 @@ namespace XCalculatorLib
             set;
         }
 
-        public BaseCalculatorValue(ICalculatorValueInfo info, object value = null)
+        protected BaseCalculatorValue(ICalculatorValueInfo info, object value = null)
         {
             this.Info = info;
             this.Value = value;

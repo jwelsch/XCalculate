@@ -5,21 +5,14 @@ namespace XCalculatorLib
 {
     public interface ICalculatorModule
     {
-        string Name
+        ICalculatorAssemblyInfo AssemblyInfo
         {
             get;
         }
 
-        string Description
+        ICalculatorFunction Function
         {
             get;
         }
-
-        string[] Tags
-        {
-            get;
-        }
-
-        ICalculatorValue Calculate(Func<ICalculatorPhase, IEnumerable<ICalculatorValue>> phaseHandler);
     }
 }

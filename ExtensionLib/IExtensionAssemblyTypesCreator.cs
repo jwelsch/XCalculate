@@ -10,6 +10,6 @@ namespace ExtensionLib
             get;
         }
 
-        IEnumerable<IExtensionObject> Create(IExtensionAssemblyTypes assemblyTypes);
+        IExtensionAssemblyObjects Create(IExtensionAssemblyTypes assemblyTypes);
     }
 }
