@@ -24,7 +24,7 @@ namespace ExtensionLib
             set;
         }
 
-        IReadOnlyList<IExtensionAssemblyType> IExtensionAssemblyTypes.ExportedTypes
+        IEnumerable<IExtensionAssemblyType> IExtensionAssemblyTypes.ExportedTypes
         {
             get
             {

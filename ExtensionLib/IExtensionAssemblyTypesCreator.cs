@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ExtensionLib
 {
-    public interface IExtensionAssemblyTypesCreator
+    internal interface IExtensionAssemblyTypesCreator
     {
         IEnumerable<Version> SupportedVersions
         {
