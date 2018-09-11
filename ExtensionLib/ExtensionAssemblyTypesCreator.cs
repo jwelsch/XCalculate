@@ -43,15 +43,18 @@ namespace ExtensionLib
 
             foreach (var exportedType in extensionAssembly.ExportedTypes)
             {
-                var extensionObject = new ExtensionObject();
+                var extensionObject = new ExtensionObject()
+                {
+                    ExtensionAssemblyType = exportedType
+                };
 
                 extensionObject.ExtensionAssembly = new ExtensionAssembly()
                 {
                     //AssemblyInfo = assemblyInfo,
-                    Assembly = extensionAssembly.Assembly
+                    Assembly = extensionAssembly.Assembly,
                 };
 
-                extensionObject.Instance = this.instantiator.Create(exportedType);
+                extensionObject.Instance = this.instantiator.Create(exportedType.ExportType);
 
                 extensionAssemblyObjects.ExtensionObjects.Add(extensionObject);
             }

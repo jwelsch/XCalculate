@@ -4,7 +4,7 @@ using XCalculatorLib;
 
 namespace TestCalculators
 {
-    public class AddCalculatorModule : ICalculatorFunction
+    public class AddCalculatorFunction : ICalculatorFunction
     {
         public ICalculatorFunctionInfo FunctionInfo
         {
@@ -12,7 +12,7 @@ namespace TestCalculators
             private set;
         }
 
-        public AddCalculatorModule()
+        public AddCalculatorFunction()
         {
             this.FunctionInfo = new DefaultCalculatorFunctionInfo("Addition", "Adds two addends together.", "add");
         }

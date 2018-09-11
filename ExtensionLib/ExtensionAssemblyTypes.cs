@@ -18,13 +18,13 @@ namespace ExtensionLib
             set;
         }
 
-        public List<Type> ExportedTypes
+        public List<IExtensionAssemblyType> ExportedTypes
         {
             get;
             set;
         }
 
-        IReadOnlyList<Type> IExtensionAssemblyTypes.ExportedTypes
+        IReadOnlyList<IExtensionAssemblyType> IExtensionAssemblyTypes.ExportedTypes
         {
             get
             {
@@ -34,7 +34,7 @@ namespace ExtensionLib
 
         public ExtensionAssemblyTypes()
         {
-            this.ExportedTypes = new List<Type>();
+            this.ExportedTypes = new List<IExtensionAssemblyType>();
         }
     }
 }

@@ -5,9 +5,9 @@ namespace ExtensionLib
 {
     public class ExtensionObjectFactory
     {
-        public IEnumerable<IExtensionObject> Create(IAssemblyEnumerator assemblyEnumerator, IEnumerable<Type> classes, IEnumerable<Type> implementedInterfaces)
+        public IEnumerable<IExtensionAssemblyObjects> Create(IAssemblyEnumerator assemblyEnumerator, IEnumerable<Type> classes, IEnumerable<Type> implementedInterfaces)
         {
-            var extensionObjectList = new List<IExtensionObject>();
+            var extensionAssemblyObjectsList = new List<IExtensionAssemblyObjects>();
             var loader = new AssemblyLoader();
             var instantiator = new ActivatorTypeInstantiator();
             var creator = new ExtensionAssemblyTypesCreatorV1(instantiator);
@@ -20,11 +20,11 @@ namespace ExtensionLib
                 {
                     var extensionObjects = creator.Create(assemblyTypes);
 
-                    extensionObjectList.AddRange(extensionObjects);
+                    extensionAssemblyObjectsList.Add(extensionObjects);
                 }
             }
 
-            return extensionObjectList;
+            return extensionAssemblyObjectsList;
         }
     }
 }

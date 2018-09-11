@@ -15,6 +15,12 @@ namespace ExtensionLib
             set;
         }
 
+        public IExtensionAssemblyType ExtensionAssemblyType
+        {
+            get;
+            set;
+        }
+
         public T GetInstanceAs<T>()
         {
             return (T)this.Instance;

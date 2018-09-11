@@ -16,7 +16,7 @@ namespace ExtensionLib
             get;
         }
 
-        IReadOnlyList<Type> ExportedTypes
+        IReadOnlyList<IExtensionAssemblyType> ExportedTypes
         {
             get;
         }

@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace ExtensionLib
 {
     public interface IExtensionObject
@@ -9,6 +11,11 @@ namespace ExtensionLib
         }
 
         object Instance
+        {
+            get;
+        }
+
+        IExtensionAssemblyType ExtensionAssemblyType
         {
             get;
         }

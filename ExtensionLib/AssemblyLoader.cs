@@ -30,7 +30,11 @@ namespace ExtensionLib
 
                     if (foundType != null)
                     {
-                        extensionAssemblyTypes.ExportedTypes.Add(foundType);
+                        extensionAssemblyTypes.ExportedTypes.Add(new ExtensionAssemblyType()
+                        {
+                            ExportType = foundType,
+                            MatchType = foundType
+                        });
                         continue;
                     }
                 }
@@ -43,7 +47,11 @@ namespace ExtensionLib
 
                         if (assemblyInterfaces != null && assemblyInterfaces.Length > 0)
                         {
-                            extensionAssemblyTypes.ExportedTypes.Add(assemblyExportedType);
+                            extensionAssemblyTypes.ExportedTypes.Add(new ExtensionAssemblyType()
+                            {
+                                ExportType = assemblyExportedType,
+                                MatchType = implementedInterface
+                            });
                             continue;
                         }
                     }

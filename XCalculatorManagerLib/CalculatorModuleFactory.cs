@@ -1,7 +1,6 @@
 ﻿using ExtensionLib;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using XCalculatorLib;
 
 namespace XCalculatorManagerLib
@@ -15,22 +14,56 @@ namespace XCalculatorManagerLib
             var assemblyEnumerator = new DirectoryAssemblyEnumerator(directoryPaths);
             var implementedInterfaces = new Type[] { typeof(ICalculatorFunction), typeof(ICalculatorAssemblyInfo) };
 
-            var calculatorExtensionObjects = extensionObjectFactory.Create(assemblyEnumerator, null, implementedInterfaces);
+            var assemblyExtensionObjectsEnumeration = extensionObjectFactory.Create(assemblyEnumerator, null, implementedInterfaces);
 
-            ICalculatorAssemblyInfo assemblyInfo = null;
             var moduleList = new List<ICalculatorModule>();
 
-            foreach (var extensionObject in calculatorExtensionObjects)
+            foreach (var assemblyExtensionObjects in assemblyExtensionObjectsEnumeration)
             {
-                if (extensionObject.Instance.GetType() == typeof(ICalculatorAssemblyInfo))
+                var (assemblyInfo, calculatorFunctions) = this.SeparateObjects(assemblyExtensionObjects);
+
+                foreach (var functionObject in calculatorFunctions)
                 {
-                    assemblyInfo = (ICalculatorAssemblyInfo) extensionObject.Instance;
+                    var module = new DefaultCalculatorModule()
+                    {
+                        Function = functionObject,
+                        AssemblyInfo = assemblyInfo,
+                        Assembly = assemblyExtensionObjects.Assembly
+                    };
+
+                    moduleList.Add(module);
                 }
             }
 
-            var calculatorModules = calculatorExtensionObjects.Select(i => (ICalculatorModule)i);
+            return moduleList;
+        }
 
-            return calculatorModules;
+        private (ICalculatorAssemblyInfo AssemblyInfo, IEnumerable<ICalculatorFunction> CalculatorFunctions) SeparateObjects(IExtensionAssemblyObjects assemblyObjects)
+        {
+            var result = (AssemblyInfo: (ICalculatorAssemblyInfo)null, CalculatorFunctions: new List<ICalculatorFunction>());
+
+            foreach (var extensionObject in assemblyObjects.ExtensionObjects)
+            {
+                if (extensionObject.ExtensionAssemblyType.MatchType == typeof(ICalculatorAssemblyInfo))
+                {
+                    if (result.AssemblyInfo != null)
+                    {
+                        throw new InvalidOperationException($"More than one {typeof(ICalculatorAssemblyInfo)} found in assembly {assemblyObjects.Assembly.FullName}.");
+                    }
+
+                    result.AssemblyInfo = extensionObject.GetInstanceAs<ICalculatorAssemblyInfo>();
+                    continue;
+                }
+
+                result.CalculatorFunctions.Add(extensionObject.GetInstanceAs<ICalculatorFunction>());
+            }
+
+            if (result.AssemblyInfo == null)
+            {
+                throw new InvalidOperationException($"No {typeof(ICalculatorAssemblyInfo)} type found in assembly {assemblyObjects.Assembly.FullName}.");
+            }
+
+            return result;
         }
     }
 }
