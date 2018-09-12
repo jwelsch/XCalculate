@@ -14,7 +14,9 @@ namespace XCalculatorApp
                 var directoryPath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
 
                 var moduleFactory = new CalculatorModuleFactory();
-                var modules = moduleFactory.Create(directoryPath);
+                var modules = moduleFactory.CreateFromDirectories(directoryPath);
+
+                modules = moduleFactory.CreateFromFiles(new string[] { Path.Combine(directoryPath, "TestCalculators.dll") });
             }
             catch (Exception ex)
             {

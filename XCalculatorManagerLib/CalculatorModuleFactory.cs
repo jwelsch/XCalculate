@@ -7,12 +7,25 @@ namespace XCalculatorManagerLib
 {
     public class CalculatorModuleFactory : ICalculatorModuleFactory
     {
-        public IEnumerable<ICalculatorModule> Create(params string[] directoryPaths)
+        public IEnumerable<ICalculatorModule> CreateFromDirectories(params string[] directoryPaths)
         {
-            var extensionObjectFactory = new ExtensionObjectFactory();
-
             var assemblyEnumerator = new DirectoryAssemblyEnumerator(directoryPaths);
+
+            return this.CreateFromAssemblies(assemblyEnumerator);
+        }
+
+        public IEnumerable<ICalculatorModule> CreateFromFiles(params string[] filePaths)
+        {
+            var assemblyEnumerator = new FileAssemblyEnumerator(filePaths);
+
+            return this.CreateFromAssemblies(assemblyEnumerator);
+        }
+
+        private IEnumerable<ICalculatorModule> CreateFromAssemblies(IAssemblyEnumerator assemblyEnumerator)
+        {
             var implementedInterfaces = new Type[] { typeof(ICalculatorFunction), typeof(ICalculatorAssemblyInfo) };
+
+            var extensionObjectFactory = new ExtensionObjectFactory();
 
             var assemblyExtensionObjectsEnumeration = extensionObjectFactory.Create(assemblyEnumerator, null, implementedInterfaces);
 
