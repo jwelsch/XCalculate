@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace XCalculatorLib
 {
     public interface ICalculatorValue
@@ -12,6 +13,11 @@ namespace XCalculatorLib
         {
             get;
             set;
+        }
+
+        Type ValueType
+        {
+            get;
         }
     }
 }

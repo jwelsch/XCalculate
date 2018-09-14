@@ -14,7 +14,7 @@ namespace XCalculatorLib
             get;
         }
 
-        IReadOnlyList<ICalculatorValueInfo> InputInfos
+        IReadOnlyList<ICalculatorValue> Inputs
         {
             get;
         }

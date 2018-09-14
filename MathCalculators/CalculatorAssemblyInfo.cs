@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Reflection;
 using XCalculatorLib;
 
-namespace TestCalculators
+namespace MathCalculators
 {
     public class CalculatorAssemblyInfo : DefaultCalculatorAssemblyInfo
     {

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using XCalculatorManagerLib;
+using XCalculatorLib;
+using System.Collections.Generic;
 
 namespace XCalculatorApp
 {
@@ -16,7 +19,19 @@ namespace XCalculatorApp
                 var moduleFactory = new CalculatorModuleFactory();
                 var modules = moduleFactory.CreateFromDirectories(directoryPath);
 
-                modules = moduleFactory.CreateFromFiles(new string[] { Path.Combine(directoryPath, "TestCalculators.dll") });
+                var addModule = modules.First(i => i.Function.FunctionInfo.Name == "Add");
+
+                if (addModule != null)
+                {
+                    var result = addModule.Function.Calculate(p =>
+                    {
+                        p.Inputs[0].Value = new int[] { 1, 2, 3 };
+
+                        return p.Inputs;
+                    });
+                }
+
+                //modules = moduleFactory.CreateFromFiles(new string[] { Path.Combine(directoryPath, "MathCalculators.dll") });
             }
             catch (Exception ex)
             {

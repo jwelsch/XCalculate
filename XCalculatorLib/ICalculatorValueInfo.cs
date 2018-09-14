@@ -14,11 +14,6 @@ namespace XCalculatorLib
             get;
         }
 
-        Type ValueType
-        {
-            get;
-        }
-
         string UnitName
         {
             get;

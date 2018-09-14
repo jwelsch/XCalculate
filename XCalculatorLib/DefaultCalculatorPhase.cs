@@ -4,7 +4,7 @@ namespace XCalculatorLib
 {
     public class DefaultCalculatorPhase : ICalculatorPhase
     {
-        private readonly List<ICalculatorValueInfo> inputInfos;
+        private readonly List<ICalculatorValue> inputs;
 
         public string Name
         {
@@ -18,21 +18,26 @@ namespace XCalculatorLib
             private set;
         }
 
-        public IReadOnlyList<ICalculatorValueInfo> InputInfos
+        public IReadOnlyList<ICalculatorValue> Inputs
         {
             get
             {
-                return this.inputInfos;
+                return this.inputs;
             }
         }
 
-        public DefaultCalculatorPhase(IEnumerable<ICalculatorValueInfo> inputInfos)
+        public DefaultCalculatorPhase(IEnumerable<ICalculatorValue> inputs)
         {
-            this.inputInfos = new List<ICalculatorValueInfo>(inputInfos);
+            this.inputs = new List<ICalculatorValue>(inputs);
         }
 
-        public DefaultCalculatorPhase(string name, string description, IEnumerable<ICalculatorValueInfo> inputInfos)
-            : this(inputInfos)
+        public DefaultCalculatorPhase(string name, string description, params ICalculatorValue[] inputs)
+            : this(name, description, new List<ICalculatorValue>(inputs))
+        {
+        }
+
+        public DefaultCalculatorPhase(string name, string description, IEnumerable<ICalculatorValue> inputs)
+            : this(inputs)
         {
             this.Name = name;
             this.Description = description;

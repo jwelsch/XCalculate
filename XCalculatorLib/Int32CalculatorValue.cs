@@ -1,24 +1,10 @@
-﻿
-namespace XCalculatorLib
+﻿namespace XCalculatorLib
 {
     public class Int32CalculatorValue : BaseCalculatorValue<int>
     {
-        public Int32CalculatorValue(object value = null, string name = null, string description = null, string unitName = null)
-            : base(new Int32CalculatorValueInfo(name, description, unitName), value)
+        public Int32CalculatorValue(int? value = null, Int32CalculatorValueInfo info = null, ValueValidator<int> validator = null)
+            : base(value ?? 0, info, validator)
         {
-        }
-
-        public new int Value
-        {
-            get
-            {
-                return (int)base.Value;
-            }
-
-            set
-            {
-                base.Value = value;
-            }
         }
     }
 }

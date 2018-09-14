@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace XCalculatorLib
 {
     public class Int32CalculatorValueInfo : BaseCalculatorValueInfo<int>
