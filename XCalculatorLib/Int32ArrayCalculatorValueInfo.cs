@@ -1,5 +1,4 @@
-﻿
-namespace XCalculatorLib
+﻿namespace XCalculatorLib
 {
     public class Int32ArrayCalculatorValueInfo : BaseCalculatorValueInfo<int>
     {
