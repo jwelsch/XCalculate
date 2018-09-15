@@ -9,7 +9,7 @@ namespace XCalculator.Web.Data
             get;
         }
 
-        ICalculatorModule Module
+        IModule Module
         {
             get;
         }

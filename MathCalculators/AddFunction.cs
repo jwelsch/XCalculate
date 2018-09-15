@@ -4,10 +4,10 @@ using XCalculatorLib;
 
 namespace MathCalculators
 {
-    [CalculatorFunction]
-    public class AddFunction : ICalculatorFunction
+    [Function]
+    public class AddFunction : IFunction
     {
-        public ICalculatorFunctionInfo FunctionInfo
+        public IFunctionInfo FunctionInfo
         {
             get;
             private set;
@@ -15,23 +15,23 @@ namespace MathCalculators
 
         public AddFunction()
         {
-            this.FunctionInfo = new DefaultCalculatorFunctionInfo(new Version("1.0.0"), "Add", "Add numbers together.", "add");
+            this.FunctionInfo = new DefaultFunctionInfo(new Version("1.0.0"), "Add", "Add numbers together.", "add");
         }
 
-        public ICalculatorValue Calculate(PhaseHandler phaseHandler)
+        public IValue Calculate(PhaseHandler phaseHandler)
         {
             if (phaseHandler == null)
             {
                 throw new ArgumentNullException(nameof(phaseHandler));
             }
 
-            var values = phaseHandler(new DefaultCalculatorPhase("Specify Operands", "Specify numbers to add together.", new Int32ArrayCalculatorValue(null, new Int32ArrayCalculatorValueInfo("Operands", "Operands to add." ))));
+            var values = phaseHandler(new DefaultPhase("Specify Operands", "Specify numbers to add together.", new Int32ArrayValue(null, new Int32ArrayValueInfo("Operands", "Operands to add." ))));
 
             var sum = 0;
 
             foreach (var value in values)
             {
-                var arrayValue = (Int32ArrayCalculatorValue)value;
+                var arrayValue = (Int32ArrayValue)value;
 
                 foreach (var v in arrayValue.Value)
                 {
@@ -39,7 +39,7 @@ namespace MathCalculators
                 }
             }
 
-            return new Int32CalculatorValue(sum);
+            return new Int32Value(sum);
         }
     }
 }

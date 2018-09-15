@@ -10,13 +10,13 @@ namespace XCalculator.Web.Data
             private set;
         }
 
-        public ICalculatorModule Module
+        public IModule Module
         {
             get;
             private set;
         }
 
-        public Calculator(int id, ICalculatorModule module)
+        public Calculator(int id, IModule module)
         {
             this.Id = id;
             this.Module = module;

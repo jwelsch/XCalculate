@@ -4,4 +4,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Generated Code\" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="&quot;$(ProjectDir)\Build Events\prebuild.bat&quot; &quot;$(SolutionDir)&quot; &quot;$(ProjectDir)&quot;" />
+  </Target>
+
 </Project>

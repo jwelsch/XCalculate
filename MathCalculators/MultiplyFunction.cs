@@ -4,9 +4,9 @@ using XCalculatorLib;
 
 namespace MathCalculators
 {
-    public class MultiplyFunction : ICalculatorFunction
+    public class MultiplyFunction : IFunction
     {
-        public ICalculatorFunctionInfo FunctionInfo
+        public IFunctionInfo FunctionInfo
         {
             get;
             private set;
@@ -14,30 +14,30 @@ namespace MathCalculators
 
         public MultiplyFunction()
         {
-            this.FunctionInfo = new DefaultCalculatorFunctionInfo(new Version("1.0.0"), "Multiply", "Multiply two numbers together.", "multiply");
+            this.FunctionInfo = new DefaultFunctionInfo(new Version("1.0.0"), "Multiply", "Multiply two numbers together.", "multiply");
         }
 
-        public ICalculatorValue Calculate(PhaseHandler phaseHandler)
+        public IValue Calculate(PhaseHandler phaseHandler)
         {
             if (phaseHandler == null)
             {
                 throw new ArgumentNullException(nameof(phaseHandler));
             }
 
-            //var values = phaseHandler(new DefaultCalculatorPhase("Specify Operands", "Specify two numbers to multiply together.", new ICalculatorValueInfo[]
+            //var values = phaseHandler(new DefaultPhase("Specify Operands", "Specify two numbers to multiply together.", new IValueInfo[]
             //    {
-            //        new Int32CalculatorValueInfo("First", "The first number"),
-            //        new Int32CalculatorValueInfo("Second", "The second number")
+            //        new Int32ValueInfo("First", "The first number"),
+            //        new Int32ValueInfo("Second", "The second number")
             //    }));
 
             var product = 0;
 
-            //foreach (Int32CalculatorValue value in values)
+            //foreach (Int32Value value in values)
             //{
             //    product *= value.Value;
             //}
 
-            return new Int32CalculatorValue(product);
+            return new Int32Value(product);
         }
     }
 }

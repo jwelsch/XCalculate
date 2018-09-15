@@ -5,8 +5,8 @@ namespace XCalculatorManagerLib
 {
     public interface ICalculatorModuleFactory
     {
-        IEnumerable<ICalculatorModule> CreateFromDirectories(params string[] directoryPaths);
+        IEnumerable<IModule> CreateFromDirectories(params string[] directoryPaths);
 
-        IEnumerable<ICalculatorModule> CreateFromFiles(params string[] filePaths);
+        IEnumerable<IModule> CreateFromFiles(params string[] filePaths);
     }
 }
