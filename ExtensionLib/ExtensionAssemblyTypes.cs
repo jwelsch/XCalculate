@@ -12,12 +12,6 @@ namespace ExtensionLib
             set;
         }
 
-        public Type AssemblyInfo
-        {
-            get;
-            set;
-        }
-
         public List<IExtensionAssemblyType> ExportedTypes
         {
             get;

@@ -11,11 +11,6 @@ namespace ExtensionLib
             get;
         }
 
-        Type AssemblyInfo
-        {
-            get;
-        }
-
         IEnumerable<IExtensionAssemblyType> ExportedTypes
         {
             get;

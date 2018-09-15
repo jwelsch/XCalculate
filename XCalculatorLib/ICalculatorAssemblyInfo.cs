@@ -1,16 +1,20 @@
 ﻿using System;
-using System.Reflection;
 
 namespace XCalculatorLib
 {
     public interface ICalculatorAssemblyInfo
     {
-        Version Version
+        string Name
         {
             get;
         }
 
-        IAuthorInfo AuthorInfo
+        string Email
+        {
+            get;
+        }
+
+        Uri Site
         {
             get;
         }

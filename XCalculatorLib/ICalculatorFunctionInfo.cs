@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace XCalculatorLib
 {
     public interface ICalculatorFunctionInfo
@@ -14,6 +15,11 @@ namespace XCalculatorLib
         }
 
         string[] Tags
+        {
+            get;
+        }
+
+        Version Version
         {
             get;
         }

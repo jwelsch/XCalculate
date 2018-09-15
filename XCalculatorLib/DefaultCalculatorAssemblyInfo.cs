@@ -1,26 +1,32 @@
 ﻿using System;
-using System.Reflection;
 
 namespace XCalculatorLib
 {
     public class DefaultCalculatorAssemblyInfo : ICalculatorAssemblyInfo
     {
-        public Version Version
+        public string Name
         {
             get;
             private set;
         }
 
-        public IAuthorInfo AuthorInfo
+        public string Email
         {
             get;
             private set;
         }
 
-        public DefaultCalculatorAssemblyInfo(Version version, IAuthorInfo authorInfo = null)
+        public Uri Site
         {
-            this.Version = version;
-            this.AuthorInfo = authorInfo;
+            get;
+            private set;
+        }
+
+        public DefaultCalculatorAssemblyInfo(string name = null, string email = null, Uri site = null)
+        {
+            this.Name = name;
+            this.Email = email;
+            this.Site = site;
         }
     }
 }

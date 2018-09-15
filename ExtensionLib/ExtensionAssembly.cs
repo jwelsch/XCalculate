@@ -9,11 +9,5 @@ namespace ExtensionLib
             get;
             set;
         }
-
-        public IExtensionAssemblyInfo AssemblyInfo
-        {
-            get;
-            set;
-        }
     }
 }

@@ -23,11 +23,12 @@ namespace XCalculatorManagerLib
 
         private IEnumerable<ICalculatorModule> CreateFromAssemblies(IAssemblyEnumerator assemblyEnumerator)
         {
-            var implementedInterfaces = new Type[] { typeof(ICalculatorFunction), typeof(ICalculatorAssemblyInfo) };
+            //var implementedInterfaces = new Type[] { typeof(ICalculatorFunction), typeof(ICalculatorAssemblyInfo) };
+            var classAttributes = new Type[] { typeof(CalculatorFunctionAttribute) };
 
             var extensionObjectFactory = new ExtensionObjectFactory();
 
-            var assemblyExtensionObjectsEnumeration = extensionObjectFactory.Create(assemblyEnumerator, null, implementedInterfaces);
+            var assemblyExtensionObjectsEnumeration = extensionObjectFactory.Create(assemblyEnumerator, null, null, classAttributes);
 
             var moduleList = new List<ICalculatorModule>();
 

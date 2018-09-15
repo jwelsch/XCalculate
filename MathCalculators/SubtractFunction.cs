@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using XCalculatorLib;
 
 namespace MathCalculators
@@ -14,10 +13,10 @@ namespace MathCalculators
 
         public SubtractFunction()
         {
-            this.FunctionInfo = new DefaultCalculatorFunctionInfo("Subtract", "Subtract one number from another.", "subtract");
+            this.FunctionInfo = new DefaultCalculatorFunctionInfo(new Version("1.0.0"), "Subtract", "Subtract one number from another.", "subtract");
         }
 
-        public ICalculatorValue Calculate(Func<ICalculatorPhase, IEnumerable<ICalculatorValue>> phaseHandler)
+        public ICalculatorValue Calculate(PhaseHandler phaseHandler)
         {
             if (phaseHandler == null)
             {

@@ -4,6 +4,7 @@ using XCalculatorLib;
 
 namespace MathCalculators
 {
+    [CalculatorFunction]
     public class AddFunction : ICalculatorFunction
     {
         public ICalculatorFunctionInfo FunctionInfo
@@ -14,10 +15,10 @@ namespace MathCalculators
 
         public AddFunction()
         {
-            this.FunctionInfo = new DefaultCalculatorFunctionInfo("Add", "Add numbers together.", "add");
+            this.FunctionInfo = new DefaultCalculatorFunctionInfo(new Version("1.0.0"), "Add", "Add numbers together.", "add");
         }
 
-        public ICalculatorValue Calculate(Func<ICalculatorPhase, IEnumerable<ICalculatorValue>> phaseHandler)
+        public ICalculatorValue Calculate(PhaseHandler phaseHandler)
         {
             if (phaseHandler == null)
             {

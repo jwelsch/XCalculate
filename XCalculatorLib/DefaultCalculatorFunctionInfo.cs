@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace XCalculatorLib
 {
     public class DefaultCalculatorFunctionInfo : ICalculatorFunctionInfo
@@ -21,8 +23,15 @@ namespace XCalculatorLib
             protected set;
         }
 
-        public DefaultCalculatorFunctionInfo(string name, string description = null, params string[] tags)
+        public Version Version
         {
+            get;
+            protected set;
+        }
+
+        public DefaultCalculatorFunctionInfo(Version version, string name, string description = null, params string[] tags)
+        {
+            this.Version = version;
             this.Name = name;
             this.Description = description;
             this.Tags = tags;

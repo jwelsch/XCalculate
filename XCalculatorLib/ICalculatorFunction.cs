@@ -10,6 +10,6 @@ namespace XCalculatorLib
             get;
         }
 
-        ICalculatorValue Calculate(Func<ICalculatorPhase, IEnumerable<ICalculatorValue>> phaseHandler);
+        ICalculatorValue Calculate(PhaseHandler phaseHandler);
     }
 }

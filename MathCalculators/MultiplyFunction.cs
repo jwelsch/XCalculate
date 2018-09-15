@@ -14,10 +14,10 @@ namespace MathCalculators
 
         public MultiplyFunction()
         {
-            this.FunctionInfo = new DefaultCalculatorFunctionInfo("Multiply", "Multiply two numbers together.", "multiply");
+            this.FunctionInfo = new DefaultCalculatorFunctionInfo(new Version("1.0.0"), "Multiply", "Multiply two numbers together.", "multiply");
         }
 
-        public ICalculatorValue Calculate(Func<ICalculatorPhase, IEnumerable<ICalculatorValue>> phaseHandler)
+        public ICalculatorValue Calculate(PhaseHandler phaseHandler)
         {
             if (phaseHandler == null)
             {

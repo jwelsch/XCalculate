@@ -8,10 +8,5 @@ namespace ExtensionLib
         {
             get;
         }
-
-        IExtensionAssemblyInfo AssemblyInfo
-        {
-            get;
-        }
     }
 }

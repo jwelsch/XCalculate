@@ -5,7 +5,7 @@ namespace ExtensionLib
 {
     public class ExtensionObjectFactory
     {
-        public IEnumerable<IExtensionAssemblyObjects> Create(IAssemblyEnumerator assemblyEnumerator, IEnumerable<Type> classes, IEnumerable<Type> implementedInterfaces)
+        public IEnumerable<IExtensionAssemblyObjects> Create(IAssemblyEnumerator assemblyEnumerator, IEnumerable<Type> classes, IEnumerable<Type> implementedInterfaces, IEnumerable<Type> classAttributes)
         {
             var extensionAssemblyObjectsList = new List<IExtensionAssemblyObjects>();
             var loader = new AssemblyLoader();
@@ -14,7 +14,7 @@ namespace ExtensionLib
 
             foreach (var assembly in assemblyEnumerator)
             {
-                var assemblyTypesEnumeration = loader.Load(assembly, classes, implementedInterfaces);
+                var assemblyTypesEnumeration = loader.Load(assembly, classes, implementedInterfaces, classAttributes);
 
                 foreach (var assemblyTypes in assemblyTypesEnumeration)
                 {

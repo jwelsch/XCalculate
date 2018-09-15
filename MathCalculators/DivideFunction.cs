@@ -14,10 +14,10 @@ namespace MathCalculators
 
         public DivideFunction()
         {
-            this.FunctionInfo = new DefaultCalculatorFunctionInfo("Divide", "Divide one number into another.", "divide");
+            this.FunctionInfo = new DefaultCalculatorFunctionInfo(new Version("1.0.0"), "Divide", "Divide one number into another.", "divide");
         }
 
-        public ICalculatorValue Calculate(Func<ICalculatorPhase, IEnumerable<ICalculatorValue>> phaseHandler)
+        public ICalculatorValue Calculate(PhaseHandler phaseHandler)
         {
             if (phaseHandler == null)
             {

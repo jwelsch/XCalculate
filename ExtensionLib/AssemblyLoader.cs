@@ -7,9 +7,7 @@ namespace ExtensionLib
 {
     internal class AssemblyLoader
     {
-        private readonly static Type ExtensionAssemblyInfoInterface = typeof(IExtensionAssemblyInfo);
-
-        public IEnumerable<IExtensionAssemblyTypes> Load(Assembly assembly, IEnumerable<Type> classes, IEnumerable<Type> implementedInterfaces)
+        public IEnumerable<IExtensionAssemblyTypes> Load(Assembly assembly, IEnumerable<Type> classes, IEnumerable<Type> implementedInterfaces, IEnumerable<Type> classAttributes)
         {
             var extensionAssemblyTypesList = new List<IExtensionAssemblyTypes>();
 
@@ -20,56 +18,98 @@ namespace ExtensionLib
 
             var assemblyExportedTypes = assembly.GetExportedTypes();
 
-            var foundAssemblyInfo = false;
-
             foreach (var assemblyExportedType in assemblyExportedTypes)
             {
-                if (classes != null)
-                {
-                    var foundType = classes.FirstOrDefault(i => i.Equals(assemblyExportedType));
+                var matchedType = MatchClassType(assemblyExportedType, classes);
 
-                    if (foundType != null)
-                    {
-                        extensionAssemblyTypes.ExportedTypes.Add(new ExtensionAssemblyType()
-                        {
-                            ExportType = foundType,
-                            MatchType = foundType
-                        });
-                        continue;
-                    }
+                if (matchedType == null)
+                {
+                    matchedType = MatchImplementedInterfaceType(assemblyExportedType, implementedInterfaces);
                 }
 
-                if (implementedInterfaces != null)
+                if (matchedType == null)
                 {
-                    foreach (var implementedInterface in implementedInterfaces)
-                    {
-                        var assemblyInterfaces = assemblyExportedType.FindInterfaces((m, o) => m == (Type)o, implementedInterface);
-
-                        if (assemblyInterfaces != null && assemblyInterfaces.Length > 0)
-                        {
-                            extensionAssemblyTypes.ExportedTypes.Add(new ExtensionAssemblyType()
-                            {
-                                ExportType = assemblyExportedType,
-                                MatchType = implementedInterface
-                            });
-                            continue;
-                        }
-                    }
+                    matchedType = MatchClassAttributeType(assemblyExportedType, implementedInterfaces);
                 }
 
-                if (!foundAssemblyInfo && ExtensionAssemblyInfoInterface.Equals(assemblyExportedType))
+                if (matchedType == null)
                 {
-                    extensionAssemblyTypes.AssemblyInfo = assemblyExportedType;
-                    foundAssemblyInfo = true;
+                    matchedType = MatchClassAttributeType(assemblyExportedType, classAttributes);
+                }
+
+                if (matchedType != null)
+                {
+                    extensionAssemblyTypes.ExportedTypes.Add(matchedType);
                 }
             }
 
-            if (extensionAssemblyTypes.ExportedTypes.Count > 0 || extensionAssemblyTypes.AssemblyInfo != null)
+            if (extensionAssemblyTypes.ExportedTypes.Count > 0)
             {
                 extensionAssemblyTypesList.Add(extensionAssemblyTypes);
             }
 
             return extensionAssemblyTypesList;
+        }
+
+        private ExtensionAssemblyType MatchClassType(Type assemblyExportedType, IEnumerable<Type> classes)
+        {
+            if (classes != null)
+            {
+                var foundType = classes.FirstOrDefault(i => i.Equals(assemblyExportedType));
+
+                if (foundType != null)
+                {
+                    return new ExtensionAssemblyType()
+                    {
+                        ExportType = foundType,
+                        MatchType = foundType
+                    };
+                }
+            }
+
+            return null;
+        }
+
+        private ExtensionAssemblyType MatchImplementedInterfaceType(Type assemblyExportedType, IEnumerable<Type> implementedInterfaces)
+        {
+            if (implementedInterfaces != null)
+            {
+                foreach (var implementedInterface in implementedInterfaces)
+                {
+                    var assemblyInterfaces = assemblyExportedType.FindInterfaces((m, o) => m == (Type)o, implementedInterface);
+
+                    if (assemblyInterfaces != null && assemblyInterfaces.Length > 0)
+                    {
+                        return new ExtensionAssemblyType()
+                        {
+                            ExportType = assemblyExportedType,
+                            MatchType = implementedInterface
+                        };
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private ExtensionAssemblyType MatchClassAttributeType(Type assemblyExportedType, IEnumerable<Type> classAttributes)
+        {
+            if (classAttributes != null)
+            {
+                foreach (var attribute in assemblyExportedType.CustomAttributes)
+                {
+                    if (classAttributes.Contains(attribute.AttributeType))
+                    {
+                        return new ExtensionAssemblyType()
+                        {
+                            ExportType = assemblyExportedType,
+                            MatchType = attribute.AttributeType
+                        };
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }
