@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using XCalculatorManagerLib;
 using XCalculatorLib;
-using System.Collections.Generic;
 
 namespace XCalculatorApp
 {
@@ -19,7 +18,7 @@ namespace XCalculatorApp
                 var moduleFactory = new CalculatorModuleFactory();
                 var modules = moduleFactory.CreateFromDirectories(directoryPath);
 
-                var addModule = modules.First(i => i.Function.FunctionInfo.Name == "Add");
+                var addModule = modules.First(i => i.Function.FunctionInfo.Name == "Simple Add");
 
                 if (addModule != null)
                 {
@@ -30,6 +29,11 @@ namespace XCalculatorApp
                         return p.Inputs;
                     });
                 }
+
+                //if (addModule != null)
+                //{
+                //    var result = ((ISimpleFunction<int>)addModule.Function).Calculate(1, 2, 3);
+                //}
 
                 //modules = moduleFactory.CreateFromFiles(new string[] { Path.Combine(directoryPath, "MathCalculators.dll") });
             }

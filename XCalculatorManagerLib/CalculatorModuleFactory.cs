@@ -24,7 +24,7 @@ namespace XCalculatorManagerLib
         private IEnumerable<IModule> CreateFromAssemblies(IAssemblyEnumerator assemblyEnumerator)
         {
             //var implementedInterfaces = new Type[] { typeof(ICalculatorFunction), typeof(ICalculatorAssemblyInfo) };
-            var classAttributes = new Type[] { typeof(FunctionAttribute) };
+            var classAttributes = new Type[] { typeof(FunctionAttribute), typeof(AssemblyInfoAttribute) };
 
             var extensionObjectFactory = new ExtensionObjectFactory();
 
@@ -58,23 +58,38 @@ namespace XCalculatorManagerLib
 
             foreach (var extensionObject in assemblyObjects.ExtensionObjects)
             {
-                if (extensionObject.ExtensionAssemblyType.MatchType == typeof(IAssemblyInfo))
+                if (extensionObject.ExtensionAssemblyType.MatchType == typeof(AssemblyInfoAttribute))
                 {
                     if (result.AssemblyInfo != null)
                     {
-                        throw new InvalidOperationException($"More than one {typeof(IAssemblyInfo)} found in assembly {assemblyObjects.Assembly.FullName}.");
+                        throw new InvalidOperationException($"More than one {typeof(AssemblyInfoAttribute)} found in assembly {assemblyObjects.Assembly.FullName}.");
                     }
 
-                    result.AssemblyInfo = extensionObject.GetInstanceAs<IAssemblyInfo>();
+                    try
+                    {
+                        result.AssemblyInfo = extensionObject.GetInstanceAs<IAssemblyInfo>();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new InvalidOperationException($"{extensionObject.ExtensionAssemblyType.ExportType} is decorated with {typeof(AssemblyInfoAttribute)}, but does not implement interface {typeof(IAssemblyInfo)}.", ex);
+                    }
+
                     continue;
                 }
 
-                result.CalculatorFunctions.Add(extensionObject.GetInstanceAs<IFunction>());
+                try
+                {
+                    result.CalculatorFunctions.Add(extensionObject.GetInstanceAs<IFunction>());
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException($"{extensionObject.ExtensionAssemblyType.ExportType} is decorated with {typeof(FunctionAttribute)}, but does not implement interface {typeof(IFunction)}.", ex);
+                }
             }
 
             if (result.AssemblyInfo == null)
             {
-                throw new InvalidOperationException($"No {typeof(IAssemblyInfo)} type found in assembly {assemblyObjects.Assembly.FullName}.");
+                throw new InvalidOperationException($"No {typeof(AssemblyInfoAttribute)} type found in assembly {assemblyObjects.Assembly.FullName}.");
             }
 
             return result;
