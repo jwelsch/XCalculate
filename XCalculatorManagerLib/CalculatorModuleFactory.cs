@@ -9,6 +9,16 @@ namespace XCalculatorManagerLib
     {
         public IEnumerable<IModule> CreateFromDirectories(params string[] directoryPaths)
         {
+            if (directoryPaths == null)
+            {
+                throw new ArgumentNullException(nameof(directoryPaths));
+            }
+
+            if (directoryPaths.Length == 0)
+            {
+                throw new ArgumentException(nameof(directoryPaths));
+            }
+
             var assemblyEnumerator = new DirectoryAssemblyEnumerator(directoryPaths);
 
             return this.CreateFromAssemblies(assemblyEnumerator);
@@ -16,6 +26,16 @@ namespace XCalculatorManagerLib
 
         public IEnumerable<IModule> CreateFromFiles(params string[] filePaths)
         {
+            if (filePaths == null)
+            {
+                throw new ArgumentNullException(nameof(filePaths));
+            }
+
+            if (filePaths.Length == 0)
+            {
+                throw new ArgumentException(nameof(filePaths));
+            }
+
             var assemblyEnumerator = new FileAssemblyEnumerator(filePaths);
 
             return this.CreateFromAssemblies(assemblyEnumerator);

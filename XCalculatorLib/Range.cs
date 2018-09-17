@@ -7,7 +7,7 @@ namespace XCalculatorLib
         AllInclusive,
         AllExclusive,
         MinimumInclusiveMaximumExclusive,
-        MinimumExclusiveMinimumInclusive
+        MinimumExclusiveMaximumInclusive
     }
 
     public class Range
@@ -68,7 +68,7 @@ namespace XCalculatorLib
         {
             return (this.Inclusivity == RangeInclusivity.AllInclusive && value >= this.Minimum && value <= this.Maximum)
                 || (this.Inclusivity == RangeInclusivity.AllExclusive && value > this.Minimum && value < this.Maximum)
-                || (this.Inclusivity == RangeInclusivity.MinimumExclusiveMinimumInclusive && value > this.Minimum && value <= this.Maximum)
+                || (this.Inclusivity == RangeInclusivity.MinimumExclusiveMaximumInclusive && value > this.Minimum && value <= this.Maximum)
                 || (this.Inclusivity == RangeInclusivity.MinimumInclusiveMaximumExclusive && value >= this.Minimum && value < this.Maximum);
         }
     }
