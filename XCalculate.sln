@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2019
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D7062567-9C24-4F94-B99F-B78A0C48DEE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{67E40D18-BD49-4101-9CB6-E2CFB28284AE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtensionLib", "Source\ExtensionLib\ExtensionLib.csproj", "{CA9AAE26-A7B0-4AFB-AEF3-0247C2D1BD28}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalculateLib.Unit", "Tests\XCalculateLib.Unit\XCalculateLib.Unit.csproj", "{7C87E876-7570-46EB-9D3F-FC6A3D922985}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalculateManagerLib.Functional", "Tests\XCalculateManagerLib.Functional\XCalculateManagerLib.Functional.csproj", "{6BD7B741-5656-45DA-9DB5-706B6839800E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathCalculators", "Source\MathCalculators\MathCalculators.csproj", "{F68E2612-2A52-43BF-8781-7309E18F4DEB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalculateLib", "Source\XCalculateLib\XCalculateLib.csproj", "{82D39AF9-6375-442A-A7CE-308176C43BCE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalculateManagerLib", "Source\XCalculateManagerLib\XCalculateManagerLib.csproj", "{33E6E9FB-9CDD-422D-8BF6-9FF3A2FFCFC7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA9AAE26-A7B0-4AFB-AEF3-0247C2D1BD28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA9AAE26-A7B0-4AFB-AEF3-0247C2D1BD28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA9AAE26-A7B0-4AFB-AEF3-0247C2D1BD28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA9AAE26-A7B0-4AFB-AEF3-0247C2D1BD28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C87E876-7570-46EB-9D3F-FC6A3D922985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C87E876-7570-46EB-9D3F-FC6A3D922985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C87E876-7570-46EB-9D3F-FC6A3D922985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C87E876-7570-46EB-9D3F-FC6A3D922985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BD7B741-5656-45DA-9DB5-706B6839800E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BD7B741-5656-45DA-9DB5-706B6839800E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BD7B741-5656-45DA-9DB5-706B6839800E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD7B741-5656-45DA-9DB5-706B6839800E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F68E2612-2A52-43BF-8781-7309E18F4DEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F68E2612-2A52-43BF-8781-7309E18F4DEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F68E2612-2A52-43BF-8781-7309E18F4DEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F68E2612-2A52-43BF-8781-7309E18F4DEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82D39AF9-6375-442A-A7CE-308176C43BCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82D39AF9-6375-442A-A7CE-308176C43BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82D39AF9-6375-442A-A7CE-308176C43BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82D39AF9-6375-442A-A7CE-308176C43BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33E6E9FB-9CDD-422D-8BF6-9FF3A2FFCFC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33E6E9FB-9CDD-422D-8BF6-9FF3A2FFCFC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33E6E9FB-9CDD-422D-8BF6-9FF3A2FFCFC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33E6E9FB-9CDD-422D-8BF6-9FF3A2FFCFC7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA9AAE26-A7B0-4AFB-AEF3-0247C2D1BD28} = {67E40D18-BD49-4101-9CB6-E2CFB28284AE}
+		{7C87E876-7570-46EB-9D3F-FC6A3D922985} = {D7062567-9C24-4F94-B99F-B78A0C48DEE9}
+		{6BD7B741-5656-45DA-9DB5-706B6839800E} = {D7062567-9C24-4F94-B99F-B78A0C48DEE9}
+		{F68E2612-2A52-43BF-8781-7309E18F4DEB} = {67E40D18-BD49-4101-9CB6-E2CFB28284AE}
+		{82D39AF9-6375-442A-A7CE-308176C43BCE} = {67E40D18-BD49-4101-9CB6-E2CFB28284AE}
+		{33E6E9FB-9CDD-422D-8BF6-9FF3A2FFCFC7} = {67E40D18-BD49-4101-9CB6-E2CFB28284AE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B9FEE5D5-4CEC-46D9-BCAC-7BFCFA44932C}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExtensionLib\ExtensionLib.csproj" />
+    <ProjectReference Include="..\XCalculateLib\XCalculateLib.csproj" />
+  </ItemGroup>
+
+</Project>
