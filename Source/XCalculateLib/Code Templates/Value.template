@@ -2,7 +2,7 @@
 {
     public class ${TypeName}Value : BaseValue<${BaseType}>
     {
-        public ${TypeName}Value(${BaseType} value, ${TypeName}ValueInfo info = null, ValueValidator<${BaseType}> validator = null)
+        public ${TypeName}Value(${BaseType} value, IValueInfo info = null, ValueValidator<${BaseType}> validator = null)
             : base(value, info, validator)
         {
         }

@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace XCalculateLib
+﻿namespace XCalculateLib
 {
-    public abstract class BaseValueInfo<T> : IValueInfo
+    public abstract class BaseValueInfo : IValueInfo
     {
         public string Name
         {
@@ -14,14 +12,6 @@ namespace XCalculateLib
             get;
         }
 
-        public Type ValueType
-        {
-            get
-            {
-                return typeof(T);
-            }
-        }
-
         public string UnitName
         {
             get;
@@ -29,9 +19,9 @@ namespace XCalculateLib
 
         protected BaseValueInfo(string name = null, string description = null, string unitName = null)
         {
-            this.Name = name;
-            this.Description = description;
-            this.UnitName = unitName;
+            this.Name = name ?? string.Empty;
+            this.Description = description ?? string.Empty;
+            this.UnitName = unitName ?? string.Empty;
         }
     }
 }

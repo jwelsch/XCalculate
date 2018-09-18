@@ -1,5 +1,4 @@
-﻿
-namespace XCalculateLib
+﻿namespace XCalculateLib
 {
     public abstract class BaseArrayValue<T> : BaseValue<T[]>
     {
@@ -11,10 +10,8 @@ namespace XCalculateLib
 
         public new T[] Value
         {
-            get
-            {
-                return base.Value;
-            }
+            get { return base.Value; }
+            set { base.Value = value; }
         }
 
         protected BaseArrayValue(T[] value, IValueInfo info, Range lengthRange = null, ValueValidator<T[]> validator = null)

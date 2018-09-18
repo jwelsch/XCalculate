@@ -25,7 +25,7 @@ namespace MathCalculators
                 throw new ArgumentNullException(nameof(phaseHandler));
             }
 
-            var values = phaseHandler(new DefaultPhase("Specify Operands", "Specify numbers to add together.", new Int32ArrayValue(null, new Int32ArrayValueInfo("Operands", "Operands to add." ))));
+            var values = phaseHandler(new DefaultPhase("Specify Operands", "Specify numbers to add together.", new Int32ArrayValue(null, new ValueInfo("Operands", "Operands to add." ))));
 
             var sum = 0;
 

@@ -2,7 +2,7 @@
 {
     public class ${TypeName}ArrayValue : BaseArrayValue<${BaseType}>
     {
-        public ${TypeName}ArrayValue(${BaseType}[] value, ${TypeName}ArrayValueInfo info = null, Range lengthRange = null, ValueValidator<${BaseType}[]> validator = null)
+        public ${TypeName}ArrayValue(${BaseType}[] value, IValueInfo info = null, Range lengthRange = null, ValueValidator<${BaseType}[]> validator = null)
             : base(value, info, lengthRange, validator)
         {
         }
