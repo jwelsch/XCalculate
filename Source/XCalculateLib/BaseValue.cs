@@ -23,7 +23,12 @@ namespace XCalculateLib
 
             set
             {
-                this.Validator?.Invoke(value);
+                var result = this.Validator?.Invoke(value);
+
+                if (result != null && !result.Value)
+                {
+                    throw new ArgumentException("The value was not valid.");
+                }
                 this.value = value;
             }
         }
@@ -42,8 +47,8 @@ namespace XCalculateLib
         protected BaseValue(T value, IValueInfo info, ValueValidator<T> validator)
         {
             this.Info = info;
-            this.Value = value;
             this.Validator = validator;
+            this.Value = value;
         }
     }
 }
