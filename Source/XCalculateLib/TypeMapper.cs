@@ -73,7 +73,7 @@ namespace XCalculateLib
         {
             var valueTypes = Find(type);
 
-            var arguments = argumentProvider == null ? new object[] { valueTypes.Activator(type), new ValueInfo(), null } : argumentProvider();
+            var arguments = argumentProvider == null ? new object[] { null, new ValueInfo(), null, null } : argumentProvider();
 
             return (IValue)Activator.CreateInstance(valueTypes.ArrayValue, arguments);
         }

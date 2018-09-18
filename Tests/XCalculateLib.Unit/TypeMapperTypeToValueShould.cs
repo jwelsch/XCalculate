@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Xunit;
 
 namespace XCalculateLib.Unit
@@ -11,6 +12,7 @@ namespace XCalculateLib.Unit
             var value = TypeMapper.TypeToValue(typeof(byte));
 
             Assert.NotNull(value as ByteValue);
+            Assert.Equal(0, (byte)value.Value);
         }
 
         [Fact]
@@ -417,6 +419,482 @@ namespace XCalculateLib.Unit
 
             Assert.NotNull(value as DateTimeValue);
             Assert.Equal(defaultValue, value.Value);
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapByteArray()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(byte));
+
+            Assert.NotNull(value as ByteArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapByteArrayWithArguments()
+        {
+            var type = typeof(byte[]);
+            var defaultValue = new byte[] { 0, 1, 3 };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<byte[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as ByteArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapSByteArray()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(sbyte));
+
+            Assert.NotNull(value as SByteArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapSByteArrayWithArguments()
+        {
+            var type = typeof(sbyte[]);
+            var defaultValue = new sbyte[] { 0, 1, 3 };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<sbyte[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 127));
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as SByteArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapInt16Array()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(short));
+
+            Assert.NotNull(value as Int16ArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapInt16ArrayWithArguments()
+        {
+            var type = typeof(short[]);
+            var defaultValue = new short[] { 0, 1, 3 };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<short[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as Int16ArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapUInt16Array()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(ushort));
+
+            Assert.NotNull(value as UInt16ArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapUInt16ArrayWithArguments()
+        {
+            var type = typeof(ushort[]);
+            var defaultValue = new ushort[] { 0, 1, 3 };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<ushort[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as UInt16ArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapInt32Array()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(int));
+
+            Assert.NotNull(value as Int32ArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapInt32ArrayWithArguments()
+        {
+            var type = typeof(int[]);
+            var defaultValue = new int[] { 0, 1, 3 };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<int[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as Int32ArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapUInt32Array()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(uint));
+
+            Assert.NotNull(value as UInt32ArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapUInt32ArrayWithArguments()
+        {
+            var type = typeof(uint[]);
+            var defaultValue = new uint[] { 0, 1, 3 };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<uint[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as UInt32ArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapInt64Array()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(long));
+
+            Assert.NotNull(value as Int64ArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapInt64ArrayWithArguments()
+        {
+            var type = typeof(long[]);
+            var defaultValue = new long[] { 0, 1, 3 };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<long[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as Int64ArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapUInt64Array()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(ulong));
+
+            Assert.NotNull(value as UInt64ArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapUInt64ArrayWithArguments()
+        {
+            var type = typeof(ulong[]);
+            var defaultValue = new ulong[] { 0, 1, 3 };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<ulong[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as UInt64ArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapSingleArray()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(float));
+
+            Assert.NotNull(value as SingleArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapSingleArrayWithArguments()
+        {
+            var type = typeof(float[]);
+            var defaultValue = new float[] { 0, 1, 3 };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<float[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as SingleArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapDoubleArray()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(double));
+
+            Assert.NotNull(value as DoubleArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapDoubleArrayWithArguments()
+        {
+            var type = typeof(double[]);
+            var defaultValue = new double[] { 0, 1, 3 };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<double[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as DoubleArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapDecimalArray()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(decimal));
+
+            Assert.NotNull(value as DecimalArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapDecimalArrayWithArguments()
+        {
+            var type = typeof(decimal[]);
+            var defaultValue = new decimal[] { 0, 1, 3 };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<decimal[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as DecimalArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapBooleanArray()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(bool));
+
+            Assert.NotNull(value as BooleanArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapBooleanArrayWithArguments()
+        {
+            var type = typeof(bool[]);
+            var defaultValue = new bool[] { true, true, true };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<bool[]>(i => i.Length < 64 && i.All(j => j));
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as BooleanArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapStringArray()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(string));
+
+            Assert.NotNull(value as StringArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapStringArrayWithArguments()
+        {
+            var type = typeof(string[]);
+            var defaultValue = new string[] { "hello world1", "hello world2", "hello world3" };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<string[]>(i => i.Length > 0 && i.Length < 64);
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as StringArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
+            Assert.Equal(type, value.ValueType);
+            Assert.NotNull(value.Info);
+            Assert.Equal(name, value.Info.Name);
+            Assert.Equal(description, value.Info.Description);
+            Assert.Equal(unitName, value.Info.UnitName);
+        }
+
+        [Fact]
+        public void SuccessfullyMapDateTimeArray()
+        {
+            var value = TypeMapper.TypeToArrayValue(typeof(DateTime));
+
+            Assert.NotNull(value as DateTimeArrayValue);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
+        public void SuccessfullyMapDateTimeArrayWithArguments()
+        {
+            var type = typeof(DateTime[]);
+            var defaultValue = new DateTime[] { DateTime.Now, DateTime.Now.AddDays(1), DateTime.Now.AddDays(2) };
+            var name = "foobar";
+            var description = "foobar description";
+            var unitName = "foobar unit name";
+            var range = new Range(0, 127);
+            var validator = new ValueValidator<DateTime[]>(i => i.Length < 64 && i.All(j => j >= DateTime.MinValue && j <= DateTime.Now));
+
+            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+
+            Assert.NotNull(value as DateTimeArrayValue);
+            Assert.Collection(defaultValue,
+                i => Assert.Equal(defaultValue[0], i),
+                i => Assert.Equal(defaultValue[1], i),
+                i => Assert.Equal(defaultValue[2], i));
             Assert.Equal(type, value.ValueType);
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
