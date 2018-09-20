@@ -3,6 +3,7 @@ using XCalculateLib;
 
 namespace MathCalculators
 {
+    [Function]
     public class MultiplyFunction : IFunction
     {
         public IFunctionInfo FunctionInfo
@@ -23,20 +24,31 @@ namespace MathCalculators
                 throw new ArgumentNullException(nameof(phaseHandler));
             }
 
-            //var values = phaseHandler(new DefaultPhase("Specify Operands", "Specify two numbers to multiply together.", new IValueInfo[]
-            //    {
-            //        new Int32ValueInfo("First", "The first number"),
-            //        new Int32ValueInfo("Second", "The second number")
-            //    }));
+            var phaseValues = phaseHandler(new DefaultPhase("Specify Operands", "Specify numbers to multiply together.", new AgnosticArrayValue(null, new ValueInfo("Operands", "Operands to multiply."))));
 
-            var product = 0;
+            var product = 0.0;
+            var first = true;
 
-            //foreach (Int32Value value in values)
-            //{
-            //    product *= value.Value;
-            //}
+            foreach (var phaseValue in phaseValues)
+            {
+                var arrayValue = (AgnosticArrayValue)phaseValue;
 
-            return new Int32Value(product);
+                var values = arrayValue.ToArray<double[]>();
+
+                foreach (var value in values)
+                {
+                    if (first)
+                    {
+                        product = value;
+                        first = false;
+                        continue;
+                    }
+
+                    product *= value;
+                }
+            }
+
+            return new AgnosticValue(product);
         }
     }
 }
