@@ -5,20 +5,14 @@ using XCalculateLib;
 namespace MathCalculators
 {
     [Function]
-    public class ExponentFunction : IFunction
+    public class ExponentFunction : BaseFunction
     {
-        public IFunctionInfo FunctionInfo
-        {
-            get;
-            private set;
-        }
-
         public ExponentFunction()
+            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Exponent", "Raise a number to a power.", "exponent", "power"))
         {
-            this.FunctionInfo = new DefaultFunctionInfo(new Version("1.0.0"), "Exponent", "Raise a number to an exponent.", "exponent");
         }
 
-        public IValue Calculate(PhaseHandler phaseHandler)
+        public override IValue Calculate(PhaseHandler phaseHandler)
         {
             if (phaseHandler == null)
             {
