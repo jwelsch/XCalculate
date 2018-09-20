@@ -87,18 +87,5 @@ namespace XCalculateLib
         {
             return (TArray)ToArray(value, typeof(TArray));
         }
-
-        /// <summary>
-        /// Must cast to object first since the compiler won't allow a direct cast from Array to TArray.
-        /// </summary>
-        /// <typeparam name="TArray">Type of array to cast to.</typeparam>
-        /// <param name="array">Array to cast.</param>
-        /// <returns>Array of type TArray.</returns>
-        private static TArray CastArray<TArray>(Array array)
-        {
-            var outArray = (object)array;
-
-            return (TArray)outArray;
-        }
     }
 }

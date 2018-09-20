@@ -1,6 +1,4 @@
-﻿using XCalculateLib;
-
-namespace MathCalculators
+﻿namespace MathCalculators
 {
     //[Function]
     //public class BrokenFunction

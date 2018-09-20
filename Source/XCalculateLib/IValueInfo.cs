@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace XCalculateLib
+﻿namespace XCalculateLib
 {
     public interface IValueInfo
     {

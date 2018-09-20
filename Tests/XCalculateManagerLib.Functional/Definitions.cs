@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace XCalculateManagerLib.Functional
+﻿namespace XCalculateManagerLib.Functional
 {
     public static class Definitions
     {

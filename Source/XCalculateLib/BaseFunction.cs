@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace XCalculateLib
+﻿namespace XCalculateLib
 {
     public abstract class BaseFunction : IFunction
     {
