@@ -13,7 +13,7 @@ namespace MathCalculators
 
         public DivideFunction()
         {
-            this.FunctionInfo = new DefaultFunctionInfo(new Version("1.0.0"), "Divide", "Divide one number into another.", "divide");
+            this.FunctionInfo = new DefaultFunctionInfo(new Version("1.0.0"), "Divide", "Divide numbers.", "divide");
         }
 
         public IValue Calculate(PhaseHandler phaseHandler)
@@ -23,28 +23,32 @@ namespace MathCalculators
                 throw new ArgumentNullException(nameof(phaseHandler));
             }
 
-            //var values = phaseHandler(new DefaultPhase("Specify Operands", "Specify the numbers in the division equation.", new IValueInfo[]
-            //    {
-            //        new Int32ValueInfo("First", "The first number"),
-            //        new Int32ValueInfo("Second", "The second number")
-            //    }));
+            var phaseValues = phaseHandler(new DefaultPhase("Specify Operands", "Specify numbers to divide.", new AgnosticArrayValue(null, new ValueInfo("Operands", "Operands to divide."))));
 
             var quotient = 0.0;
             var first = true;
 
-            //foreach (Int32Value value in values)
-            //{
-            //    if (first)
-            //    {
-            //        quotient = value.Value;
-            //        first = false;
-            //        continue;
-            //    }
+            foreach (var phaseValue in phaseValues)
+            {
+                var arrayValue = (AgnosticArrayValue)phaseValue;
 
-            //    quotient /= value.Value;
-            //}
+                var values = arrayValue.ToArray<double[]>();
 
-            return new DoubleValue(quotient);
+                foreach (var value in values)
+                {
+                    if (first)
+                    {
+                        quotient = value;
+                        first = false;
+                        continue;
+                    }
+
+                    quotient /= value;
+                }
+            }
+
+            return new AgnosticValue(quotient);
+
         }
     }
 }
