@@ -7,7 +7,7 @@ namespace MathCaculators.Functional
     public class SubtractFunctionCalculateShould
     {
         [Fact]
-        public void SuccessfullyAddTwoNumbers()
+        public void SuccessfullySubtractNumbers()
         {
             var function = new SubtractFunction();
 
