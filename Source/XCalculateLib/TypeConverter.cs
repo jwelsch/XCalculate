@@ -27,17 +27,12 @@ namespace XCalculateLib
 
         public static object ToObject(object value, Type toType)
         {
-            //if (value == null)
-            //{
-            //    throw new ArgumentNullException(nameof(value));
-            //}
-
             if (toType == null)
             {
                 throw new ArgumentNullException(nameof(toType));
             }
 
-            if (value.GetType() == toType)
+            if (value != null && value.GetType() == toType)
             {
                 return value;
             }
