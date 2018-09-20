@@ -3,6 +3,7 @@ using XCalculateLib;
 
 namespace MathCalculators
 {
+    [Function]
     public class SubtractFunction : IFunction
     {
         public IFunctionInfo FunctionInfo
@@ -23,28 +24,31 @@ namespace MathCalculators
                 throw new ArgumentNullException(nameof(phaseHandler));
             }
 
-            //var values = phaseHandler(new DefaultPhase("Specify Operands", "Specify the numbers in the subtraction equation.", new IValueInfo[]
-            //    {
-            //        new Int32ValueInfo("First", "The first number"),
-            //        new Int32ValueInfo("Second", "The second number")
-            //    }));
+            var phaseValues = phaseHandler(new DefaultPhase("Specify Operands", "Specify the numbers in the subtraction equation.", new AgnosticArrayValue(null, new ValueInfo("Operands", "Operands to subtract."))));
 
-            var difference = 0;
+            var difference = 0.0;
             var first = true;
 
-            //foreach (Int32Value value in values)
-            //{
-            //    if (first)
-            //    {
-            //        difference = value.Value;
-            //        first = false;
-            //        continue;
-            //    }
+            foreach (var phaseValue in phaseValues)
+            {
+                var arrayValue = (AgnosticArrayValue)phaseValue;
 
-            //    difference -= value.Value;
-            //}
+                var values = arrayValue.ToArray<double[]>();
 
-            return new Int32Value(difference);
+                foreach (var value in values)
+                {
+                    if (first)
+                    {
+                        difference = value;
+                        first = false;
+                        continue;
+                    }
+
+                    difference -= value;
+                }
+            }
+
+            return new AgnosticValue(difference);
         }
     }
 }
