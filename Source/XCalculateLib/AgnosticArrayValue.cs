@@ -1,26 +1,38 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace XCalculateLib
 {
-    public class AgnosticArrayValue : ArrayValue<object>
+    public class AgnosticArrayValue : BaseArrayValue<Array>, IValue
     {
-        public new Type ValueType
+        object IValue.Value
         {
-            get;
-            private set;
+            get { return this.Value; }
+            set { this.Value = (Array)value; }
         }
 
-        public AgnosticArrayValue(object[] value, Type type, IValueInfo info = null, Range lengthRange = null, ValueValidator<object[]> validator = null)
-            : base(value, info, lengthRange, i =>
-            {
-                if (i.GetType() != type)
-                {
-                    throw new ArgumentException($"Expected the value to have type {type}, but it had type {i.GetType()} instead.");
-                }
-                return validator == null ? true : validator(i);
-            })
+        public override Type ValueType
         {
-            this.ValueType = type;
+            get
+            {
+                if (this.Value == null)
+                {
+                    return null;
+                }
+
+                return this.Value.GetType();
+            }
+        }
+
+        public AgnosticArrayValue(Array value, IValueInfo info = null, ValueValidator<Array> validator = null)
+            : base(value, info, validator)
+        {
+        }
+
+        public TArray ToArray<TArray>()
+        {
+            return TypeConverter.ToArray<TArray>(this.Value);
         }
     }
 }

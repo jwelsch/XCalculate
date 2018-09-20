@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace XCalculateLib
 {
-    public static class TypeMapper
+    public static class ValueTypeMapper
     {
         private class MapTypes
         {
@@ -35,7 +36,7 @@ namespace XCalculateLib
 
         private static Dictionary<Type, MapTypes> Map = new Dictionary<Type, MapTypes>();
 
-        static TypeMapper()
+        static ValueTypeMapper()
         {
             object objectActivator(Type t) => Activator.CreateInstance(t);
 
@@ -61,6 +62,8 @@ namespace XCalculateLib
 
             var arguments = argumentProvider == null ? new object[] { valueTypes.Activator(type), new ValueInfo(), null } : argumentProvider();
 
+            arguments[0] = TypeConverter.ToObject(arguments[0], type);
+
             return (IValue)Activator.CreateInstance(valueTypes.SingleValue, arguments);
         }
 
@@ -69,11 +72,18 @@ namespace XCalculateLib
             return TypeToValue(typeof(T), argumentProvider);
         }
 
-        public static IValue TypeToArrayValue(Type type, Func<object[]> argumentProvider = null)
+        public static IValue TypeToArrayValue(Type arrayType, Func<object[]> argumentProvider = null)
         {
-            var valueTypes = Find(type);
+            if (!arrayType.IsArray)
+            {
+                throw new ArgumentException("Must be an array type.", nameof(arrayType));
+            }
 
-            var arguments = argumentProvider == null ? new object[] { null, new ValueInfo(), null, null } : argumentProvider();
+            var valueTypes = Find(arrayType.GetElementType());
+
+            var arguments = argumentProvider == null ? new object[] { null, new ValueInfo(), null } : argumentProvider();
+
+            arguments[0] = TypeConverter.ToArray((Array)arguments[0], arrayType);
 
             return (IValue)Activator.CreateInstance(valueTypes.ArrayValue, arguments);
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using XCalculateLib;
 
 namespace MathCalculators
@@ -25,21 +24,23 @@ namespace MathCalculators
                 throw new ArgumentNullException(nameof(phaseHandler));
             }
 
-            var values = phaseHandler(new DefaultPhase("Specify Operands", "Specify numbers to add together.", new Int32ArrayValue(null, new ValueInfo("Operands", "Operands to add." ))));
+            var phaseValues = phaseHandler(new DefaultPhase("Specify Operands", "Specify numbers to add together.", new AgnosticArrayValue(null, new ValueInfo("Operands", "Operands to add." ))));
 
-            var sum = 0;
+            var sum = 0.0;
 
-            foreach (var value in values)
+            foreach (var phaseValue in phaseValues)
             {
-                var arrayValue = (Int32ArrayValue)value;
+                var arrayValue = (AgnosticArrayValue)phaseValue;
 
-                foreach (var v in arrayValue.Value)
+                var values = arrayValue.ToArray<double[]>();
+
+                foreach (var value in values)
                 {
-                    sum += v;
+                    sum += value;
                 }
             }
 
-            return new Int32Value(sum);
+            return new AgnosticValue(sum);
         }
     }
 }

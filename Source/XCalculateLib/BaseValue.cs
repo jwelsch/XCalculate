@@ -9,7 +9,6 @@ namespace XCalculateLib
         private ValueValidator<T> Validator
         {
             get;
-            set;
         }
 
         public IValueInfo Info
@@ -29,6 +28,7 @@ namespace XCalculateLib
                 {
                     throw new ArgumentException("The value was not valid.");
                 }
+
                 this.value = value;
             }
         }
@@ -36,10 +36,18 @@ namespace XCalculateLib
         object IValue.Value
         {
             get { return this.Value; }
-            set { this.Value = (T)value; }
+            set
+            {
+                if (value.GetType() != this.ValueType)
+                {
+                    throw new ArgumentException($"The incoming type, {value.GetType()}, does not match the value type, {this.ValueType}.");
+                }
+
+                this.Value = (T)value;
+            }
         }
 
-        public Type ValueType
+        public virtual Type ValueType
         {
             get { return typeof(T); }
         }
@@ -47,7 +55,17 @@ namespace XCalculateLib
         protected BaseValue(T value, IValueInfo info, ValueValidator<T> validator)
         {
             this.Info = info;
-            this.Validator = validator;
+
+            // Set validator first since this.Value calls the validator.
+            this.Validator = i =>
+            {
+                if (i.GetType().IsArray)
+                {
+                    throw new ArgumentException($"Use {typeof(BaseArrayValue<>)} for array types.");
+                }
+                return validator == null ? true : validator(i);
+            };
+
             this.Value = value;
         }
     }

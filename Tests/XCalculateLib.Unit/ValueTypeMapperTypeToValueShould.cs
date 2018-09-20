@@ -4,12 +4,12 @@ using Xunit;
 
 namespace XCalculateLib.Unit
 {
-    public class TypeMapperTypeToValueShould
+    public class ValueTypeMapperTypeToValueShould
     {
         [Fact]
         public void SuccessfullyMapByte()
         {
-            var value = TypeMapper.TypeToValue(typeof(byte));
+            var value = ValueTypeMapper.TypeToValue(typeof(byte));
 
             Assert.NotNull(value as ByteValue);
             Assert.Equal(0, (byte)value.Value);
@@ -25,7 +25,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<byte>(i => i > 0 && i < 200);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as ByteValue);
             Assert.Equal(defaultValue, value.Value);
@@ -39,7 +39,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapSByte()
         {
-            var value = TypeMapper.TypeToValue(typeof(sbyte));
+            var value = ValueTypeMapper.TypeToValue(typeof(sbyte));
 
             Assert.NotNull(value as SByteValue);
             Assert.Equal(0, (sbyte)value.Value);
@@ -55,7 +55,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<sbyte>(i => i > 0 && i < 127);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as SByteValue);
             Assert.Equal(defaultValue, value.Value);
@@ -69,7 +69,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapInt16()
         {
-            var value = TypeMapper.TypeToValue(typeof(short));
+            var value = ValueTypeMapper.TypeToValue(typeof(short));
 
             Assert.NotNull(value as Int16Value);
             Assert.Equal(0, (short)value.Value);
@@ -85,7 +85,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<short>(i => i > 0 && i < 200);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as Int16Value);
             Assert.Equal(defaultValue, value.Value);
@@ -99,7 +99,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapUInt16()
         {
-            var value = TypeMapper.TypeToValue(typeof(ushort));
+            var value = ValueTypeMapper.TypeToValue(typeof(ushort));
 
             Assert.NotNull(value as UInt16Value);
             Assert.Equal(0, (ushort)value.Value);
@@ -115,7 +115,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<ushort>(i => i > 0 && i < 200);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as UInt16Value);
             Assert.Equal(defaultValue, value.Value);
@@ -129,7 +129,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapInt32()
         {
-            var value = TypeMapper.TypeToValue(typeof(int));
+            var value = ValueTypeMapper.TypeToValue(typeof(int));
 
             Assert.NotNull(value as Int32Value);
             Assert.Equal(0, (int)value.Value);
@@ -145,7 +145,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<int>(i => i > 0 && i < 200);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as Int32Value);
             Assert.Equal(defaultValue, value.Value);
@@ -159,7 +159,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapUInt32()
         {
-            var value = TypeMapper.TypeToValue(typeof(uint));
+            var value = ValueTypeMapper.TypeToValue(typeof(uint));
 
             Assert.NotNull(value as UInt32Value);
             Assert.Equal<uint>(0, (uint)value.Value);
@@ -175,7 +175,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<uint>(i => i > 0 && i < 200);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as UInt32Value);
             Assert.Equal(defaultValue, value.Value);
@@ -189,7 +189,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapInt64()
         {
-            var value = TypeMapper.TypeToValue(typeof(long));
+            var value = ValueTypeMapper.TypeToValue(typeof(long));
 
             Assert.NotNull(value as Int64Value);
             Assert.Equal(0, (long)value.Value);
@@ -205,7 +205,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<long>(i => i > 0 && i < 200);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as Int64Value);
             Assert.Equal(defaultValue, value.Value);
@@ -219,7 +219,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapUInt64()
         {
-            var value = TypeMapper.TypeToValue(typeof(ulong));
+            var value = ValueTypeMapper.TypeToValue(typeof(ulong));
 
             Assert.NotNull(value as UInt64Value);
             Assert.Equal<ulong>(0, (ulong)value.Value);
@@ -235,7 +235,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<ulong>(i => i > 0 && i < 200);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as UInt64Value);
             Assert.Equal(defaultValue, value.Value);
@@ -249,7 +249,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapSingle()
         {
-            var value = TypeMapper.TypeToValue(typeof(float));
+            var value = ValueTypeMapper.TypeToValue(typeof(float));
 
             Assert.NotNull(value as SingleValue);
             Assert.Equal(0, (float)value.Value);
@@ -265,7 +265,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<float>(i => i > 0 && i < 200);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as SingleValue);
             Assert.Equal(defaultValue, value.Value);
@@ -279,7 +279,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapDouble()
         {
-            var value = TypeMapper.TypeToValue(typeof(double));
+            var value = ValueTypeMapper.TypeToValue(typeof(double));
 
             Assert.NotNull(value as DoubleValue);
             Assert.Equal(0, (double)value.Value);
@@ -295,7 +295,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<double>(i => i > 0 && i < 200);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as DoubleValue);
             Assert.Equal(defaultValue, value.Value);
@@ -309,7 +309,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapDecimal()
         {
-            var value = TypeMapper.TypeToValue(typeof(decimal));
+            var value = ValueTypeMapper.TypeToValue(typeof(decimal));
 
             Assert.NotNull(value as DecimalValue);
             Assert.Equal(0, (decimal)value.Value);
@@ -325,7 +325,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<decimal>(i => i > 0 && i < 200);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as DecimalValue);
             Assert.Equal(defaultValue, value.Value);
@@ -339,7 +339,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapBoolean()
         {
-            var value = TypeMapper.TypeToValue(typeof(bool));
+            var value = ValueTypeMapper.TypeToValue(typeof(bool));
 
             Assert.NotNull(value as BooleanValue);
             Assert.False((bool)value.Value);
@@ -355,7 +355,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<bool>(i => i);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as BooleanValue);
             Assert.Equal(defaultValue, value.Value);
@@ -369,10 +369,10 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapString()
         {
-            var value = TypeMapper.TypeToValue(typeof(string));
+            var value = ValueTypeMapper.TypeToValue(typeof(string));
 
             Assert.NotNull(value as StringValue);
-            Assert.Null(value.Value);
+            Assert.Equal(string.Empty, value.Value);
         }
 
         [Fact]
@@ -385,7 +385,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<string>(i => i.Length > 0 && i.Length < 64);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as StringValue);
             Assert.Equal(defaultValue, value.Value);
@@ -399,7 +399,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapDateTime()
         {
-            var value = TypeMapper.TypeToValue(typeof(DateTime));
+            var value = ValueTypeMapper.TypeToValue(typeof(DateTime));
 
             Assert.NotNull(value as DateTimeValue);
             Assert.Equal(DateTime.MinValue, (DateTime)value.Value);
@@ -415,7 +415,7 @@ namespace XCalculateLib.Unit
             var unitName = "foobar unit name";
             var validator = new ValueValidator<DateTime>(i => i > DateTime.MinValue && i <= DateTime.Now);
 
-            var value = TypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
+            var value = ValueTypeMapper.TypeToValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as DateTimeValue);
             Assert.Equal(defaultValue, value.Value);
@@ -429,7 +429,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapByteArray()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(byte));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(byte[]));
 
             Assert.NotNull(value as ByteArrayValue);
             Assert.Null(value.Value);
@@ -446,7 +446,7 @@ namespace XCalculateLib.Unit
             var range = new Range(0, 127);
             var validator = new ValueValidator<byte[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as ByteArrayValue);
             Assert.Collection(defaultValue,
@@ -463,7 +463,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapSByteArray()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(sbyte));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(sbyte[]));
 
             Assert.NotNull(value as SByteArrayValue);
             Assert.Null(value.Value);
@@ -480,7 +480,7 @@ namespace XCalculateLib.Unit
             var range = new Range(0, 127);
             var validator = new ValueValidator<sbyte[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 127));
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as SByteArrayValue);
             Assert.Collection(defaultValue,
@@ -497,7 +497,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapInt16Array()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(short));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(short[]));
 
             Assert.NotNull(value as Int16ArrayValue);
             Assert.Null(value.Value);
@@ -514,7 +514,7 @@ namespace XCalculateLib.Unit
             var range = new Range(0, 127);
             var validator = new ValueValidator<short[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as Int16ArrayValue);
             Assert.Collection(defaultValue,
@@ -531,7 +531,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapUInt16Array()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(ushort));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(ushort[]));
 
             Assert.NotNull(value as UInt16ArrayValue);
             Assert.Null(value.Value);
@@ -548,7 +548,7 @@ namespace XCalculateLib.Unit
             var range = new Range(0, 127);
             var validator = new ValueValidator<ushort[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as UInt16ArrayValue);
             Assert.Collection(defaultValue,
@@ -565,7 +565,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapInt32Array()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(int));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(int[]));
 
             Assert.NotNull(value as Int32ArrayValue);
             Assert.Null(value.Value);
@@ -582,7 +582,7 @@ namespace XCalculateLib.Unit
             var range = new Range(0, 127);
             var validator = new ValueValidator<int[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as Int32ArrayValue);
             Assert.Collection(defaultValue,
@@ -599,7 +599,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapUInt32Array()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(uint));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(uint[]));
 
             Assert.NotNull(value as UInt32ArrayValue);
             Assert.Null(value.Value);
@@ -616,7 +616,7 @@ namespace XCalculateLib.Unit
             var range = new Range(0, 127);
             var validator = new ValueValidator<uint[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as UInt32ArrayValue);
             Assert.Collection(defaultValue,
@@ -633,7 +633,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapInt64Array()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(long));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(long[]));
 
             Assert.NotNull(value as Int64ArrayValue);
             Assert.Null(value.Value);
@@ -650,7 +650,7 @@ namespace XCalculateLib.Unit
             var range = new Range(0, 127);
             var validator = new ValueValidator<long[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as Int64ArrayValue);
             Assert.Collection(defaultValue,
@@ -667,7 +667,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapUInt64Array()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(ulong));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(ulong[]));
 
             Assert.NotNull(value as UInt64ArrayValue);
             Assert.Null(value.Value);
@@ -684,7 +684,7 @@ namespace XCalculateLib.Unit
             var range = new Range(0, 127);
             var validator = new ValueValidator<ulong[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as UInt64ArrayValue);
             Assert.Collection(defaultValue,
@@ -701,7 +701,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapSingleArray()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(float));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(float[]));
 
             Assert.NotNull(value as SingleArrayValue);
             Assert.Null(value.Value);
@@ -718,7 +718,7 @@ namespace XCalculateLib.Unit
             var range = new Range(0, 127);
             var validator = new ValueValidator<float[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as SingleArrayValue);
             Assert.Collection(defaultValue,
@@ -735,7 +735,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapDoubleArray()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(double));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(double[]));
 
             Assert.NotNull(value as DoubleArrayValue);
             Assert.Null(value.Value);
@@ -752,7 +752,7 @@ namespace XCalculateLib.Unit
             var range = new Range(0, 127);
             var validator = new ValueValidator<double[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as DoubleArrayValue);
             Assert.Collection(defaultValue,
@@ -769,7 +769,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapDecimalArray()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(decimal));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(decimal[]));
 
             Assert.NotNull(value as DecimalArrayValue);
             Assert.Null(value.Value);
@@ -786,7 +786,7 @@ namespace XCalculateLib.Unit
             var range = new Range(0, 127);
             var validator = new ValueValidator<decimal[]>(i => i.Length < 64 && i.All(j => j >= 0 && j < 200));
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as DecimalArrayValue);
             Assert.Collection(defaultValue,
@@ -803,7 +803,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapBooleanArray()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(bool));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(bool[]));
 
             Assert.NotNull(value as BooleanArrayValue);
             Assert.Null(value.Value);
@@ -820,7 +820,7 @@ namespace XCalculateLib.Unit
             var range = new Range(0, 127);
             var validator = new ValueValidator<bool[]>(i => i.Length < 64 && i.All(j => j));
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as BooleanArrayValue);
             Assert.Collection(defaultValue,
@@ -837,7 +837,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapStringArray()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(string));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(string[]));
 
             Assert.NotNull(value as StringArrayValue);
             Assert.Null(value.Value);
@@ -854,7 +854,7 @@ namespace XCalculateLib.Unit
             var range = new Range(0, 127);
             var validator = new ValueValidator<string[]>(i => i.Length > 0 && i.Length < 64);
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as StringArrayValue);
             Assert.Collection(defaultValue,
@@ -871,7 +871,7 @@ namespace XCalculateLib.Unit
         [Fact]
         public void SuccessfullyMapDateTimeArray()
         {
-            var value = TypeMapper.TypeToArrayValue(typeof(DateTime));
+            var value = ValueTypeMapper.TypeToArrayValue(typeof(DateTime[]));
 
             Assert.NotNull(value as DateTimeArrayValue);
             Assert.Null(value.Value);
@@ -881,14 +881,14 @@ namespace XCalculateLib.Unit
         public void SuccessfullyMapDateTimeArrayWithArguments()
         {
             var type = typeof(DateTime[]);
-            var defaultValue = new DateTime[] { DateTime.Now, DateTime.Now.AddDays(1), DateTime.Now.AddDays(2) };
+            var defaultValue = new DateTime[] { DateTime.Now, DateTime.Now.AddDays(-1), DateTime.Now.AddDays(-2) };
             var name = "foobar";
             var description = "foobar description";
             var unitName = "foobar unit name";
             var range = new Range(0, 127);
             var validator = new ValueValidator<DateTime[]>(i => i.Length < 64 && i.All(j => j >= DateTime.MinValue && j <= DateTime.Now));
 
-            var value = TypeMapper.TypeToArrayValue(defaultValue[0].GetType(), () => new object[] { defaultValue, new ValueInfo(name, description, unitName), range, validator });
+            var value = ValueTypeMapper.TypeToArrayValue(type, () => new object[] { defaultValue, new ValueInfo(name, description, unitName), validator });
 
             Assert.NotNull(value as DateTimeArrayValue);
             Assert.Collection(defaultValue,

@@ -1,9 +1,9 @@
 namespace XCalculateLib
 {
-    public class DecimalArrayValue : BaseArrayValue<decimal>
+    public class DecimalArrayValue : BaseArrayValue<decimal[]>
     {
-        public DecimalArrayValue(decimal[] value, IValueInfo info = null, Range lengthRange = null, ValueValidator<decimal[]> validator = null)
-            : base(value, info, lengthRange, validator)
+        public DecimalArrayValue(decimal[] value, IValueInfo info = null, ValueValidator<decimal[]> validator = null)
+            : base(value, info, validator)
         {
         }
     }

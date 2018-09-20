@@ -3,14 +3,14 @@ using Xunit;
 
 namespace XCalculateLib.Unit
 {
-    public class AgnosticValueConstructorShould
+    public class ValueConstructorShould
     {
         [Fact]
-        public void SuccesfullyCreateObjectWithMinimalArguments()
+        public void SuccessfullyCreateObjectWithOnlyValueArgument()
         {
             var defaultValue = 123;
 
-            var value = new AgnosticValue(defaultValue);
+            var value = new Value<int>(defaultValue);
 
             Assert.NotNull(value);
             Assert.Equal(defaultValue, value.Value);
@@ -18,15 +18,15 @@ namespace XCalculateLib.Unit
         }
 
         [Fact]
-        public void SuccesfullyCreateObjectWithAllArguments()
+        public void SuccessfullyCreateObjectWithAllArguments()
         {
             var defaultValue = 123;
             var name = "foobar";
             var description = "foobar description";
             var unitName = "foobar unit name";
-            bool validator(object i) => (int)i >= 0 && (int)i < 200;
+            bool validator(int i) => i >= 0 && i < 200;
 
-            var value = new AgnosticValue(defaultValue, new ValueInfo(name, description, unitName), validator);
+            var value = new Value<int>(defaultValue, new ValueInfo(name, description, unitName), validator);
 
             Assert.NotNull(value);
             Assert.Equal(defaultValue, value.Value);
@@ -38,28 +38,17 @@ namespace XCalculateLib.Unit
         }
 
         [Fact]
-        public void FailToCreateObjectWithInvalidValue()
+        public void FailWhenValueIsInvalid()
         {
             var defaultValue = 123;
             var name = "foobar";
             var description = "foobar description";
             var unitName = "foobar unit name";
-            bool validator(object i) => (int)i >= 0 && (int)i < 100;
+            bool validator(int i) => i >= 0 && i < 100;
 
             Assert.Throws<ArgumentException>(() =>
             {
-                var value = new AgnosticValue(defaultValue, new ValueInfo(name, description, unitName), validator);
-            });
-        }
-
-        [Fact]
-        public void FailToCreateObjectWithArrayType()
-        {
-            var defaultValue = new int[] { 1, 2, 3 };
-
-            Assert.Throws<ArgumentException>(() =>
-            {
-                var value = new AgnosticValue(defaultValue);
+                var value = new Value<int>(defaultValue, new ValueInfo(name, description, unitName), validator);
             });
         }
     }

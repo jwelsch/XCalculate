@@ -2,25 +2,30 @@
 
 namespace XCalculateLib
 {
-    public class AgnosticValue : BaseValue<object>
+    public class AgnosticValue : BaseValue<object>, IValue
     {
-        public new Type ValueType
+        object IValue.Value
         {
-            get;
-            private set;
+            get { return this.Value; }
+            set { this.Value = value; }
+        }
+
+        public override Type ValueType
+        {
+            get
+            {
+                if (this.Value == null)
+                {
+                    return null;
+                }
+
+                return this.Value.GetType();
+            }
         }
 
         public AgnosticValue(object value, IValueInfo info = null, ValueValidator<object> validator = null)
-            : base(value, info, i =>
-            {
-                if (i.GetType() != value.GetType())
-                {
-                    throw new ArgumentException($"Expected the value to have type {value.GetType()}, but it had type {i.GetType()} instead.");
-                }
-                return validator == null ? true : validator(i);
-            })
+            : base(value, info, validator)
         {
-            this.ValueType = value.GetType();
         }
     }
 }

@@ -1,30 +1,70 @@
-﻿namespace XCalculateLib
+﻿using System;
+
+namespace XCalculateLib
 {
-    public abstract class BaseArrayValue<T> : BaseValue<T[]>
+    public abstract class BaseArrayValue<T> : IValue
     {
-        public Range LengthRange
+        private T value = default(T);
+
+        private ValueValidator<T> Validator
         {
             get;
-            private set;
         }
 
-        public new T[] Value
+        public IValueInfo Info
         {
-            get { return base.Value; }
-            set { base.Value = value; }
+            get;
         }
 
-        protected BaseArrayValue(T[] value, IValueInfo info, Range lengthRange = null, ValueValidator<T[]> validator = null)
-            : base(value, info, i =>
+        public T Value
+        {
+            get { return this.value; }
+
+            set
             {
-                if (i != null)
+                if (value != null)
                 {
-                    lengthRange?.Within(i.Length);
+                    if (!value.GetType().IsArray)
+                    {
+                        throw new ArgumentException("The value must be an array type.", nameof(value));
+                    }
                 }
-                return validator == null ? true : validator(i);
-            })
+
+                var result = this.Validator?.Invoke(value);
+
+                if (result != null && !result.Value)
+                {
+                    throw new ArgumentException("The value was not valid.");
+                }
+
+                this.value = value;
+            }
+        }
+
+        object IValue.Value
         {
-            this.LengthRange = lengthRange ?? new Range(0, int.MaxValue);
+            get { return this.Value; }
+            set
+            {
+                if (value.GetType() != this.ValueType)
+                {
+                    throw new ArgumentException($"The incoming type, {value.GetType()}, does not match the value type, {this.ValueType}.");
+                }
+
+                this.Value = (T)value;
+            }
+        }
+
+        public virtual Type ValueType
+        {
+            get { return typeof(T); }
+        }
+
+        protected BaseArrayValue(T value, IValueInfo info, ValueValidator<T> validator)
+        {
+            this.Info = info;
+            this.Validator = validator;
+            this.Value = value;
         }
     }
 }
