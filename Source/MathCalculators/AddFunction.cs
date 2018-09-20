@@ -24,7 +24,7 @@ namespace MathCalculators
                 throw new ArgumentNullException(nameof(phaseHandler));
             }
 
-            var phaseValues = phaseHandler(new DefaultPhase("Specify Operands", "Specify numbers to add together.", new AgnosticArrayValue(null, new ValueInfo("Operands", "Operands to add." ))));
+            var phaseValues = phaseHandler(new DefaultPhase("Specify Operands", "Specify numbers to add together.", new AgnosticArrayValue(null, new ValueInfo("Operands", "Operands to add." ), i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true)));
 
             var sum = 0.0;
 

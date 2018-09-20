@@ -24,7 +24,7 @@ namespace MathCalculators
                 throw new ArgumentNullException(nameof(phaseHandler));
             }
 
-            var phaseValues = phaseHandler(new DefaultPhase("Specify Operands", "Specify the numbers in the subtraction equation.", new AgnosticArrayValue(null, new ValueInfo("Operands", "Operands to subtract."))));
+            var phaseValues = phaseHandler(new DefaultPhase("Specify Operands", "Specify the numbers in the subtraction equation.", new AgnosticArrayValue(null, new ValueInfo("Operands", "Operands to subtract."), i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true)));
 
             var difference = 0.0;
             var first = true;
