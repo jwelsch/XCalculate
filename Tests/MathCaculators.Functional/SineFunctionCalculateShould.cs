@@ -42,7 +42,7 @@ namespace MathCaculators.Functional
         [Fact]
         public void SuccessfullyCalculateSineWithNoAngleSpecified()
         {
-            var function = new RootFunction();
+            var function = new SineFunction();
 
             var result = function.Calculate(p =>
             {
