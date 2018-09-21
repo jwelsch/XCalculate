@@ -4,20 +4,14 @@ using XCalculateLib;
 namespace MathCalculators
 {
     [Function]
-    public class MultiplyFunction : IFunction
+    public class MultiplyFunction : BaseFunction
     {
-        public IFunctionInfo FunctionInfo
-        {
-            get;
-            private set;
-        }
-
         public MultiplyFunction()
+            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Multiply", "Multiply two numbers together.", "multiply"))
         {
-            this.FunctionInfo = new DefaultFunctionInfo(new Version("1.0.0"), "Multiply", "Multiply two numbers together.", "multiply");
         }
 
-        public IValue Calculate(PhaseHandler phaseHandler)
+        public override IValue Calculate(PhaseHandler phaseHandler)
         {
             if (phaseHandler == null)
             {

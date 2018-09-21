@@ -4,20 +4,14 @@ using XCalculateLib;
 namespace MathCalculators
 {
     [Function]
-    public class AddFunction : IFunction
+    public class AddFunction : BaseFunction
     {
-        public IFunctionInfo FunctionInfo
-        {
-            get;
-            private set;
-        }
-
         public AddFunction()
+            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Add", "Add numbers together.", "add"))
         {
-            this.FunctionInfo = new DefaultFunctionInfo(new Version("1.0.0"), "Add", "Add numbers together.", "add");
         }
 
-        public IValue Calculate(PhaseHandler phaseHandler)
+        public override IValue Calculate(PhaseHandler phaseHandler)
         {
             if (phaseHandler == null)
             {

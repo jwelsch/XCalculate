@@ -3,20 +3,14 @@ using XCalculateLib;
 
 namespace MathCalculators
 {
-    public class DivideFunction : IFunction
+    public class DivideFunction : BaseFunction
     {
-        public IFunctionInfo FunctionInfo
-        {
-            get;
-            private set;
-        }
-
         public DivideFunction()
+            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Divide", "Divide numbers.", "divide"))
         {
-            this.FunctionInfo = new DefaultFunctionInfo(new Version("1.0.0"), "Divide", "Divide numbers.", "divide");
         }
 
-        public IValue Calculate(PhaseHandler phaseHandler)
+        public override IValue Calculate(PhaseHandler phaseHandler)
         {
             if (phaseHandler == null)
             {
