@@ -6,7 +6,7 @@ namespace MathCalculators
     public class ArccotangentFunction : BaseFunction
     {
         public ArccotangentFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Arccotangent", "Find the arcotangent of an angle.", "arccotangent", "arccot"))
+            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Arccotangent", "Find the arccotangent of an angle.", "arccotangent", "arccot"))
         {
         }
 

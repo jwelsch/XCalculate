@@ -1,4 +1,5 @@
 ﻿using MathCalculators;
+using System;
 using Xunit;
 
 namespace MathCaculators.Functional
@@ -12,10 +13,12 @@ namespace MathCaculators.Functional
 
             Assert.NotNull(function.FunctionInfo);
             Assert.Equal("Hyperbolic Cosecant", function.FunctionInfo.Name);
-            Assert.NotEqual(string.Empty, function.FunctionInfo.Description);
-            Assert.NotEmpty(function.FunctionInfo.Tags);
-            Assert.Equal(3, function.FunctionInfo.Tags.Length);
-            Assert.NotNull(function.FunctionInfo.Version);
+            Assert.Equal(new Version("1.0.0"), function.FunctionInfo.Version);
+            Assert.Equal("Find the hyperbolic cosecant of an angle.", function.FunctionInfo.Description);
+            Assert.Collection(function.FunctionInfo.Tags,
+                i => Assert.Equal("hyperbolic", i),
+                i => Assert.Equal("cosecant", i),
+                i => Assert.Equal("csch", i));
         }
     }
 }

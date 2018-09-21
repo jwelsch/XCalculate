@@ -12,9 +12,9 @@ namespace MathCaculators.Functional
 
             Assert.NotNull(function.FunctionInfo);
             Assert.Equal("Logarithm", function.FunctionInfo.Name);
-            Assert.NotEqual(string.Empty, function.FunctionInfo.Description);
-            Assert.NotEmpty(function.FunctionInfo.Tags);
-            Assert.NotNull(function.FunctionInfo.Version);
+            Assert.Equal("Find the logarithm of a number.", function.FunctionInfo.Description);
+            Assert.Collection(function.FunctionInfo.Tags,
+                i => Assert.Equal("logarithm", i));
         }
     }
 }

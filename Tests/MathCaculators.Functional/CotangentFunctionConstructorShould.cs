@@ -1,4 +1,5 @@
 ﻿using MathCalculators;
+using System;
 using Xunit;
 
 namespace MathCaculators.Functional
@@ -12,10 +13,11 @@ namespace MathCaculators.Functional
 
             Assert.NotNull(function.FunctionInfo);
             Assert.Equal("Cotangent", function.FunctionInfo.Name);
-            Assert.NotEqual(string.Empty, function.FunctionInfo.Description);
-            Assert.NotEmpty(function.FunctionInfo.Tags);
-            Assert.Equal(2, function.FunctionInfo.Tags.Length);
-            Assert.NotNull(function.FunctionInfo.Version);
+            Assert.Equal(new Version("1.0.0"), function.FunctionInfo.Version);
+            Assert.Equal("Find the cotangent of an angle.", function.FunctionInfo.Description);
+            Assert.Collection(function.FunctionInfo.Tags,
+                i => Assert.Equal("cotangent", i),
+                i => Assert.Equal("cot", i));
         }
     }
 }

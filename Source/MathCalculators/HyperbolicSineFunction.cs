@@ -6,7 +6,7 @@ namespace MathCalculators
     public class HyperbolicSineFunction : BaseFunction
     {
         public HyperbolicSineFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Hyperbolic Sine", "Find the hyperbolic sine of an angle.", "sinh", "hyperbolic"))
+            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Hyperbolic Sine", "Find the hyperbolic sine of an angle.", "hyperbolic", "sine", "sinh"))
         {
         }
 

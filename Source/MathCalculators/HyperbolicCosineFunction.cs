@@ -6,7 +6,7 @@ namespace MathCalculators
     public class HyperbolicCosineFunction : BaseFunction
     {
         public HyperbolicCosineFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Hyperbolic Cosine", "Find the hyperbolic cosine of an angle.", "cosh", "hyperbolic"))
+            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Hyperbolic Cosine", "Find the hyperbolic cosine of an angle.", "hyperbolic", "cosine", "cosh"))
         {
         }
 

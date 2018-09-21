@@ -1,4 +1,5 @@
 using MathCalculators;
+using System;
 using Xunit;
 
 namespace MathCaculators.Functional
@@ -12,9 +13,10 @@ namespace MathCaculators.Functional
 
             Assert.NotNull(function.FunctionInfo);
             Assert.Equal("Add", function.FunctionInfo.Name);
-            Assert.NotEqual(string.Empty, function.FunctionInfo.Description);
-            Assert.NotEmpty(function.FunctionInfo.Tags);
-            Assert.NotNull(function.FunctionInfo.Version);
+            Assert.Equal(new Version("1.0.0"), function.FunctionInfo.Version);
+            Assert.Equal("Add numbers.", function.FunctionInfo.Description);
+            Assert.Collection(function.FunctionInfo.Tags,
+                i => Assert.Equal("add", i));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace MathCalculators
     public class HyperbolicTangentFunction : BaseFunction
     {
         public HyperbolicTangentFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Hyperbolic Tangent", "Find the hyperbolic tangent of an angle.", "tanh", "hyperbolic"))
+            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Hyperbolic Tangent", "Find the hyperbolic tangent of an angle.", "hyperbolic", "tangent", "tanh"))
         {
         }
 

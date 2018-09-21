@@ -7,7 +7,7 @@ namespace MathCalculators
     public class SubtractFunction : BaseFunction
     {
         public SubtractFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Subtract", "Subtract one number from another.", "subtract"))
+            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Subtract", "Subtract numbers.", "subtract"))
         {
         }
 
@@ -18,7 +18,7 @@ namespace MathCalculators
                 throw new ArgumentNullException(nameof(phaseHandler));
             }
 
-            var phaseValues = phaseHandler(new DefaultPhase("Specify Operands", "Specify the numbers in the subtraction equation.", new AgnosticArrayValue(null, new ValueInfo("Operands", "Operands to subtract."), i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true)));
+            var phaseValues = phaseHandler(new DefaultPhase("Specify Operands", "Specify the numbers to subtract.", new AgnosticArrayValue(null, new ValueInfo("Operands", "Operands to subtract."), i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true)));
 
             var difference = 0.0;
             var first = true;
