@@ -14,10 +14,6 @@ namespace MathCalculators
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            if (phaseHandler == null)
-            {
-                throw new ArgumentNullException(nameof(phaseHandler));
-            }
 
             var phase = new DefaultPhase(
                 "Specify Operands",
@@ -25,9 +21,7 @@ namespace MathCalculators
                 new AgnosticValue(0.0, new ValueInfo("Base")),
                 new AgnosticValue(0.0, new ValueInfo("Exponent")));
 
-            var phaseValues = phaseHandler(phase);
-
-            var values = phaseValues.ToArray();
+            var values = DoPhase(phaseHandler, phase);
 
             var result = Math.Pow(TypeConverter.ToObject<double>(values[0].Value), TypeConverter.ToObject<double>(values[1].Value));
 

@@ -13,25 +13,23 @@ namespace MathCalculators
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            if (phaseHandler == null)
-            {
-                throw new ArgumentNullException(nameof(phaseHandler));
-            }
+            var phase = new DefaultPhase(
+                "Specify Operands",
+                "Specify numbers to add.",
+                new AgnosticArrayValue(
+                    null,
+                    new ValueInfo("Operands", "Operands to add."),
+                    i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true));
 
-            var phaseValues = phaseHandler(new DefaultPhase("Specify Operands", "Specify numbers to add.", new AgnosticArrayValue(null, new ValueInfo("Operands", "Operands to add." ), i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true)));
+            var values = DoPhase(phaseHandler, phase);
+
+            var arrayValues = ((AgnosticArrayValue)values[0]).ToArray<double[]>();
 
             var sum = 0.0;
 
-            foreach (var phaseValue in phaseValues)
+            foreach (var value in arrayValues)
             {
-                var arrayValue = (AgnosticArrayValue)phaseValue;
-
-                var values = arrayValue.ToArray<double[]>();
-
-                foreach (var value in values)
-                {
-                    sum += value;
-                }
+                sum += value;
             }
 
             return new AgnosticValue(sum);

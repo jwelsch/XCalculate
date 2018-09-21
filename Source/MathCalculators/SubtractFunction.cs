@@ -13,33 +13,23 @@ namespace MathCalculators
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            if (phaseHandler == null)
+            var phase = new DefaultPhase(
+                "Specify Operands",
+                "Specify numbers to subtract.",
+                new AgnosticArrayValue(
+                    null,
+                    new ValueInfo("Operands", "Operands to subtract."),
+                    i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true));
+
+            var values = DoPhase(phaseHandler, phase);
+
+            var arrayValues = ((AgnosticArrayValue)values[0]).ToArray<double[]>();
+
+            var difference = TypeConverter.ToObject<double>(arrayValues[0]);
+
+            for (var i = 1; i < arrayValues.Length; i++)
             {
-                throw new ArgumentNullException(nameof(phaseHandler));
-            }
-
-            var phaseValues = phaseHandler(new DefaultPhase("Specify Operands", "Specify the numbers to subtract.", new AgnosticArrayValue(null, new ValueInfo("Operands", "Operands to subtract."), i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true)));
-
-            var difference = 0.0;
-            var first = true;
-
-            foreach (var phaseValue in phaseValues)
-            {
-                var arrayValue = (AgnosticArrayValue)phaseValue;
-
-                var values = arrayValue.ToArray<double[]>();
-
-                foreach (var value in values)
-                {
-                    if (first)
-                    {
-                        difference = value;
-                        first = false;
-                        continue;
-                    }
-
-                    difference -= value;
-                }
+                difference -= TypeConverter.ToObject<double>(arrayValues[i]);
             }
 
             return new AgnosticValue(difference);

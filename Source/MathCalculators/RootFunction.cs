@@ -14,20 +14,13 @@ namespace MathCalculators
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            if (phaseHandler == null)
-            {
-                throw new ArgumentNullException(nameof(phaseHandler));
-            }
-
             var phase = new DefaultPhase(
                 "Specify Operands",
                 "Specify root operation values.",
                 new AgnosticValue(0.0, new ValueInfo("Radicand", "Radicand of the root.")),
                 new AgnosticValue(2.0, new ValueInfo("Index", "Index of the root.")));
 
-            var phaseValues = phaseHandler(phase);
-
-            var values = phaseValues.ToArray();
+            var values = DoPhase(phaseHandler, phase);
 
             var result = Math.Pow(TypeConverter.ToObject<double>(values[0].Value), 1.0 / TypeConverter.ToObject<double>(values[1].Value));
 

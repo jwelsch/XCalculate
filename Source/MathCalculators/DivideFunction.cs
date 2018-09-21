@@ -12,40 +12,30 @@ namespace MathCalculators
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            if (phaseHandler == null)
+            var phase = new DefaultPhase(
+                "Specify Operands",
+                "Specify numbers to divide.",
+                new AgnosticArrayValue(
+                    null,
+                    new ValueInfo("Operands", "Operands to divide."),
+                    i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true));
+
+            var values = DoPhase(phaseHandler, phase);
+
+            var arrayValues = ((AgnosticArrayValue)values[0]).ToArray<double[]>();
+
+            var quotient = TypeConverter.ToObject<double>(arrayValues[0]);
+
+            for (var i = 1; i < arrayValues.Length; i++)
             {
-                throw new ArgumentNullException(nameof(phaseHandler));
-            }
+                var divisor = TypeConverter.ToObject<double>(arrayValues[i]);
 
-            var phaseValues = phaseHandler(new DefaultPhase("Specify Operands", "Specify numbers to divide.", new AgnosticArrayValue(null, new ValueInfo("Operands", "Operands to divide."), i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true)));
-
-            var quotient = 0.0;
-            var first = true;
-
-            foreach (var phaseValue in phaseValues)
-            {
-                var arrayValue = (AgnosticArrayValue)phaseValue;
-
-                var values = arrayValue.ToArray<double[]>();
-
-                foreach (var value in values)
+                if (divisor == 0)
                 {
-                    if (first)
-                    {
-                        quotient = value;
-                        first = false;
-                        continue;
-                    }
-                    else
-                    {
-                        if (value == 0)
-                        {
-                            throw new DivideByZeroException();
-                        }
-                    }
-
-                    quotient /= value;
+                    throw new DivideByZeroException();
                 }
+
+                quotient /= divisor;
             }
 
             return new AgnosticValue(quotient);
