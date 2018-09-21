@@ -6,7 +6,7 @@ namespace MathCalculators
     public class ArccotangentFunction : BaseFunction
     {
         public ArccotangentFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Arccotangent", "Find the tangent of an angle.", "arccotangent", "arccot"))
+            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Arccotangent", "Find the arcotangent of an angle.", "arccotangent", "arccot"))
         {
         }
 
@@ -14,7 +14,7 @@ namespace MathCalculators
         {
             var phase = new DefaultPhase(
                 "Specify Operands",
-                "Specify angle to find the tangent of.",
+                "Specify angle to find the arccotangent of.",
                 new AgnosticValue(0.0, new ValueInfo("Angle")));
 
             var values = DoPhase(phaseHandler, phase);
