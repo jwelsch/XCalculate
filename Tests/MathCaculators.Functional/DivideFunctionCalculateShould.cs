@@ -38,5 +38,21 @@ namespace MathCaculators.Functional
                 });
             });
         }
+
+        [Fact]
+        public void FailToDivideByZero()
+        {
+            var function = new DivideFunction();
+
+            Assert.Throws<DivideByZeroException>(() =>
+            {
+                var result = function.Calculate(p =>
+                {
+                    p.Inputs[0].Value = new int[] { 3, 0 };
+
+                    return p.Inputs;
+                });
+            });
+        }
     }
 }

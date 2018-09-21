@@ -36,6 +36,13 @@ namespace MathCalculators
                         first = false;
                         continue;
                     }
+                    else
+                    {
+                        if (value == 0)
+                        {
+                            throw new DivideByZeroException();
+                        }
+                    }
 
                     quotient /= value;
                 }
