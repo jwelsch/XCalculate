@@ -6,13 +6,13 @@ namespace MathCalculators
     public class HyperbolicCotangentFunction : BaseFunction
     {
         public HyperbolicCotangentFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Hyperbolic Cotangent", "Find the hyperbolic cotangent of an angle.", "hyperbolic", "cotangent", "coth"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Hyperbolic Cotangent", "Find the hyperbolic cotangent of an angle.", "hyperbolic", "cotangent", "coth"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify angle to find the hyperbolic cotangent of.",
                 new AgnosticValue(0.0, new ValueInfo("Angle")));

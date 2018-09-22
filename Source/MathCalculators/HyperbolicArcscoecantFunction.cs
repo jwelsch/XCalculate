@@ -6,13 +6,13 @@ namespace MathCalculators
     public class HyperbolicArccosecantFunction : BaseFunction
     {
         public HyperbolicArccosecantFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Hyperbolic Arccosecant", "Find the hyperbolic arccosecant of an angle.", "hyperbolic", "arccosecant", "arccsch"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Hyperbolic Arccosecant", "Find the hyperbolic arccosecant of an angle.", "hyperbolic", "arccosecant", "arccsch"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify angle to find the hyperbolic arccosecant of.",
                 new AgnosticValue(0.0, new ValueInfo("Angle")));

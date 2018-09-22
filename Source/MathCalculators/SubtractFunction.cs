@@ -7,13 +7,13 @@ namespace MathCalculators
     public class SubtractFunction : BaseFunction
     {
         public SubtractFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Subtract", "Subtract numbers.", "subtract"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Subtract", "Subtract numbers.", "subtract"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify numbers to subtract.",
                 new AgnosticArrayValue(

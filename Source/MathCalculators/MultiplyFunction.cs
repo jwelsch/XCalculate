@@ -7,13 +7,13 @@ namespace MathCalculators
     public class MultiplyFunction : BaseFunction
     {
         public MultiplyFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Multiply", "Multiply numbers.", "multiply"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Multiply", "Multiply numbers.", "multiply"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify numbers to multiply.",
                 new AgnosticArrayValue(

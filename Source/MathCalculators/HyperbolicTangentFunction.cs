@@ -6,13 +6,13 @@ namespace MathCalculators
     public class HyperbolicTangentFunction : BaseFunction
     {
         public HyperbolicTangentFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Hyperbolic Tangent", "Find the hyperbolic tangent of an angle.", "hyperbolic", "tangent", "tanh"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Hyperbolic Tangent", "Find the hyperbolic tangent of an angle.", "hyperbolic", "tangent", "tanh"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify angle to find the hyperbolic tangent of.",
                 new AgnosticValue(0.0, new ValueInfo("Angle")));

@@ -7,7 +7,7 @@ namespace MathCalculators
     public class Int32SimpleAddFunction : BaseSimpleFunction<int>
     {
         public Int32SimpleAddFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Simple Add", "Add numbers together.", "add"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Simple Add", "Add numbers together.", "add"))
         {
         }
 

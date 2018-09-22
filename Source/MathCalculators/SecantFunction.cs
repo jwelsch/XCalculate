@@ -6,13 +6,13 @@ namespace MathCalculators
     public class SecantFunction : BaseFunction
     {
         public SecantFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Secant", "Find the secant of an angle.", "secant", "sec"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Secant", "Find the secant of an angle.", "secant", "sec"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify angle to find the secant of.",
                 new AgnosticValue(0.0, new ValueInfo("Angle")));

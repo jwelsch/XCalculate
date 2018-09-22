@@ -6,13 +6,13 @@ namespace MathCalculators
     public class ArccosineFunction : BaseFunction
     {
         public ArccosineFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Arccosine", "Find the arccosine of an angle.", "arccosine", "arccos"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Arccosine", "Find the arccosine of an angle.", "arccosine", "arccos"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify angle to find the arccosine of.",
                 new AgnosticValue(0.0, new ValueInfo("Angle")));

@@ -6,13 +6,13 @@ namespace MathCalculators
     public class ArctangentFunction : BaseFunction
     {
         public ArctangentFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Arctangent", "Find the arctangent of an angle.", "arctangent", "arctan"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Arctangent", "Find the arctangent of an angle.", "arctangent", "arctan"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify angle to find the arctangent of.",
                 new AgnosticValue(0.0, new ValueInfo("Angle")));

@@ -6,13 +6,13 @@ namespace MathCalculators
     public class ModuloFunction : BaseFunction
     {
         public ModuloFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Modulo", "Find the modulo of two numbers.", "modulo", "remainder"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Modulo", "Find the modulo of two numbers.", "modulo", "remainder"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify the operands of the modulo operation.",
                 new AgnosticValue(0.0, new ValueInfo("a", "Dividend value.")),

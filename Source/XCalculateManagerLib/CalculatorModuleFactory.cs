@@ -58,7 +58,7 @@ namespace XCalculateManagerLib
 
                 foreach (var functionObject in calculatorFunctions)
                 {
-                    var module = new DefaultModule()
+                    var module = new Module()
                     {
                         Function = functionObject,
                         AssemblyInfo = assemblyInfo,

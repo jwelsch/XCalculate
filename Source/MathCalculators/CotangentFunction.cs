@@ -6,13 +6,13 @@ namespace MathCalculators
     public class CotangentFunction : BaseFunction
     {
         public CotangentFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Cotangent", "Find the cotangent of an angle.", "cotangent", "cot"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Cotangent", "Find the cotangent of an angle.", "cotangent", "cot"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify angle to find the cotangent of.",
                 new AgnosticValue(0.0, new ValueInfo("Angle")));

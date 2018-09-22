@@ -3,7 +3,7 @@ using System;
 
 namespace XCalculateLib
 {
-    public class DefaultFunctionInfo : IFunctionInfo
+    public class FunctionInfo : IFunctionInfo
     {
         public string Name
         {
@@ -29,7 +29,7 @@ namespace XCalculateLib
             protected set;
         }
 
-        public DefaultFunctionInfo(Version version, string name, string description = null, params string[] tags)
+        public FunctionInfo(Version version, string name, string description = null, params string[] tags)
         {
             this.Version = version;
             this.Name = name;

@@ -8,13 +8,13 @@ namespace MathCalculators
     public class FactorialFunction : BaseFunction
     {
         public FactorialFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Factorial", "Apply the factorial function to a number.", "factorial"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Factorial", "Apply the factorial function to a number.", "factorial"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Argument",
                 "Argument for the gamma function.",
                 new AgnosticValue(0.0, new ValueInfo("n", "Value to the factorial function."),

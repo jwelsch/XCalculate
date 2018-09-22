@@ -6,13 +6,13 @@ namespace MathCalculators
     public class HyperbolicSecantFunction : BaseFunction
     {
         public HyperbolicSecantFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Hyperbolic Secant", "Find the hyperbolic secant of an angle.", "hyperbolic", "secant", "sech"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Hyperbolic Secant", "Find the hyperbolic secant of an angle.", "hyperbolic", "secant", "sech"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify angle to find the hyperbolic secant of.",
                 new AgnosticValue(0.0, new ValueInfo("Angle")));

@@ -2,7 +2,7 @@
 
 namespace XCalculateLib
 {
-    public class DefaultPhase : IPhase
+    public class Phase : IPhase
     {
         private readonly List<IValue> inputs;
 
@@ -26,17 +26,17 @@ namespace XCalculateLib
             }
         }
 
-        public DefaultPhase(IEnumerable<IValue> inputs)
+        public Phase(IEnumerable<IValue> inputs)
         {
             this.inputs = new List<IValue>(inputs);
         }
 
-        public DefaultPhase(string name, string description, params IValue[] inputs)
+        public Phase(string name, string description, params IValue[] inputs)
             : this(name, description, new List<IValue>(inputs))
         {
         }
 
-        public DefaultPhase(string name, string description, IEnumerable<IValue> inputs)
+        public Phase(string name, string description, IEnumerable<IValue> inputs)
             : this(inputs)
         {
             this.Name = name;

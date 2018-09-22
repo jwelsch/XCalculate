@@ -6,13 +6,13 @@ namespace MathCalculators
     public class ArcsecantFunction : BaseFunction
     {
         public ArcsecantFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Arcsecant", "Find the arcsecant of an angle.", "arcsecant", "arcsec"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Arcsecant", "Find the arcsecant of an angle.", "arcsecant", "arcsec"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify angle to find the arcsecant of.",
                 new AgnosticValue(0.0, new ValueInfo("Angle")));

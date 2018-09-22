@@ -19,7 +19,7 @@ namespace XCalculateLib
 
         public IValue Calculate(PhaseHandler phaseHandler)
         {
-            var results = phaseHandler?.Invoke(new DefaultPhase(new IValue[] { new ArrayValue<T[]>(new T[0]) }));
+            var results = phaseHandler?.Invoke(new Phase(new IValue[] { new ArrayValue<T[]>(new T[0]) }));
 
             ArrayValue<T> valueArray = null;
             var once = false;

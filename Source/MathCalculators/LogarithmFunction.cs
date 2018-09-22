@@ -7,13 +7,13 @@ namespace MathCalculators
     public class LogarithmFunction : BaseFunction
     {
         public LogarithmFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Logarithm", "Find the logarithm of a number.", "logarithm"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Logarithm", "Find the logarithm of a number.", "logarithm"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Arguments",
                 "Specify logarithm arguments.",
                 new AgnosticValue(0.0, new ValueInfo("Argument", "Argument of the logarithm.")),

@@ -2,7 +2,7 @@
 
 namespace XCalculateLib
 {
-    public class DefaultAssemblyInfo : IAssemblyInfo
+    public class AssemblyInfo : IAssemblyInfo
     {
         public string Name
         {
@@ -22,7 +22,7 @@ namespace XCalculateLib
             private set;
         }
 
-        public DefaultAssemblyInfo(string name = null, string email = null, Uri site = null)
+        public AssemblyInfo(string name = null, string email = null, Uri site = null)
         {
             this.Name = name;
             this.Email = email;

@@ -6,13 +6,13 @@ namespace MathCalculators
     public class DivideFunction : BaseFunction
     {
         public DivideFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Divide", "Divide numbers.", "divide"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Divide", "Divide numbers.", "divide"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify numbers to divide.",
                 new AgnosticArrayValue(

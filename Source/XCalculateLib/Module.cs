@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace XCalculateLib
 {
-    public class DefaultModule : IModule
+    public class Module : IModule
     {
         public Assembly Assembly
         {

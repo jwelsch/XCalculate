@@ -6,13 +6,13 @@ namespace MathCalculators
     public class ArcsineFunction : BaseFunction
     {
         public ArcsineFunction()
-            : base(new DefaultFunctionInfo(new Version("1.0.0"), "Arcsine", "Find the arcsine of an angle.", "arcsine", "arcsin"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Arcsine", "Find the arcsine of an angle.", "arcsine", "arcsin"))
         {
         }
 
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
-            var phase = new DefaultPhase(
+            var phase = new Phase(
                 "Specify Operands",
                 "Specify angle to find the arcsine of.",
                 new AgnosticValue(0.0, new ValueInfo("Angle")));
