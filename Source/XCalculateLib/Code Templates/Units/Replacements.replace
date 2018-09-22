@@ -349,11 +349,4 @@
       ${AbreviationSingular}=TB
 	  ${AbreviationPlural}=TB
    ]
-   [
-      ${ClassName}=
-      ${NameSingular}=
-	  ${NamePlural}=
-      ${AbreviationSingular}=
-	  ${AbreviationPlural}=
-   ]
 ]
