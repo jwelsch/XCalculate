@@ -57,7 +57,6 @@ namespace XCalculateLib
             {
                 if (abreviate)
                 {
-                    //return this.AbreviationSingular == null ? $"{value}" : string.Format(FormatTemplate, value, this.AbreviationSingular);
                     return doFormat(value, this.AbreviationSingular);
                 }
 

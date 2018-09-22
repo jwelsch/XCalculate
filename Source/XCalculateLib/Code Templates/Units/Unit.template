@@ -1,0 +1,10 @@
+﻿namespace XCalculateLib
+{
+    public class ${ClassName}Unit : Unit
+    {
+        public ${ClassName}Unit()
+            : base("${NameSingular}", "${NamePlural}", "${AbreviationSingular}", "${AbreviationPlural}")
+        {
+        }
+    }
+}
