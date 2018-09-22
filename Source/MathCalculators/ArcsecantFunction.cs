@@ -13,9 +13,9 @@ namespace MathCalculators
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
             var phase = new Phase(
-                "Specify Operands",
+                "Specify Argument",
                 "Specify angle to find the arcsecant of.",
-                new AgnosticValue(0.0, new ValueInfo("Angle")));
+                new AgnosticValue(0.0, new ValueInfo("Angle", null, new RadianUnit())));
 
             var values = DoPhase(phaseHandler, phase);
 
