@@ -1,8 +1,8 @@
-﻿@ECHO OFF
+@ECHO OFF
 SET SolutionDir=%~1
 SET ProjectDir=%~2
 SET CodeGeneratorExe=%SolutionDir%\CodeGenerator\CodeGenerator.exe
-SET CodeTemplateDir=%ProjectDir%\Code Templates
+SET CodeTemplateDir=%ProjectDir%\Code Templates\Values
 SET ReplacementFileName=Replacements.replace
 SET ReplacementFilePath=%CodeTemplateDir%\%ReplacementFileName%
 SET GeneratedCodeDirName=Generated Code
