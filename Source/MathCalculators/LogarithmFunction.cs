@@ -14,8 +14,8 @@ namespace MathCalculators
         public override IValue Calculate(PhaseHandler phaseHandler)
         {
             var phase = new DefaultPhase(
-                "Specify Operands",
-                "Specify logarithm equation values.",
+                "Specify Arguments",
+                "Specify logarithm arguments.",
                 new AgnosticValue(0.0, new ValueInfo("Argument", "Argument of the logarithm.")),
                 new AgnosticValue(10.0, new ValueInfo("Base", "Base of the logarithm.")));
 
