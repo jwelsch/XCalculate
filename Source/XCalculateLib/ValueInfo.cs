@@ -2,8 +2,8 @@
 {
     public class ValueInfo : BaseValueInfo
     {
-        public ValueInfo(string name = null, string description = null, string unitName = null)
-            : base(name, description, unitName)
+        public ValueInfo(string name = null, string description = null, IUnit unit = null)
+            : base(name, description, unit)
         {
         }
     }

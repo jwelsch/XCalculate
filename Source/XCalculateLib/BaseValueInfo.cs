@@ -12,16 +12,16 @@
             get;
         }
 
-        public string UnitName
+        public IUnit Unit
         {
             get;
         }
 
-        protected BaseValueInfo(string name = null, string description = null, string unitName = null)
+        protected BaseValueInfo(string name = null, string description = null, IUnit unit = null)
         {
             this.Name = name ?? string.Empty;
             this.Description = description ?? string.Empty;
-            this.UnitName = unitName ?? string.Empty;
+            this.Unit = unit;
         }
     }
 }

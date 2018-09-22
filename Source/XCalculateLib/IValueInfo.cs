@@ -12,7 +12,7 @@
             get;
         }
 
-        string UnitName
+        IUnit Unit
         {
             get;
         }

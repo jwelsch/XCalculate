@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "XCalculateManagerLib.Tests.Functional": {
+      "commandName": "Project"
+    }
+  }
+}
