@@ -3,6 +3,7 @@ using XCalculateLib;
 
 namespace MathCalculators
 {
+    [Function]
     public class DivideFunction : BaseFunction
     {
         public DivideFunction()

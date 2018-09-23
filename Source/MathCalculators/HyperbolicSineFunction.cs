@@ -3,6 +3,7 @@ using XCalculateLib;
 
 namespace MathCalculators
 {
+    [Function]
     public class HyperbolicSineFunction : BaseFunction
     {
         public HyperbolicSineFunction()

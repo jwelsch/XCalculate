@@ -3,6 +3,7 @@ using XCalculateLib;
 
 namespace MathCalculators
 {
+    [Function]
     public class ArccotangentFunction : BaseFunction
     {
         public ArccotangentFunction()

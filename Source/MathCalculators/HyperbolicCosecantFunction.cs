@@ -3,6 +3,7 @@ using XCalculateLib;
 
 namespace MathCalculators
 {
+    [Function]
     public class HyperbolicCosecantFunction : BaseFunction
     {
         public HyperbolicCosecantFunction()

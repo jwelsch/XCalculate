@@ -3,6 +3,7 @@ using XCalculateLib;
 
 namespace MathCalculators
 {
+    [Function]
     public class HyperbolicArccosineFunction : BaseFunction
     {
         public HyperbolicArccosineFunction()
