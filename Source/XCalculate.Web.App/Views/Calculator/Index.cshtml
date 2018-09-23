@@ -1,8 +1,43 @@
-﻿@model CalculatorIndexViewModel
+﻿@model CalculatorIndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
+@Html.AntiForgeryToken()
+
 <h2>@Model.Name - @Model.Id</h2>
 
+<p>@Model.Description</p>
+
+<div>
+    Argument 1: <input id="argument1" type="text" />
+    <br />
+    Argument 2: <input id="argument2" type="text" />
+    <p>
+        <input type="button" value="Calculate" onclick="onClickSubmit()" />
+    </p>
+    <p>
+        Result: <input id="calculationResult" type="text" readonly />
+    </p>
+</div>
+
+<script type="text/javascript">
+    function onClickSubmit() {
+        $.ajax({
+            url: "/Calculator/@Model.Id/Calculate",
+            type: "GET",
+            headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: {
+                argument1: $("#argument1").val(),
+                argument2: $("#argument2").val()
+            }
+        })
+        .done(function (result) {
+            $("#calculationResult").val(result.value);
+        });
+    }
+</script>

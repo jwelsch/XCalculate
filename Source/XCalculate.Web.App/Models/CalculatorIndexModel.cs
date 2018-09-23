@@ -1,6 +1,6 @@
 ﻿namespace XCalculate.Web.App.Models
 {
-    public class CalculatorIndexViewModel
+    public class CalculatorIndexModel
     {
         public int Id
         {
@@ -9,6 +9,12 @@
         }
 
         public string Name
+        {
+            get;
+            set;
+        }
+
+        public string Description
         {
             get;
             set;
