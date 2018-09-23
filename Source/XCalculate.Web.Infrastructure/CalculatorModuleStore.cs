@@ -53,7 +53,12 @@ namespace XCalculate.Web.Infrastructure
             var factory = new CalculatorModuleFactory();
             var modules = factory.CreateFromDirectories(calculatorDirectory);
 
-            int id = 0;
+            foreach (var module in modules)
+            {
+                System.Diagnostics.Trace.WriteLine($"Loaded module: {module.Function.FunctionInfo.Name}");
+            }
+
+            var id = 0;
 
             repository.UpdateStore(modules.Select(i => new Calculator(++id, i)));
         }
