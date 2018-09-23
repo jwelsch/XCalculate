@@ -21,6 +21,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalculateManagerLib.Tests.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathCalculators.Tests.Functional", "Tests\MathCalculators.Tests.Functional\MathCalculators.Tests.Functional.csproj", "{A4C710CB-C14F-44EB-9E30-02BA24AFF899}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCalculate.Web.App", "Source\XCalculate.Web.App\XCalculate.Web.App.csproj", "{BAAE785B-7802-4FF2-8F0C-CBE119D49D3E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalculate.Web.Core", "Source\XCalculate.Web.Core\XCalculate.Web.Core.csproj", "{0AF0C2D2-26F2-4658-B7A0-B38A4DD793E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCalculate.Web.Infrastructure", "Source\XCalculate.Web.Infrastructure\XCalculate.Web.Infrastructure.csproj", "{C10C8AFC-10B0-47FE-8334-9DBFF041AE30}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B58F7BAC-D70B-41ED-992A-0A2B2BFC2A74}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +66,18 @@ Global
 		{A4C710CB-C14F-44EB-9E30-02BA24AFF899}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4C710CB-C14F-44EB-9E30-02BA24AFF899}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4C710CB-C14F-44EB-9E30-02BA24AFF899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAAE785B-7802-4FF2-8F0C-CBE119D49D3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAAE785B-7802-4FF2-8F0C-CBE119D49D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAAE785B-7802-4FF2-8F0C-CBE119D49D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAAE785B-7802-4FF2-8F0C-CBE119D49D3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AF0C2D2-26F2-4658-B7A0-B38A4DD793E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AF0C2D2-26F2-4658-B7A0-B38A4DD793E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AF0C2D2-26F2-4658-B7A0-B38A4DD793E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AF0C2D2-26F2-4658-B7A0-B38A4DD793E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C10C8AFC-10B0-47FE-8334-9DBFF041AE30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C10C8AFC-10B0-47FE-8334-9DBFF041AE30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C10C8AFC-10B0-47FE-8334-9DBFF041AE30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C10C8AFC-10B0-47FE-8334-9DBFF041AE30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +90,9 @@ Global
 		{5160093B-4B98-45F6-A05E-66ACC4021B1A} = {D7062567-9C24-4F94-B99F-B78A0C48DEE9}
 		{E6ACB30F-FB50-4B85-A415-40458D8926F0} = {D7062567-9C24-4F94-B99F-B78A0C48DEE9}
 		{A4C710CB-C14F-44EB-9E30-02BA24AFF899} = {D7062567-9C24-4F94-B99F-B78A0C48DEE9}
+		{BAAE785B-7802-4FF2-8F0C-CBE119D49D3E} = {67E40D18-BD49-4101-9CB6-E2CFB28284AE}
+		{0AF0C2D2-26F2-4658-B7A0-B38A4DD793E4} = {67E40D18-BD49-4101-9CB6-E2CFB28284AE}
+		{C10C8AFC-10B0-47FE-8334-9DBFF041AE30} = {67E40D18-BD49-4101-9CB6-E2CFB28284AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B9FEE5D5-4CEC-46D9-BCAC-7BFCFA44932C}
