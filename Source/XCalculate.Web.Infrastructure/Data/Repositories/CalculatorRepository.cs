@@ -8,9 +8,9 @@ namespace XCalculate.Web.Infrastructure.Data.Repositories
     {
         private readonly List<ICalculator> calculators = new List<ICalculator>();
 
-        public IEnumerable<string> GetNames()
+        public IList<ICalculator> GetAll()
         {
-            return this.calculators.Select(i => i.Module.Function.FunctionInfo.Name);
+            return this.calculators;
         }
 
         public ICalculator GetById(int id)

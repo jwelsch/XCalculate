@@ -5,14 +5,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using XCalculate.Web.App.Models;
+using XCalculate.Web.Core.Interfaces;
 
 namespace XCalculate.Web.App.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ICalculatorService calculatorService;
+
+        public HomeController(ICalculatorService calculatorService)
+        {
+            this.calculatorService = calculatorService;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var calculators = this.calculatorService.GetAll();
+            var viewModel = new HomeIndexViewModel()
+            {
+                CalculatorNames = calculators.Select(i => i.Module.Function.FunctionInfo.Name).ToList()
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult About()

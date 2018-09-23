@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using XCalculate.Web.Core.Interfaces;
+using XCalculate.Web.Core.Services;
 using XCalculate.Web.Infrastructure;
 
 namespace XCalculate.Web.App
@@ -32,10 +34,11 @@ namespace XCalculate.Web.App
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.InitializeCalculatorStore(this.Configuration["CalculatorDirectory"]);
+            var calculatorRepository = services.InitializeCalculatorStore(this.Configuration["CalculatorDirectory"]);
+
+            services.AddSingleton<ICalculatorService>(s => new CalculatorService(calculatorRepository));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

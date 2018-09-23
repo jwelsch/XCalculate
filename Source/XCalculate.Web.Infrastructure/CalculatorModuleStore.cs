@@ -12,7 +12,7 @@ namespace XCalculate.Web.Infrastructure
     {
         public static FileSystemWatcher FileSystemWatcher;
 
-        public static void InitializeCalculatorStore(this IServiceCollection services, string calculatorDirectory)
+        public static ICalculatorRepository InitializeCalculatorStore(this IServiceCollection services, string calculatorDirectory)
         {
             var di = Directory.CreateDirectory(calculatorDirectory);
             var fullDirectoryPath = di.FullName;
@@ -46,6 +46,8 @@ namespace XCalculate.Web.Infrastructure
             LoadRepository(repository, fullDirectoryPath);
 
             services.AddSingleton<ICalculatorRepository>(repository);
+
+            return repository;
         }
 
         private static void LoadRepository(CalculatorRepository repository, string calculatorDirectory)
