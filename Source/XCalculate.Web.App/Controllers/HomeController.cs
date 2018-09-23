@@ -18,17 +18,28 @@ namespace XCalculate.Web.App.Controllers
             this.calculatorService = calculatorService;
         }
 
+        [Route("")]
+        [Route("[controller]/[action]")]
+        [HttpGet]
         public IActionResult Index()
         {
+            var url = Url.Action("Index", "Calculator", new { id = 1 });
+
             var calculators = this.calculatorService.GetAll();
             var viewModel = new HomeIndexViewModel()
             {
-                CalculatorNames = calculators.Select(i => i.Module.Function.FunctionInfo.Name).ToList()
+                CalculatorLinks = calculators.Select(i =>
+                    new CalculatorLink(
+                        i.Module.Function.FunctionInfo.Name,
+                        new Uri(Url.Action("Index", "Calculator", new { id = i.Id }), UriKind.Relative)
+                )).ToList()
             };
 
             return View(viewModel);
         }
 
+        [Route("[controller]/[action]")]
+        [HttpGet]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -36,6 +47,8 @@ namespace XCalculate.Web.App.Controllers
             return View();
         }
 
+        [Route("[controller]/[action]")]
+        [HttpGet]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
@@ -43,11 +56,15 @@ namespace XCalculate.Web.App.Controllers
             return View();
         }
 
+        [Route("[controller]/[action]")]
+        [HttpGet]
         public IActionResult Privacy()
         {
             return View();
         }
 
+        [Route("[controller]/[action]")]
+        [HttpGet]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

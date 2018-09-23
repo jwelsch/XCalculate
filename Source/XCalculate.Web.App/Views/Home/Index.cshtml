@@ -6,10 +6,10 @@
 
 <div>
     <ul>
-        @foreach (var name in Model.CalculatorNames)
+        @foreach (var link in Model.CalculatorLinks)
         {
             <li>
-                @name
+                <a href="@link.Uri.ToString()">@link.Text</a>
             </li>
         }
     </ul>
