@@ -32,6 +32,7 @@ namespace XCalculate.Web.App.Controllers
         }
 
         [Route("{id}/Calculate")]
+        [AutoValidateAntiforgeryToken]
         [HttpGet]
         public IActionResult Calculate(int id, Dictionary<string, string> parameters)
         {
