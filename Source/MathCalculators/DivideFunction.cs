@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using XCalculateLib;
 
 namespace MathCalculators
@@ -19,25 +20,15 @@ namespace MathCalculators
                 new AgnosticArrayValue(
                     null,
                     new ValueInfo("Operands", "Operands to divide."),
-                    i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true));
+                    i => i == null
+                        || ((i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true)
+                        && (TypeConverter.ToArray<double[]>(i).Skip(1).Contains(0) ? throw new DivideByZeroException() : true))));
 
             var values = DoPhase(phaseHandler, phase);
 
-            var arrayValues = ((AgnosticArrayValue)values[0]).ToArray<double[]>();
+            var arrayValues = GetValues<double[]>(values[0]);
 
-            var quotient = TypeConverter.ToObject<double>(arrayValues[0]);
-
-            for (var i = 1; i < arrayValues.Length; i++)
-            {
-                var divisor = TypeConverter.ToObject<double>(arrayValues[i]);
-
-                if (divisor == 0)
-                {
-                    throw new DivideByZeroException();
-                }
-
-                quotient /= divisor;
-            }
+            var quotient = arrayValues.Aggregate((x, y) => x / y);
 
             return new AgnosticValue(quotient);
         }

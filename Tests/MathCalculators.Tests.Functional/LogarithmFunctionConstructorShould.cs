@@ -1,5 +1,4 @@
-﻿using MathCalculators;
-using Xunit;
+﻿using Xunit;
 
 namespace MathCalculators.Tests.Functional
 {

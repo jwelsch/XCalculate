@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using XCalculateLib;
 
 namespace MathCalculators
@@ -7,20 +8,13 @@ namespace MathCalculators
     public class Int32SimpleAddFunction : BaseSimpleFunction<int>
     {
         public Int32SimpleAddFunction()
-            : base(new FunctionInfo(new Version("1.0.0"), "Simple Add", "Add numbers together.", "add"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Simple Add", "Add numbers.", "add"))
         {
         }
 
         public override int Calculate(params int[] values)
         {
-            var result = 0;
-
-            foreach (var value in values)
-            {
-                result += value;
-            }
-
-            return result;
+            return values.Aggregate((x, y) => x + y);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using MathCalculators;
-using System;
+﻿using System;
 using XCalculateLib;
 using Xunit;
 
@@ -12,10 +11,7 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new NaturalLogarithmFunction();
 
-            var result = function.Calculate(p =>
-            {
-                return p.Inputs;
-            });
+            var result = function.Calculate(null);
 
             Assert.Equal(typeof(double), result.ValueType);
             Assert.Equal(0, TypeConverter.ToObject<int>(result.Value));
@@ -29,8 +25,6 @@ namespace MathCalculators.Tests.Functional
             var result = function.Calculate(p =>
             {
                 p.Inputs[0].Value = 27.3;
-
-                return p.Inputs;
             });
 
             Assert.Equal(typeof(double), result.ValueType);
@@ -47,8 +41,6 @@ namespace MathCalculators.Tests.Functional
                 var result = function.Calculate(p =>
                 {
                     p.Inputs[0].Value = 0;
-
-                    return p.Inputs;
                 });
             });
         }
@@ -63,8 +55,6 @@ namespace MathCalculators.Tests.Functional
                 var result = function.Calculate(p =>
                 {
                     p.Inputs[0].Value = -9;
-
-                    return p.Inputs;
                 });
             });
         }

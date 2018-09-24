@@ -25,11 +25,11 @@ namespace MathCalculators
 
             var values = DoPhase(phaseHandler, phase);
 
-            var z = TypeConverter.ToObject<double>(values[0].Value);
+            var z = GetValue<double>(values[0]);
 
-            var factorial = Gamma(z);
+            var result = Gamma(z);
 
-            return new AgnosticValue(factorial.Real);
+            return new AgnosticValue(result.Real);
         }
 
         public static Complex Gamma(Complex z)

@@ -1,5 +1,4 @@
-﻿using MathCalculators;
-using System;
+﻿using System;
 using XCalculateLib;
 using Xunit;
 
@@ -15,8 +14,6 @@ namespace MathCalculators.Tests.Functional
             var result = function.Calculate(p =>
             {
                 p.Inputs[0].Value = 5;
-
-                return p.Inputs;
             });
 
             Assert.Equal(typeof(double), result.ValueType);
@@ -31,8 +28,6 @@ namespace MathCalculators.Tests.Functional
             var result = function.Calculate(p =>
             {
                 p.Inputs[0].Value = 5.5;
-
-                return p.Inputs;
             });
 
             Assert.Equal(typeof(double), result.ValueType);
@@ -47,8 +42,6 @@ namespace MathCalculators.Tests.Functional
             var result = function.Calculate(p =>
             {
                 p.Inputs[0].Value = 0;
-
-                return p.Inputs;
             });
 
             Assert.Equal(typeof(double), result.ValueType);
@@ -65,8 +58,6 @@ namespace MathCalculators.Tests.Functional
                 var result = function.Calculate(p =>
                 {
                     p.Inputs[0].Value = -5;
-
-                    return p.Inputs;
                 });
             });
         }

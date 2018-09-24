@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using XCalculateLib;
 
 namespace MathCalculators
@@ -23,14 +24,9 @@ namespace MathCalculators
 
             var values = DoPhase(phaseHandler, phase);
 
-            var arrayValues = ((AgnosticArrayValue)values[0]).ToArray<double[]>();
+            var arrayValues = GetValues<double[]>(values[0]);
 
-            var sum = 0.0;
-
-            foreach (var value in arrayValues)
-            {
-                sum += value;
-            }
+            var sum = arrayValues.Aggregate((x, y) => x + y);
 
             return new AgnosticValue(sum);
         }

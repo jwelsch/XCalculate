@@ -21,11 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalculateManagerLib.Tests.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathCalculators.Tests.Functional", "Tests\MathCalculators.Tests.Functional\MathCalculators.Tests.Functional.csproj", "{A4C710CB-C14F-44EB-9E30-02BA24AFF899}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCalculate.Web.App", "Source\XCalculate.Web.App\XCalculate.Web.App.csproj", "{BAAE785B-7802-4FF2-8F0C-CBE119D49D3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalculate.Web.App", "Source\XCalculate.Web.App\XCalculate.Web.App.csproj", "{BAAE785B-7802-4FF2-8F0C-CBE119D49D3E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalculate.Web.Core", "Source\XCalculate.Web.Core\XCalculate.Web.Core.csproj", "{0AF0C2D2-26F2-4658-B7A0-B38A4DD793E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCalculate.Web.Infrastructure", "Source\XCalculate.Web.Infrastructure\XCalculate.Web.Infrastructure.csproj", "{C10C8AFC-10B0-47FE-8334-9DBFF041AE30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalculate.Web.Infrastructure", "Source\XCalculate.Web.Infrastructure\XCalculate.Web.Infrastructure.csproj", "{C10C8AFC-10B0-47FE-8334-9DBFF041AE30}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B58F7BAC-D70B-41ED-992A-0A2B2BFC2A74}"
 	ProjectSection(SolutionItems) = preProject

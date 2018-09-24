@@ -20,7 +20,7 @@ namespace MathCalculators
 
             var values = DoPhase(phaseHandler, phase);
 
-            var result = 1.0 / Math.Tanh(TypeConverter.ToObject<double>(values[0].Value));
+            var result = 1.0 / Math.Tanh(GetValue<double>(values[0]));
 
             return new AgnosticValue(result);
         }

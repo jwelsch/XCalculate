@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using XCalculateLib;
 
 namespace MathCalculators
@@ -23,7 +22,7 @@ namespace MathCalculators
 
             var values = DoPhase(phaseHandler, phase);
 
-            var result = Math.Pow(TypeConverter.ToObject<double>(values[0].Value), TypeConverter.ToObject<double>(values[1].Value));
+            var result = Math.Pow(GetValue<double>(values[0]), GetValue<double>(values[1]));
 
             return new AgnosticValue(result);
         }

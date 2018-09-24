@@ -1,5 +1,3 @@
-using System;
-
 namespace XCalculate.Web.App.Models
 {
     public class ErrorViewModel
