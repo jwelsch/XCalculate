@@ -21,7 +21,7 @@ namespace MathCalculators
 
             var values = DoPhase(phaseHandler, phase);
 
-            var result = Math.Log(TypeConverter.ToObject<double>(values[0].Value), TypeConverter.ToObject<double>(values[1].Value));
+            var result = Math.Log(GetValue<double>(values[0]), GetValue<double>(values[1]));
 
             return new AgnosticValue(result);
         }

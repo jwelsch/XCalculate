@@ -20,7 +20,7 @@ namespace MathCalculators
 
             var values = DoPhase(phaseHandler, phase);
 
-            var result = Math.Atan(TypeConverter.ToObject<double>(values[0].Value));
+            var result = Math.Atan(GetValue<double>(values[0]));
 
             return new AgnosticValue(result);
         }

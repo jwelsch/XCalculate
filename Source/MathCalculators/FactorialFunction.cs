@@ -22,7 +22,7 @@ namespace MathCalculators
 
             var values = DoPhase(phaseHandler, phase);
 
-            var n = TypeConverter.ToObject<double>(values[0].Value);
+            var n = GetValue<double>(values[0]);
 
             var factorial = GammaFunction.Gamma(new Complex(n + 1.0, 0.0));
 

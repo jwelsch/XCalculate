@@ -21,10 +21,7 @@ namespace MathCalculators
 
             var values = DoPhase(phaseHandler, phase);
 
-            var a = TypeConverter.ToObject<double>(values[0].Value);
-            var n = TypeConverter.ToObject<double>(values[1].Value);
-
-            var remainder = Math.IEEERemainder(a, n);
+            var remainder = Math.IEEERemainder(GetValue<double>(values[0]), GetValue<double>(values[1]));
 
             return new AgnosticValue(remainder);
         }

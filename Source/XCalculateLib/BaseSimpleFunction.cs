@@ -19,23 +19,25 @@ namespace XCalculateLib
 
         public IValue Calculate(PhaseHandler phaseHandler)
         {
-            var results = phaseHandler?.Invoke(new Phase(new IValue[] { new ArrayValue<T[]>(new T[0]) }));
+            var phase = new Phase(new IValue[] { new ArrayValue<T[]>(new T[0]) });
+
+            phaseHandler?.Invoke(phase);
 
             ArrayValue<T> valueArray = null;
             var once = false;
 
-            foreach (var r in results)
+            foreach (var i in phase.Inputs)
             {
                 if (once)
                 {
                     throw new InvalidOperationException("More than one value returned from phase.");
                 }
 
-                valueArray = r as ArrayValue<T>;
+                valueArray = i as ArrayValue<T>;
 
                 if (valueArray == null)
                 {
-                    throw new InvalidOperationException($"Phase returned type {r.GetType()}, which could not be cast to {typeof(ArrayValue<T>)}.");
+                    throw new InvalidOperationException($"Phase returned type {i.GetType()}, which could not be cast to {typeof(ArrayValue<T>)}.");
                 }
 
                 once = true;

@@ -21,7 +21,7 @@ namespace MathCalculators
 
             var values = DoPhase(phaseHandler, phase);
 
-            var result = Math.Pow(TypeConverter.ToObject<double>(values[0].Value), 1.0 / TypeConverter.ToObject<double>(values[1].Value));
+            var result = Math.Pow(GetValue<double>(values[0]), 1.0 / GetValue<double>(values[1]));
 
             return new AgnosticValue(result);
         }
