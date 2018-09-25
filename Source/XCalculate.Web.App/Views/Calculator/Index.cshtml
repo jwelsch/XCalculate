@@ -11,11 +11,12 @@
 <p>@Model.Description</p>
 
 <div>
+    <vc:input-value-control calculator-id="1" on-input-callback="onValueInput" />
     Argument 1: <input id="argument1" type="text" />
     <br />
     Argument 2: <input id="argument2" type="text" />
     <p>
-        <input type="button" value="Calculate" onclick="onClickSubmit()" />
+        <input type="button" value="Calculate" onclick="onClickSubmit();" />
     </p>
     <p>
         Result: <input id="calculationResult" type="text" readonly />
@@ -39,5 +40,9 @@
         .done(function (result) {
             $("#calculationResult").val(result.value);
         });
+    }
+
+    function onValueInput(e) {
+        console.log("onValueInput - e: " + JSON.stringify(e));
     }
 </script>
