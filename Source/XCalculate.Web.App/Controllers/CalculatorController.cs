@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using XCalculate.Web.App.Models;
 using XCalculate.Web.Core.Interfaces;
 using XCalculateLib;
@@ -44,8 +46,6 @@ namespace XCalculate.Web.App.Controllers
                 {
                     p.Inputs[i].Value = TypeConverter.ToArray<double[]>(parameters.Select(kv => kv.Value).ToArray());
                 }
-
-                return p.Inputs;
             });
 
             return Json(new { result.Value, result.ValueType });
