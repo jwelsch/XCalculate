@@ -11,18 +11,14 @@ namespace MathCalculators
         {
         }
 
-        public override IValue Calculate(PhaseHandler phaseHandler)
+        public override IPhase Calculate(IPhase currentPhase = null)
         {
-            var phase = new Phase(
-                "Specify Argument",
-                "Specify natural logarithm argument.",
-                new AgnosticValue(1.0, new ValueInfo("Argument", "Argument of the natural logarithm."), i => TypeConverter.ToObject<double>(i) > 0.0));
-
-            var values = DoPhase(phaseHandler, phase);
-
-            var result = Math.Log(GetValue<double>(values[0]));
-
-            return new AgnosticValue(result);
+            return this.SingleCalculate(currentPhase,
+                new FirstPhase(
+                    "Specify Arguments",
+                    "Specify natural logarithm argument.",
+                    new AgnosticValue(1.0, new ValueInfo("Argument", "Argument to the natural logarithm."), i => TypeConverter.ToObject<double>(i) > 0.0)),
+                v => Math.Log(GetValue<double>(v[0])));
         }
     }
 }

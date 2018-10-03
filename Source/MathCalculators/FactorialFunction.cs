@@ -12,21 +12,14 @@ namespace MathCalculators
         {
         }
 
-        public override IValue Calculate(PhaseHandler phaseHandler)
+        public override IPhase Calculate(IPhase currentPhase = null)
         {
-            var phase = new Phase(
-                "Specify Argument",
-                "Argument for the gamma function.",
-                new AgnosticValue(0.0, new ValueInfo("n", "Value to the factorial function."),
-                i => TypeConverter.ToObject<double>(i) >= 0.0));
-
-            var values = DoPhase(phaseHandler, phase);
-
-            var n = GetValue<double>(values[0]);
-
-            var factorial = GammaFunction.Gamma(new Complex(n + 1.0, 0.0));
-
-            return new AgnosticValue(factorial.Real);
+            return this.SingleCalculate(currentPhase,
+                new FirstPhase(
+                    "Specify Argument",
+                    "Argument for the factorial function.",
+                    new AgnosticValue(new ValueInfo("n", "Value to the factorial function."), i => TypeConverter.ToObject<double>(i) >= 0.0)),
+                v => GammaFunction.Gamma(new Complex(GetValue<double>(v[0]) + 1.0, 0.0)).Real);
         }
     }
 }

@@ -8,6 +8,13 @@ namespace XCalculateLib
             get;
         }
 
-        IValue Calculate(PhaseHandler phaseHandler);
+        //IValue Calculate(PhaseHandler phaseHandler);
+
+        IPhase Calculate(IPhase currentPhase = null);
+
+        IValue[] CurrentResult
+        {
+            get;
+        }
     }
 }

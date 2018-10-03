@@ -15,21 +15,14 @@ namespace MathCalculators
         {
         }
 
-        public override IValue Calculate(PhaseHandler phaseHandler)
+        public override IPhase Calculate(IPhase currentPhase = null)
         {
-            var phase = new Phase(
-                "Specify Argument",
-                "Argument for the gamma function.",
-                new AgnosticValue(0.0, new ValueInfo("z", "Value to the gamma function."),
-                i => TypeConverter.ToObject<double>(i) >= 0.0));
-
-            var values = DoPhase(phaseHandler, phase);
-
-            var z = GetValue<double>(values[0]);
-
-            var result = Gamma(z);
-
-            return new AgnosticValue(result.Real);
+            return this.SingleCalculate(currentPhase,
+                new FirstPhase(
+                    "Specify Argument",
+                    "Argument for the gamma function.",
+                    new AgnosticValue(new ValueInfo("z", "Value to the gamma function."), i => TypeConverter.ToObject<double>(i) >= 0.0)),
+                v => Gamma(GetValue<double>(v)).Real);
         }
 
         public static Complex Gamma(Complex z)

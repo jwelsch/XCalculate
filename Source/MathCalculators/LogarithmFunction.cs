@@ -11,19 +11,15 @@ namespace MathCalculators
         {
         }
 
-        public override IValue Calculate(PhaseHandler phaseHandler)
+        public override IPhase Calculate(IPhase currentPhase = null)
         {
-            var phase = new Phase(
-                "Specify Arguments",
-                "Specify logarithm arguments.",
-                new AgnosticValue(0.0, new ValueInfo("Argument", "Argument of the logarithm.")),
-                new AgnosticValue(10.0, new ValueInfo("Base", "Base of the logarithm.")));
-
-            var values = DoPhase(phaseHandler, phase);
-
-            var result = Math.Log(GetValue<double>(values[0]), GetValue<double>(values[1]));
-
-            return new AgnosticValue(result);
+            return this.SingleCalculate(currentPhase,
+                new FirstPhase(
+                    "Specify Arguments",
+                    "Specify logarithm arguments.",
+                    new AgnosticValue(0.0, new ValueInfo("Argument", "Argument of the logarithm.")),
+                    new AgnosticValue(10.0, new ValueInfo("Base", "Base of the logarithm."))),
+                v => Math.Log(GetValue<double>(v[0]), GetValue<double>(v[1])));
         }
     }
 }

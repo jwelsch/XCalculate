@@ -27,5 +27,10 @@ namespace XCalculateLib
             : base(value, info, validator)
         {
         }
+
+        public AgnosticValue(IValueInfo info = null, ValueValidator<object> validator = null)
+            : base(null, info, validator)
+        {
+        }
     }
 }

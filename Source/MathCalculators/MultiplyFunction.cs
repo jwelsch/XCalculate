@@ -12,23 +12,16 @@ namespace MathCalculators
         {
         }
 
-        public override IValue Calculate(PhaseHandler phaseHandler)
+        public override IPhase Calculate(IPhase currentPhase = null)
         {
-            var phase = new Phase(
-                "Specify Operands",
-                "Specify numbers to multiply.",
-                new AgnosticArrayValue(
-                    null,
-                    new ValueInfo("Operands", "Operands to multiply."),
-                    i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true));
-
-            var values = DoPhase(phaseHandler, phase);
-
-            var arrayValues = GetValues<double[]>(values[0]);
-
-            var product = arrayValues.Aggregate((x, y) => x * y);
-
-            return new AgnosticValue(product);
+            return this.SingleCalculate(currentPhase,
+                new FirstPhase(
+                    "Specify Operands",
+                    "Specify numbers to multiply.",
+                    new AgnosticArrayValue(
+                        new ValueInfo("Operands", "Operands to multiply."),
+                        i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true)),
+                v => GetValues<double[]>(v).Aggregate((x, y) => x * y));
         }
     }
 }

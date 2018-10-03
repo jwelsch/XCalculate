@@ -1,46 +1,53 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace XCalculateLib
 {
     public class Phase : IPhase
     {
-        private readonly List<IValue> inputs;
+        public int Id
+        {
+            get;
+        }
 
         public string Name
         {
             get;
-            private set;
         }
 
         public string Description
         {
             get;
-            private set;
         }
 
-        public IReadOnlyList<IValue> Inputs
+        public bool IsFinal
         {
-            get
-            {
-                return this.inputs;
-            }
+            get;
         }
 
-        public Phase(IEnumerable<IValue> inputs)
+        public IValue[] Inputs
         {
-            this.inputs = new List<IValue>(inputs);
+            get;
         }
 
-        public Phase(string name, string description, params IValue[] inputs)
-            : this(name, description, new List<IValue>(inputs))
+        public IValue[] Results
+        {
+            get;
+        }
+
+        public Phase(IEnumerable<IValue> inputs, IEnumerable<IValue> results)
+            : this(0, null, null, true, inputs, results)
         {
         }
 
-        public Phase(string name, string description, IEnumerable<IValue> inputs)
-            : this(inputs)
+        public Phase(int id, string name, string description, bool isFinal, IEnumerable<IValue> inputs, IEnumerable<IValue> results)
         {
+            this.Id = id;
             this.Name = name;
             this.Description = description;
+            this.IsFinal = isFinal;
+            this.Inputs = inputs?.ToArray();
+            this.Results = results?.ToArray();
         }
     }
 }

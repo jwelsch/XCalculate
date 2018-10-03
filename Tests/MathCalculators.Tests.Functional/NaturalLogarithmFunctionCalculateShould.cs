@@ -11,10 +11,27 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new NaturalLogarithmFunction();
 
-            var result = function.Calculate(null);
+            var phase = function.Calculate();
 
-            Assert.Equal(typeof(double), result.ValueType);
-            Assert.Equal(0, TypeConverter.ToObject<int>(result.Value));
+            Assert.NotNull(phase);
+            Assert.Equal("Specify Arguments", phase.Name);
+            Assert.Equal("Specify natural logarithm argument.", phase.Description);
+            Assert.Collection(phase.Inputs,
+                i =>
+                {
+                    Assert.Equal("Argument", i.Info.Name);
+                    Assert.Equal("Argument to the natural logarithm.", i.Info.Description);
+                    Assert.Null(i.Info.Unit);
+                });
+
+            Assert.Null(function.Calculate(phase));
+
+            Assert.Collection(function.CurrentResult,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(0, TypeConverter.ToObject<int>(i.Value));
+                });
         }
 
         [Fact]
@@ -22,13 +39,18 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new NaturalLogarithmFunction();
 
-            var result = function.Calculate(p =>
-            {
-                p.Inputs[0].Value = 27.3;
-            });
+            var phase = function.Calculate();
 
-            Assert.Equal(typeof(double), result.ValueType);
-            Assert.Equal(3.3068867021909143, TypeConverter.ToObject<double>(result.Value));
+            phase.Inputs[0].Value = 27.3;
+
+            function.Calculate(phase);
+
+            Assert.Collection(function.CurrentResult,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(3.3068867021909143, TypeConverter.ToObject<double>(i.Value));
+                });
         }
 
         [Fact]
@@ -36,12 +58,11 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new NaturalLogarithmFunction();
 
+            var phase = function.Calculate();
+
             Assert.Throws<ArgumentException>(() =>
             {
-                var result = function.Calculate(p =>
-                {
-                    p.Inputs[0].Value = 0;
-                });
+                phase.Inputs[0].Value = 0;
             });
         }
 
@@ -50,12 +71,11 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new NaturalLogarithmFunction();
 
+            var phase = function.Calculate();
+
             Assert.Throws<ArgumentException>(() =>
             {
-                var result = function.Calculate(p =>
-                {
-                    p.Inputs[0].Value = -9;
-                });
+                phase.Inputs[0].Value = -1;
             });
         }
     }

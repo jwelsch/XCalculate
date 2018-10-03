@@ -372,7 +372,7 @@ namespace XCalculateLib.Tests.Unit
             var value = ValueTypeMapper.TypeToValue(typeof(string));
 
             Assert.NotNull(value as StringValue);
-            Assert.Equal(string.Empty, value.Value);
+            Assert.Null(value.Value);
         }
 
         [Fact]

@@ -38,17 +38,18 @@ namespace XCalculate.Web.App.Controllers
         [HttpGet]
         public IActionResult Calculate(int id, Dictionary<string, string> parameters)
         {
-            var calculator = this.calculatorService.GetById(id);
+            //var calculator = this.calculatorService.GetById(id);
 
-            var result = calculator.Module.Function.Calculate(p =>
-            {
-                for (var i = 0; i <p.Inputs.Count; i++)
-                {
-                    p.Inputs[i].Value = TypeConverter.ToArray<double[]>(parameters.Select(kv => kv.Value).ToArray());
-                }
-            });
+            //var result = calculator.Module.Function.Calculate(p =>
+            //{
+            //    for (var i = 0; i <p.Inputs.Count; i++)
+            //    {
+            //        p.Inputs[i].Value = TypeConverter.ToArray<double[]>(parameters.Select(kv => kv.Value).ToArray());
+            //    }
+            //});
 
-            return Json(new { result.Value, result.ValueType });
+            //return Json(new { result.Value, result.ValueType });
+            return View();
         }
     }
 }

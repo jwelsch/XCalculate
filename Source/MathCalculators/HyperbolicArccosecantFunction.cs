@@ -4,10 +4,10 @@ using XCalculateLib;
 namespace MathCalculators
 {
     [Function]
-    public class HyperbolicArccosineFunction : BaseFunction
+    public class HyperbolicArccosecantFunction : BaseFunction
     {
-        public HyperbolicArccosineFunction()
-            : base(new FunctionInfo(new Version("1.0.0"), "Hyperbolic Arccosine", "Find the hyperbolic arccosine of an angle.", "hyperbolic", "arccosine", "arccosh"))
+        public HyperbolicArccosecantFunction()
+            : base(new FunctionInfo(new Version("1.0.0"), "Hyperbolic Arccosecant", "Find the hyperbolic arccosecant of an angle.", "hyperbolic", "arccosecant", "arccsch"))
         {
         }
 
@@ -16,9 +16,9 @@ namespace MathCalculators
             return this.SingleCalculate(currentPhase,
                 new FirstPhase(
                     "Specify Argument",
-                    "Specify angle to find the hyperbolic arccosine of.",
+                    "Specify angle to find the hyperbolic arccosecant of.",
                     new AgnosticValue(new ValueInfo("Angle", null, new RadianUnit()))),
-                v => Math.Acosh(GetValue<double>(v)));
+                v => 1.0 / Math.Acosh(GetValue<double>(v)));
         }
     }
 }

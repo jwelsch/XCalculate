@@ -11,19 +11,15 @@ namespace MathCalculators
         {
         }
 
-        public override IValue Calculate(PhaseHandler phaseHandler)
+        public override IPhase Calculate(IPhase currentPhase = null)
         {
-            var phase = new Phase(
-                "Specify Operands",
-                "Specify the operands of the modulo operation.",
-                new AgnosticValue(0.0, new ValueInfo("a", "Dividend value.")),
-                new AgnosticValue(1.0, new ValueInfo("n", "Divisor value."), i => TypeConverter.ToObject<double>(i) == 0.0 ? throw new DivideByZeroException("The divisor cannot be zero.") : true));
-
-            var values = DoPhase(phaseHandler, phase);
-
-            var remainder = Math.IEEERemainder(GetValue<double>(values[0]), GetValue<double>(values[1]));
-
-            return new AgnosticValue(remainder);
+            return this.SingleCalculate(currentPhase,
+                new FirstPhase(
+                    "Specify Operands",
+                    "Specify the operands of the modulo operation.",
+                    new AgnosticValue(0.0, new ValueInfo("a", "Dividend value.")),
+                    new AgnosticValue(1.0, new ValueInfo("n", "Divisor value."), i => TypeConverter.ToObject<double>(i) == 0.0 ? throw new DivideByZeroException("The divisor cannot be zero.") : true)),
+                v => Math.IEEERemainder(GetValue<double>(v[0]), GetValue<double>(v[1])));
         }
     }
 }

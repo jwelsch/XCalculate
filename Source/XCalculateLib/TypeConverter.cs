@@ -32,6 +32,11 @@ namespace XCalculateLib
                 throw new ArgumentNullException(nameof(toType));
             }
 
+            if (value == null)
+            {
+                return toType.IsValueType ? Activator.CreateInstance(toType) : null;
+            }
+
             if (value != null && value.GetType() == toType)
             {
                 return value;
