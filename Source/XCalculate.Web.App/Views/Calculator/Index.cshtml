@@ -1,7 +1,7 @@
 ﻿@model CalculatorIndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = @Model.Name;
 }
 
 @Html.AntiForgeryToken()
@@ -9,6 +9,15 @@
 <h2>@Model.Name - @Model.Id</h2>
 
 <p>@Model.Description</p>
+
+<p>
+    <ul>
+        @foreach (var tag in Model.Tags)
+        {
+            <li>@tag</li>
+        }
+    </ul>
+</p>
 
 <div>
     <vc:input-value-control calculator-id="1" on-input-callback="onValueInput" />

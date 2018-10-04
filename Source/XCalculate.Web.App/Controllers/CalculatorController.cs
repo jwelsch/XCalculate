@@ -27,7 +27,8 @@ namespace XCalculate.Web.App.Controllers
             {
                 Id = calculator.Id,
                 Name = calculator.Module.Function.FunctionInfo.Name,
-                Description = calculator.Module.Function.FunctionInfo.Description
+                Description = calculator.Module.Function.FunctionInfo.Description,
+                Tags = calculator.Module.Function.FunctionInfo.Tags
             };
 
             return View(vm);
