@@ -2,7 +2,8 @@
   {
     "outputFileName": "wwwroot/css/site.min.css",
     "inputFiles": [
-      "node_modules/bootstrap/dist/css/bootstrap.min.css",
+      //"node_modules/bootstrap/dist/css/bootstrap.min.css",
+      "wwwroot/css/darkly.bootstrap.min.css",
       "wwwroot/css/site.css"
     ]
   },
