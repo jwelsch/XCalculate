@@ -19,8 +19,8 @@
 
         protected BaseValueInfo(string name = null, string description = null, IUnit unit = null)
         {
-            this.Name = name ?? string.Empty;
-            this.Description = description ?? string.Empty;
+            this.Name = name;
+            this.Description = description;
             this.Unit = unit;
         }
     }

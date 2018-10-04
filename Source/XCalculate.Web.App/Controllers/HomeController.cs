@@ -24,7 +24,7 @@ namespace XCalculate.Web.App.Controllers
             var url = Url.Action("Index", "Calculator", new { id = 1 });
 
             var calculators = this.calculatorService.GetAll();
-            var viewModel = new HomeIndexViewModel()
+            var viewModel = new HomeIndexModel()
             {
                 CalculatorLinks = calculators.Select(i =>
                     new CalculatorLink(

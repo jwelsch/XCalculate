@@ -9,29 +9,54 @@ namespace MathCalculators.Tests.Functional
         [Fact]
         public void SuccessfullyCalculateHyperbolicSecantOfPositiveAngle()
         {
+            var value = 60;
             var function = new HyperbolicSecantFunction();
 
-            var result = function.Calculate(p =>
-            {
-                p.Inputs[0].Value = 60;
-            });
+            var phase = function.Calculate();
 
-            Assert.Equal(typeof(double), result.ValueType);
-            Assert.Equal(1.0 / Math.Sinh(60), TypeConverter.ToObject<double>(result.Value));
+            Assert.NotNull(phase);
+            Assert.Equal("Specify Argument", phase.Name);
+            Assert.Equal("Specify angle to find the hyperbolic secant of.", phase.Description);
+            Assert.Collection(phase.Inputs,
+                i =>
+                {
+                    Assert.Equal("Angle", i.Info.Name);
+                    Assert.Null(i.Info.Description);
+                    Assert.Equal(new RadianUnit(), i.Info.Unit);
+                });
+
+            phase.Inputs[0].Value = value;
+
+            Assert.Null(function.Calculate(phase));
+
+            Assert.Collection(function.CurrentResult,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(1.0 / Math.Sinh(value), TypeConverter.ToObject<double>(i.Value));
+                });
         }
 
         [Fact]
         public void SuccessfullyCalculateHyperbolicSecantOfNegativeAngle()
         {
+            var value = -54;
             var function = new HyperbolicSecantFunction();
 
-            var result = function.Calculate(p =>
-            {
-                p.Inputs[0].Value = -54;
-            });
+            var phase = function.Calculate();
 
-            Assert.Equal(typeof(double), result.ValueType);
-            Assert.Equal(1.0 / Math.Sinh(-54), TypeConverter.ToObject<double>(result.Value));
+            Assert.NotNull(phase);
+
+            phase.Inputs[0].Value = value;
+
+            Assert.Null(function.Calculate(phase));
+
+            Assert.Collection(function.CurrentResult,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(1.0 / Math.Sinh(value), TypeConverter.ToObject<double>(i.Value));
+                });
         }
 
         [Fact]
@@ -39,10 +64,18 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new HyperbolicSecantFunction();
 
-            var result = function.Calculate(null);
+            var phase = function.Calculate();
 
-            Assert.Equal(typeof(double), result.ValueType);
-            Assert.Equal(1.0 / Math.Sinh(0.0), TypeConverter.ToObject<double>(result.Value));
+            Assert.NotNull(phase);
+
+            Assert.Null(function.Calculate(phase));
+
+            Assert.Collection(function.CurrentResult,
+                i =>
+                {
+                    Assert.Equal(typeof(double), function.CurrentResult[0].ValueType);
+                    Assert.Equal(1.0 / Math.Sinh(0.0), TypeConverter.ToObject<double>(function.CurrentResult[0].Value));
+                });
         }
     }
 }

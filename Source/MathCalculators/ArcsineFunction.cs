@@ -11,18 +11,14 @@ namespace MathCalculators
         {
         }
 
-        public override IValue Calculate(PhaseHandler phaseHandler)
+        public override IPhase Calculate(IPhase currentPhase = null)
         {
-            var phase = new Phase(
-                "Specify Argument",
-                "Specify angle to find the arcsine of.",
-                new AgnosticValue(0.0, new ValueInfo("Angle", null, new RadianUnit())));
-
-            var values = DoPhase(phaseHandler, phase);
-
-            var result = Math.Asin(GetValue<double>(values[0]));
-
-            return new AgnosticValue(result);
+            return this.SingleCalculate(currentPhase,
+                new FirstPhase(
+                    "Specify Argument",
+                    "Specify angle to find the arcsine of.",
+                    new AgnosticValue(new ValueInfo("Angle", null, new RadianUnit()))),
+                v => Math.Asin(GetValue<double>(v)));
         }
     }
 }

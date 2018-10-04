@@ -1,0 +1,13 @@
+﻿@model XCalculate.Web.App.Components.InputValue.InputValueControlModel
+
+<div>
+    <span>@Model.Name</span>: <input id="inputValueControl" type="text" value="@Model.Value" oninput="inputValueControlOnInput(this);" /><span>@Model.UnitLabel</span>
+</div>
+
+<script type="text/javascript">
+    function inputValueControlOnInput(e) {
+        var callback = @Model.OnInputCallback
+
+        callback(e);
+    }
+</script>

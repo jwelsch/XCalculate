@@ -11,19 +11,15 @@ namespace MathCalculators
         {
         }
 
-        public override IValue Calculate(PhaseHandler phaseHandler)
+        public override IPhase Calculate(IPhase currentPhase = null)
         {
-            var phase = new Phase(
-                "Specify Operands",
-                "Specify root operation values.",
-                new AgnosticValue(0.0, new ValueInfo("Radicand", "Radicand of the root.")),
-                new AgnosticValue(2.0, new ValueInfo("Index", "Index of the root.")));
-
-            var values = DoPhase(phaseHandler, phase);
-
-            var result = Math.Pow(GetValue<double>(values[0]), 1.0 / GetValue<double>(values[1]));
-
-            return new AgnosticValue(result);
+            return this.SingleCalculate(currentPhase,
+                new FirstPhase(
+                    "Specify Operands",
+                    "Specify root operation values.",
+                    new AgnosticValue(0.0, new ValueInfo("Radicand")),
+                    new AgnosticValue(2.0, new ValueInfo("Index"))),
+                v => Math.Pow(GetValue<double>(v[0]), 1.0 / GetValue<double>(v[1])));
         }
     }
 }

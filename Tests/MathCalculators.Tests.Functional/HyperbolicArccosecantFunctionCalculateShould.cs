@@ -7,42 +7,75 @@ namespace MathCalculators.Tests.Functional
     public class HyperbolicArccosecantFunctionCalculateShould
     {
         [Fact]
-        public void SuccessfullyCalculateArccosecantOfPositiveAngle()
+        public void SuccessfullyCalculateHyperbolicArccosecantOfPositiveAngle()
         {
+            var value = 60;
             var function = new HyperbolicArccosecantFunction();
 
-            var result = function.Calculate(p =>
-            {
-                p.Inputs[0].Value = 60;
-            });
+            var phase = function.Calculate();
 
-            Assert.Equal(typeof(double), result.ValueType);
-            Assert.Equal(1.0 / Math.Acosh(60), TypeConverter.ToObject<double>(result.Value));
+            Assert.NotNull(phase);
+            Assert.Equal("Specify Argument", phase.Name);
+            Assert.Equal("Specify angle to find the hyperbolic arccosecant of.", phase.Description);
+            Assert.Collection(phase.Inputs,
+                i =>
+                {
+                    Assert.Equal("Angle", i.Info.Name);
+                    Assert.Null(i.Info.Description);
+                    Assert.Equal(new RadianUnit(), i.Info.Unit);
+                });
+
+            phase.Inputs[0].Value = value;
+
+            Assert.Null(function.Calculate(phase));
+
+            Assert.Collection(function.CurrentResult,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(1.0 / Math.Acosh(value), TypeConverter.ToObject<double>(i.Value));
+                });
         }
 
         [Fact]
-        public void SuccessfullyCalculateArccosecantOfNegativeAngle()
+        public void SuccessfullyCalculateHyperbolicArccosecantOfNegativeAngle()
         {
+            var value = -54;
             var function = new HyperbolicArccosecantFunction();
 
-            var result = function.Calculate(p =>
-            {
-                p.Inputs[0].Value = -54;
-            });
+            var phase = function.Calculate();
 
-            Assert.Equal(typeof(double), result.ValueType);
-            Assert.Equal(1.0 / Math.Acosh(-54), TypeConverter.ToObject<double>(result.Value));
+            Assert.NotNull(phase);
+
+            phase.Inputs[0].Value = value;
+
+            Assert.Null(function.Calculate(phase));
+
+            Assert.Collection(function.CurrentResult,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(1.0 / Math.Acosh(value), TypeConverter.ToObject<double>(i.Value));
+                });
         }
 
         [Fact]
-        public void SuccessfullyCalculateArccosecantWithNoAngleSpecified()
+        public void SuccessfullyCalculateHyperbolicArccosecantWithNoAngleSpecified()
         {
             var function = new HyperbolicArccosecantFunction();
 
-            var result = function.Calculate(null);
+            var phase = function.Calculate();
 
-            Assert.Equal(typeof(double), result.ValueType);
-            Assert.Equal(1.0 / Math.Acosh(0.0), TypeConverter.ToObject<double>(result.Value));
+            Assert.NotNull(phase);
+
+            Assert.Null(function.Calculate(phase));
+
+            Assert.Collection(function.CurrentResult,
+                i =>
+                {
+                    Assert.Equal(typeof(double), function.CurrentResult[0].ValueType);
+                    Assert.Equal(1.0 / Math.Acosh(0.0), TypeConverter.ToObject<double>(function.CurrentResult[0].Value));
+                });
         }
     }
 }

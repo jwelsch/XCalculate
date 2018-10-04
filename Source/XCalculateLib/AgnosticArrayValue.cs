@@ -28,6 +28,11 @@ namespace XCalculateLib
         {
         }
 
+        public AgnosticArrayValue(IValueInfo info = null, ValueValidator<Array> validator = null)
+            : this(null, info, validator)
+        {
+        }
+
         public TArray ToArray<TArray>()
         {
             return TypeConverter.ToArray<TArray>(this.Value);

@@ -6,32 +6,49 @@ namespace MathCalculators.Tests.Functional
 {
     public class MultiplyFunctionCalculateShould
     {
-        [Fact]
-        public void SuccessfullyMultiplyNumbers()
-        {
-            var function = new MultiplyFunction();
+        //[Fact]
+        //public void SuccessfullyMultiplyNumbers()
+        //{
+        //    var function = new MultiplyFunction();
 
-            var result = function.Calculate(p =>
-            {
-                p.Inputs[0].Value = new int[] { 100, 2, 3 };
-            });
+        //    var phase = function.Calculate();
 
-            Assert.Equal(typeof(double), result.ValueType);
-            Assert.Equal(600, TypeConverter.ToObject<int>(result.Value));
-        }
+        //    Assert.NotNull(phase);
+        //    Assert.Equal("Specify Operands", phase.Name);
+        //    Assert.Equal("Specify numbers to multiply.", phase.Description);
+        //    Assert.Collection(phase.Inputs,
+        //        i =>
+        //        {
+        //            Assert.Equal("Operands", i.Info.Name);
+        //            Assert.Equal("Operands to multiply.", i.Info.Description);
+        //            Assert.Null(i.Info.Unit);
+        //        });
 
-        [Fact]
-        public void FailToMultiplyASingleNumber()
-        {
-            var function = new MultiplyFunction();
+        //    phase.Inputs[0].Value = new int[] { 100, 2, 3 };
 
-            Assert.Throws<ArgumentException>(() =>
-            {
-                var result = function.Calculate(p =>
-                {
-                    p.Inputs[0].Value = new int[] { 3 };
-                });
-            });
-        }
+        //    Assert.Null(function.Calculate(phase));
+
+        //    Assert.Collection(function.CurrentResult,
+        //        i =>
+        //        {
+        //            Assert.Equal(typeof(double), i.ValueType);
+        //            Assert.Equal(600, TypeConverter.ToObject<int>(i.Value));
+        //        });
+        //}
+
+        //[Fact]
+        //public void FailToMultiplyASingleNumber()
+        //{
+        //    var function = new AddFunction();
+
+        //    Assert.Throws<ArgumentException>(() =>
+        //    {
+        //        var phase = function.Calculate();
+
+        //        Assert.NotNull(phase);
+
+        //        phase.Inputs[0].Value = new int[] { 1 };
+        //    });
+        //}
     }
 }

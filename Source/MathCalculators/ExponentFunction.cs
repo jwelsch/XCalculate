@@ -11,20 +11,15 @@ namespace MathCalculators
         {
         }
 
-        public override IValue Calculate(PhaseHandler phaseHandler)
+        public override IPhase Calculate(IPhase currentPhase = null)
         {
-
-            var phase = new Phase(
-                "Specify Operands",
-                "Specify exponential equation.",
-                new AgnosticValue(0.0, new ValueInfo("Base")),
-                new AgnosticValue(0.0, new ValueInfo("Exponent")));
-
-            var values = DoPhase(phaseHandler, phase);
-
-            var result = Math.Pow(GetValue<double>(values[0]), GetValue<double>(values[1]));
-
-            return new AgnosticValue(result);
+            return this.SingleCalculate(currentPhase,
+                new FirstPhase(
+                    "Specify Operands",
+                    "Specify exponential equation values.",
+                    new AgnosticValue(0.0, new ValueInfo("Base")),
+                    new AgnosticValue(0.0, new ValueInfo("Exponent"))),
+                v => Math.Pow(GetValue<double>(v[0]), GetValue<double>(v[1])));
         }
     }
 }

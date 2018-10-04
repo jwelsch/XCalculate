@@ -4,6 +4,11 @@ namespace XCalculateLib
 {
     public interface IPhase
     {
+        int Id
+        {
+            get;
+        }
+
         string Name
         {
             get;
@@ -14,7 +19,17 @@ namespace XCalculateLib
             get;
         }
 
-        IReadOnlyList<IValue> Inputs
+        bool IsFinal
+        {
+            get;
+        }
+
+        IValue[] Inputs
+        {
+            get;
+        }
+
+        IValue[] Results
         {
             get;
         }

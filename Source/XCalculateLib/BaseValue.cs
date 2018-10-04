@@ -59,7 +59,7 @@ namespace XCalculateLib
             // Set validator first since this.Value calls the validator.
             this.Validator = i =>
             {
-                if (i.GetType().IsArray)
+                if (i != null && i.GetType().IsArray)
                 {
                     throw new ArgumentException($"Use {typeof(BaseArrayValue<>)} for array types.");
                 }

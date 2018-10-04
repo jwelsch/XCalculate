@@ -11,18 +11,14 @@ namespace MathCalculators
         {
         }
 
-        public override IValue Calculate(PhaseHandler phaseHandler)
+        public override IPhase Calculate(IPhase currentPhase = null)
         {
-            var phase = new Phase(
-                "Specify Argument",
-                "Specify angle to find the hyperbolic arccotangent of.",
-                new AgnosticValue(0.0, new ValueInfo("Angle", null, new RadianUnit())));
-
-            var values = DoPhase(phaseHandler, phase);
-
-            var result = 1.0 / Math.Atanh(GetValue<double>(values[0]));
-
-            return new AgnosticValue(result);
+            return this.SingleCalculate(currentPhase,
+                new FirstPhase(
+                    "Specify Argument",
+                    "Specify angle to find the hyperbolic arccotangent of.",
+                    new AgnosticValue(new ValueInfo("Angle", null, new RadianUnit()))),
+                v => 1.0 / Math.Atanh(GetValue<double>(v)));
         }
     }
 }
