@@ -7,14 +7,16 @@
 <div class="row">
     @foreach(var link in Model.CalculatorLinks)
     {
-        <div class="col-sm">
-            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="card text-white bg-primary mb-3"><!-- style="max-width: 20rem;">-->
                 <a href="@link.Uri.ToString()">
-                    <div class="card-header">@link.Text</div>
+                    <div class="card-header">@link.Title</div>
                 </a>
                 <div class="card-body">
-                    <h4 class="card-title">Primary card title</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    @*<h4 class="card-title">Primary card title</h4>*@
+                    <p class="card-text">@link.Description</p>
+                    <hr />
+                    <p class="card-text">@link.Tags.ToDelimitedString(", ")</p>
                 </div>
             </div>
         </div>

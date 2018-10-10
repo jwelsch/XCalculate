@@ -29,6 +29,8 @@ namespace XCalculate.Web.App.Controllers
                 CalculatorLinks = calculators.Select(i =>
                     new CalculatorLink(
                         i.Module.Function.FunctionInfo.Name,
+                        i.Module.Function.FunctionInfo.Description,
+                        i.Module.Function.FunctionInfo.Tags,
                         new Uri(Url.Action("Index", "Calculator", new { id = i.Id }), UriKind.Relative)
                 )).ToList()
             };

@@ -7,11 +7,48 @@
     <link rel="stylesheet" href="~/css/site.min.css" />
 </head>
 <body>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - DigiModern Software Solutions Incorporated</p>
+    <div class="d-flex flex-column justify-content-between">
+        <div>
+            <nav class="navbar navbar-expand-md navbar-light bg-light">
+                <a class="navbar-brand" href="~/">XCalculate</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbarToggle" aria-controls="topNavbarToggle" aria-expanded="false" aria-label="Toggle top navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="topNavbarToggle">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0 ml-auto">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+            <div class="d-flex">
+                <div class="mt-1">
+                    <ul id="sidebar" class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="#">Algebra</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Geometry</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Trigonometry</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Financial</a></li>
+                    </ul>
+                </div>
+                <main class="container mt-2">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+        <footer class="text-center py-1">
+            <hr />
+            <span class="text-muted">&copy; 2018 - <a href="http://www.digimodern.com">DigiModern Software Solutions Incorporated</a></span>
         </footer>
     </div>
     <script src="~/js/site.min.js"></script>

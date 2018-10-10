@@ -6,30 +6,32 @@
 
 @Html.AntiForgeryToken()
 
-<h2>@Model.Name - @Model.Id</h2>
-
-<p>@Model.Description</p>
-
-<p>
-    <ul>
-        @foreach (var tag in Model.Tags)
-        {
-            <li>@tag</li>
-        }
-    </ul>
-</p>
-
 <div>
-    <vc:input-value-control calculator-id="1" on-input-callback="onValueInput" />
-    Argument 1: <input id="argument1" type="text" />
-    <br />
-    Argument 2: <input id="argument2" type="text" />
+    <h2>@Model.Name - @Model.Id</h2>
+
+    <p>@Model.Description</p>
+
     <p>
-        <input type="button" value="Calculate" onclick="onClickSubmit();" />
+        <ul>
+            @foreach (var tag in Model.Tags)
+            {
+                <li>@tag</li>
+            }
+        </ul>
     </p>
-    <p>
-        Result: <input id="calculationResult" type="text" readonly />
-    </p>
+
+    <div>
+        <vc:input-value-control calculator-id="1" on-input-callback="onValueInput" />
+        Argument 1: <input id="argument1" type="text" />
+        <br />
+        Argument 2: <input id="argument2" type="text" />
+        <p>
+            <input type="button" value="Calculate" onclick="onClickSubmit();" />
+        </p>
+        <p>
+            Result: <input id="calculationResult" type="text" readonly />
+        </p>
+    </div>
 </div>
 
 <script type="text/javascript">

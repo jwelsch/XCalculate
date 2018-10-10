@@ -4,7 +4,17 @@ namespace XCalculate.Web.App.Models
 {
     public class CalculatorLink
     {
-        public string Text
+        public string Title
+        {
+            get;
+        }
+
+        public string Description
+        {
+            get;
+        }
+
+        public string[] Tags
         {
             get;
         }
@@ -14,9 +24,11 @@ namespace XCalculate.Web.App.Models
             get;
         }
 
-        public CalculatorLink(string text, Uri uri)
+        public CalculatorLink(string title, string description, string[] tags, Uri uri)
         {
-            this.Text = text;
+            this.Title = title;
+            this.Description = description;
+            this.Tags = tags;
             this.Uri = uri;
         }
     }
