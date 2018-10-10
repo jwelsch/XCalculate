@@ -26,13 +26,7 @@ namespace XCalculate.Web.App.Controllers
             var calculators = this.calculatorService.GetAll();
             var viewModel = new HomeIndexModel()
             {
-                CalculatorLinks = calculators.Select(i =>
-                    new CalculatorLink(
-                        i.Module.Function.FunctionInfo.Name,
-                        i.Module.Function.FunctionInfo.Description,
-                        i.Module.Function.FunctionInfo.Tags,
-                        new Uri(Url.Action("Index", "Calculator", new { id = i.Id }), UriKind.Relative)
-                )).ToList()
+                CalculatorIds = calculators.Select(i => i.Id).ToList()
             };
 
             return View(viewModel);

@@ -5,20 +5,10 @@
 }
 
 <div class="row">
-    @foreach(var link in Model.CalculatorLinks)
+    @foreach(var id in Model.CalculatorIds)
     {
         <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="card text-white bg-primary mb-3"><!-- style="max-width: 20rem;">-->
-                <a href="@link.Uri.ToString()">
-                    <div class="card-header">@link.Title</div>
-                </a>
-                <div class="card-body">
-                    @*<h4 class="card-title">Primary card title</h4>*@
-                    <p class="card-text">@link.Description</p>
-                    <hr />
-                    <p class="card-text">@link.Tags.ToDelimitedString(", ")</p>
-                </div>
-            </div>
+            <vc:calculator-card-control calculator-id="@id" />
         </div>
     }
 </div>
