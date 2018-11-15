@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using XCalculate.Web.Core.Interfaces;
 
-namespace XCalculate.Web.App.Components.CalculatorCard
+namespace XCalculate.Web.App.Components
 {
     public class CalculatorCardControl : ViewComponent
     {
@@ -23,7 +23,7 @@ namespace XCalculate.Web.App.Components.CalculatorCard
                 Title = calculator.Module.Function.FunctionInfo.Name,
                 Description = calculator.Module.Function.FunctionInfo.Description,
                 Tags = calculator.Module.Function.FunctionInfo.Tags,
-                Uri = new Uri(Url.Action("Index", "Calculator", new { id = calculatorId }), UriKind.Relative)
+                Uri = new Uri(Url.Action("Index", "Calculator", new { calculatorId }), UriKind.Relative)
             };
 
             return View("Default", model);

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XCalculate.Web.App.Components.CalculatorCard
+namespace XCalculate.Web.App.Components
 {
     public class CalculatorCardControlModel
     {

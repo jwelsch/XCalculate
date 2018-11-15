@@ -25,5 +25,11 @@
             get;
             set;
         }
+
+        public int PhaseId
+        {
+            get;
+            set;
+        }
     }
 }

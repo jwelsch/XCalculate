@@ -2,11 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using XCalculateLib;
 
 namespace XCalculate.Web.App.Components
 {
-    public class InputValueControlModel
+    public class CalculatorPhaseControlModel
     {
+        public int CalculatorId
+        {
+            get;
+            set;
+        }
+
+        public int PhaseId
+        {
+            get;
+            set;
+        }
+
         public string Name
         {
             get;
@@ -19,19 +32,7 @@ namespace XCalculate.Web.App.Components
             set;
         }
 
-        public string UnitLabel
-        {
-            get;
-            set;
-        }
-
-        public object Value
-        {
-            get;
-            set;
-        }
-
-        public string OnInputCallback
+        public IValue[] Inputs
         {
             get;
             set;

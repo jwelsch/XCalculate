@@ -11,9 +11,9 @@ namespace MathCalculators
         {
         }
 
-        public override IPhase Calculate(IPhase currentPhase = null)
+        public override IPhase Calculate(IPhaseTransition transition = null)
         {
-            return this.SingleCalculate(currentPhase,
+            return this.SingleCalculate(transition,
                 new FirstPhase(
                     "Specify Argument",
                     "Specify angle to find the hyperbolic cosecant of.",

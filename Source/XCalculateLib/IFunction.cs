@@ -8,9 +8,7 @@ namespace XCalculateLib
             get;
         }
 
-        //IValue Calculate(PhaseHandler phaseHandler);
-
-        IPhase Calculate(IPhase currentPhase = null);
+        IPhase Calculate(IPhaseTransition transition = null);
 
         IValue[] CurrentResult
         {
