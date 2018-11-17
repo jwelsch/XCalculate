@@ -2,7 +2,7 @@
 
 @foreach (var input in Model.Inputs)
 {
-    <vc:input-value-control calculator-id="@Model.CalculatorId" phase-id="@Model.PhaseId" value-name="@input.Info.Name" on-input-callback="inputValueControlOnInput" />
+    <vc:input-value-control input="@input" on-input-callback="inputValueControlOnInput" />
 }
 <p>
     <input type="button" value="Calculate" onclick="onClickSubmit();" />

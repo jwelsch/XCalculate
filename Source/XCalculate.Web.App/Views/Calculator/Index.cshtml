@@ -16,10 +16,10 @@
         }
     </ul>
 </p>
-<vc:calculator-phase-control calculator-id="@Model.Id" phase-id="@Model.PhaseId" />
+<vc:calculator-phase-control calculator-id="@Model.Id" phase="@Model.Phase" />
 
 <script type="text/javascript">
-    var phaseId = parseInt("@Model.PhaseId", 10);
+    var phaseId = parseInt("@Model.Phase", 10);
 
     function onClickSubmit() {
         $.ajax({

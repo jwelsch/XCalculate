@@ -31,7 +31,7 @@ namespace XCalculate.Web.App.Controllers
                 Name = calculator.Module.Function.FunctionInfo.Name,
                 Description = calculator.Module.Function.FunctionInfo.Description,
                 Tags = calculator.Module.Function.FunctionInfo.Tags,
-                PhaseId = phase.Id
+                Phase = phase
             };
 
             return View(vm);
