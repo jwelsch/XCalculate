@@ -4,13 +4,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div>
-    <ul>
-        @foreach (var link in Model.CalculatorLinks)
-        {
-            <li>
-                <a href="@link.Uri.ToString()">@link.Text</a>
-            </li>
-        }
-    </ul>
+<div class="row">
+    @foreach(var id in Model.CalculatorIds)
+    {
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <vc:calculator-card-control calculator-id="@id" />
+        </div>
+    }
 </div>

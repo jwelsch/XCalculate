@@ -5,7 +5,7 @@ namespace XCalculate.Web.App.Models
 {
     public class HomeIndexModel
     {
-        public IList<CalculatorLink> CalculatorLinks
+        public IList<int> CalculatorIds
 
         {
             get;

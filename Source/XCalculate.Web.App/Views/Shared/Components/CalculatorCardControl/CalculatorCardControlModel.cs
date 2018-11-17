@@ -1,14 +1,10 @@
-﻿namespace XCalculate.Web.App.Models
-{
-    public class CalculatorIndexModel
-    {
-        public int Id
-        {
-            get;
-            set;
-        }
+﻿using System;
 
-        public string Name
+namespace XCalculate.Web.App.Components
+{
+    public class CalculatorCardControlModel
+    {
+        public string Title
         {
             get;
             set;
@@ -26,7 +22,7 @@
             set;
         }
 
-        public int PhaseId
+        public Uri Uri
         {
             get;
             set;

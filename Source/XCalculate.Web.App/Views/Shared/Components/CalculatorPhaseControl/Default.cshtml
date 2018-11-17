@@ -1,0 +1,33 @@
+﻿@model XCalculate.Web.App.Components.CalculatorPhaseControlModel
+
+@foreach (var input in Model.Inputs)
+{
+    <vc:input-value-control calculator-id="@Model.CalculatorId" phase-id="@Model.PhaseId" value-name="@input.Info.Name" on-input-callback="inputValueControlOnInput" />
+}
+<p>
+    <input type="button" value="Calculate" onclick="onClickSubmit();" />
+</p>
+
+<script type="text/javascript">
+    function onClickSubmit() {
+        $.ajax({
+            url: "/Calculator/@Model.CalculatorId/Calculate/" + "@Model.PhaseId",
+            type: "GET",
+            headers: {
+                //RequestVerificationToken:
+                //    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: {
+                argument1: $("#argument1").val(),
+                argument2: $("#argument2").val()
+            }
+        })
+        .done(function (result) {
+            $("#calculationResult").val(result.value);
+        });
+    }
+
+    function inputValueControlOnInput(e) {
+        console.log("inputValueControlOnInput");
+    }
+</script>

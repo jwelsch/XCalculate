@@ -17,40 +17,64 @@ namespace XCalculate.Web.App.Controllers
             this.calculatorService = calculatorService;
         }
 
-        [Route("{id}")]
+        [Route("{calculatorId}")]
         [HttpGet]
-        public IActionResult Index(int id)
+        public IActionResult Index(int calculatorId)
         {
-            var calculator = this.calculatorService.GetById(id);
+            var calculator = this.calculatorService.GetById(calculatorId);
+
+            var phase = calculator.Module.Function.Calculate();
 
             var vm = new CalculatorIndexModel()
             {
                 Id = calculator.Id,
                 Name = calculator.Module.Function.FunctionInfo.Name,
                 Description = calculator.Module.Function.FunctionInfo.Description,
-                Tags = calculator.Module.Function.FunctionInfo.Tags
+                Tags = calculator.Module.Function.FunctionInfo.Tags,
+                PhaseId = phase.Id
             };
 
             return View(vm);
         }
 
-        [Route("{id}/Calculate")]
+        /// <summary>
+        /// Calculates a phase of a calculator.
+        /// </summary>
+        /// <param name="calculatorId">ID of the calculator.</param>
+        /// <param name="phaseId">ID of the phase of the calculator.</param>
+        /// <param name="inputs">Single inputs of the phase of the calculator.</param>
+        /// <param name="arrayInputs">Array inputs of the phase of the calculator.</param>
+        /// <returns>The calculation result.</returns>
+        [Route("{calculatorId}/Calculate/{phaseId}")]
         [AutoValidateAntiforgeryToken]
-        [HttpGet]
-        public IActionResult Calculate(int id, Dictionary<string, string> parameters)
+        [HttpPost]
+        public IActionResult Calculate(int calculatorId, int phaseId, [FromBody] Dictionary<string, string> inputs, [FromBody] Dictionary<string, string[]> arrayInputs)
         {
-            //var calculator = this.calculatorService.GetById(id);
+            var calculator = this.calculatorService.GetById(calculatorId);
 
-            //var result = calculator.Module.Function.Calculate(p =>
-            //{
-            //    for (var i = 0; i <p.Inputs.Count; i++)
-            //    {
-            //        p.Inputs[i].Value = TypeConverter.ToArray<double[]>(parameters.Select(kv => kv.Value).ToArray());
-            //    }
-            //});
+            var inputValues = new List<IValue>();
 
-            //return Json(new { result.Value, result.ValueType });
-            return View();
+            foreach (var input in inputs)
+            {
+                var inputValue = new AgnosticValue(TypeConverter.ToObject<double>(input.Value), new ValueInfo(input.Key));
+
+                inputValues.Add(inputValue);
+            }
+
+            foreach (var arrayInput in arrayInputs)
+            {
+                var array = TypeConverter.ToArray<double[]>(arrayInput.Value);
+
+                var arrayInputValue = new AgnosticArrayValue(array, new ValueInfo(arrayInput.Key));
+
+                inputValues.Add(arrayInputValue);
+            }
+
+            var transition = new PhaseTransition(phaseId, inputValues);
+
+            var phase = calculator.Module.Function.Calculate(transition);
+
+            return Json(phase);
         }
     }
 }

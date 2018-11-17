@@ -7,9 +7,7 @@
 @Html.AntiForgeryToken()
 
 <h2>@Model.Name - @Model.Id</h2>
-
 <p>@Model.Description</p>
-
 <p>
     <ul>
         @foreach (var tag in Model.Tags)
@@ -18,24 +16,14 @@
         }
     </ul>
 </p>
-
-<div>
-    <vc:input-value-control calculator-id="1" on-input-callback="onValueInput" />
-    Argument 1: <input id="argument1" type="text" />
-    <br />
-    Argument 2: <input id="argument2" type="text" />
-    <p>
-        <input type="button" value="Calculate" onclick="onClickSubmit();" />
-    </p>
-    <p>
-        Result: <input id="calculationResult" type="text" readonly />
-    </p>
-</div>
+<vc:calculator-phase-control calculator-id="@Model.Id" phase-id="@Model.PhaseId" />
 
 <script type="text/javascript">
+    var phaseId = parseInt("@Model.PhaseId", 10);
+
     function onClickSubmit() {
         $.ajax({
-            url: "/Calculator/@Model.Id/Calculate",
+            url: "/Calculator/@Model.Id/Calculate/" + phaseId,
             type: "GET",
             headers: {
                 RequestVerificationToken:

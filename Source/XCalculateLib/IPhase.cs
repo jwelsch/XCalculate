@@ -2,13 +2,8 @@
 
 namespace XCalculateLib
 {
-    public interface IPhase
+    public interface IPhase : IPhaseTransition
     {
-        int Id
-        {
-            get;
-        }
-
         string Name
         {
             get;
@@ -20,11 +15,6 @@ namespace XCalculateLib
         }
 
         bool IsFinal
-        {
-            get;
-        }
-
-        IValue[] Inputs
         {
             get;
         }
