@@ -12,14 +12,12 @@
     function onClickSubmit() {
         $.ajax({
             url: "/Calculator/@Model.CalculatorId/Calculate/" + "@Model.PhaseId",
-            type: "GET",
+            type: "POST",
             headers: {
                 //RequestVerificationToken:
                 //    $('input:hidden[name="__RequestVerificationToken"]').val()
             },
             data: {
-                argument1: $("#argument1").val(),
-                argument2: $("#argument2").val()
             }
         })
         .done(function (result) {
