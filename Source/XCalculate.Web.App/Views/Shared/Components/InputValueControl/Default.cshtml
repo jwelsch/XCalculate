@@ -6,8 +6,10 @@
 
 <script type="text/javascript">
     function inputValueControlOnInput(e) {
-        var callback = @Model.OnInputCallback
-
-        callback(e);
+        var callback = @Model.OnInputCallback;
+        callback({
+            Key: e.id.substr(6),
+            Value: parseFloat(e.value)
+        });
     }
 </script>

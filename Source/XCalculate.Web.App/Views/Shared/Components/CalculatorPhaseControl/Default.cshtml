@@ -2,22 +2,29 @@
 
 @foreach (var input in Model.Inputs)
 {
-    <vc:input-value-control input="@input" on-input-callback="inputValueControlOnInput" />
+    <vc:input-value-control input="@input" on-input-callback="inputValueControlOnInputCallback" />
 }
 <p>
     <input type="button" value="Calculate" onclick="onClickSubmit();" />
 </p>
 
 <script type="text/javascript">
+    var inputs = {};
+    var arrayInputs = [];
+
     function onClickSubmit() {
+        var url = "/Calculator/@Model.CalculatorId/Calculate/" + "@Model.PhaseId";
         $.ajax({
-            url: "/Calculator/@Model.CalculatorId/Calculate/" + "@Model.PhaseId",
+            url: url,
             type: "POST",
+            contentType: "application/json",
             headers: {
                 //RequestVerificationToken:
                 //    $('input:hidden[name="__RequestVerificationToken"]').val()
             },
             data: {
+                inputs: inputs//,
+                //arrayInputs: arrayInputs
             }
         })
         .done(function (result) {
@@ -25,7 +32,7 @@
         });
     }
 
-    function inputValueControlOnInput(e) {
-        console.log("inputValueControlOnInput");
+    function inputValueControlOnInputCallback(e) {
+        inputs[e.Key] = e.Value;
     }
 </script>
