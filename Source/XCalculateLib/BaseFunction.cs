@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace XCalculateLib
 {
@@ -12,91 +10,7 @@ namespace XCalculateLib
             private set;
         }
 
-        protected IPhaseCollection Phases
-        {
-            get;
-        }
-
-        public BaseFunction(IFunctionInfo functionInfo)
-            : this(functionInfo, new PhaseCollection())
-        {
-        }
-
-        public BaseFunction(IFunctionInfo functionInfo, IPhaseCollection phases)
-        {
-            this.FunctionInfo = functionInfo;
-            this.Phases = phases;
-        }
-
-        public abstract IPhase Calculate(IPhaseTransition transition = null);
-
-        public IValue[] CurrentResult
-        {
-            get;
-            private set;
-        }
-
-        protected void SetCurrentResult(IEnumerable<IValue> values)
-        {
-            this.CurrentResult = values.ToArray();
-        }
-
-        protected void SetCurrentResult(IValue value)
-        {
-            this.SetCurrentResult(new IValue[] { value });
-        }
-
-        protected void SetCurrentResult(object value)
-        {
-            this.SetCurrentResult(new IValue[] { new AgnosticValue(value) });
-        }
-
-        protected IPhase SetFinalResult(IEnumerable<IValue> values)
-        {
-            this.SetCurrentResult(values);
-
-            return null;
-        }
-
-        protected IPhase SetFinalResult(IValue value)
-        {
-            return this.SetFinalResult(new IValue[] { value });
-        }
-
-        protected IPhase SetFinalResult(object value)
-        {
-            return this.SetFinalResult(new IValue[] { new AgnosticValue(value) });
-        }
-
-        protected IPhase SingleCalculate(IPhaseTransition transition, IPhase firstPhase, Func<IValue, object> calculator)
-        {
-            if (transition == null)
-            {
-                return firstPhase;
-            }
-
-            return this.SetFinalResult(new AgnosticValue(calculator(transition.Inputs.First())));
-        }
-
-        protected IPhase SingleCalculate(IPhaseTransition transition, IPhase firstPhase, Func<IValue[], object> calculator)
-        {
-            if (transition == null)
-            {
-                return firstPhase;
-            }
-
-            return this.SetFinalResult(new AgnosticValue(calculator(transition.Inputs)));
-        }
-
-        protected IPhase SingleCalculate(IPhaseTransition transition, IPhase firstPhase, Func<IValue[], object[]> calculator)
-        {
-            if (transition == null)
-            {
-                return firstPhase;
-            }
-
-            return this.SetFinalResult(calculator(transition.Inputs).Select(i => new AgnosticValue(i)));
-        }
+        public abstract IValue[] Calculate(IValue[] inputs);
 
         protected static T GetValue<T>(IValue value)
         {
