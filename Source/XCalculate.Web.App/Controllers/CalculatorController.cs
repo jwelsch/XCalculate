@@ -49,27 +49,18 @@ namespace XCalculate.Web.App.Controllers
         [Route("{calculatorId}/Calculate/{phaseId}")]
         //[AutoValidateAntiforgeryToken]
         [HttpPost]
-        public IActionResult Calculate(int calculatorId, int phaseId, [FromBody] Dictionary<string, int> inputs/*, [FromBody] Dictionary<string, string[]> arrayInputs*/)
+        public IActionResult Calculate(int calculatorId, int phaseId, [FromBody] Dictionary<string, string> inputs/*, [FromBody] Dictionary<string, string[]> arrayInputs*/)
         {
-            var buffer = new byte[this.Request.Body.Length];
-            this.Request.Body.Seek(0, System.IO.SeekOrigin.Begin);
-            var read = this.Request.Body.Read(buffer, 0, (int)this.Request.Body.Length);
-            var characters = new char[read];
-            for (var i = 0; i < read; i++)
-            {
-                characters[i] = Convert.ToChar(buffer[i]);
-            }
-
             var calculator = this.calculatorService.GetById(calculatorId);
 
             var inputValues = new List<IValue>();
 
-            //foreach (var input in inputs)
-            //{
-            //    var inputValue = new AgnosticValue(TypeConverter.ToObject<double>(input.Value), new ValueInfo(input.Key));
+            foreach (var input in inputs)
+            {
+                var inputValue = new AgnosticValue(TypeConverter.ToObject<double>(input.Value), new ValueInfo(input.Key));
 
-            //    inputValues.Add(inputValue);
-            //}
+                inputValues.Add(inputValue);
+            }
 
             //foreach (var arrayInput in arrayInputs)
             //{
@@ -84,7 +75,7 @@ namespace XCalculate.Web.App.Controllers
 
             var phase = calculator.Module.Function.Calculate(transition);
 
-            return Json(phase);
+            return Json(new CalculateResult(phase, calculator.Module.Function.CurrentResult));
         }
     }
 }

@@ -1,12 +1,17 @@
 ﻿@model XCalculate.Web.App.Components.CalculatorPhaseControlModel
 
+<div id="calculator-input-group">
 @foreach (var input in Model.Inputs)
 {
     <vc:input-value-control input="@input" on-input-callback="inputValueControlOnInputCallback" />
 }
+</div>
 <p>
-    <input type="button" value="Calculate" onclick="onClickSubmit();" />
+    <input type="button" class="btn" value="Calculate" onclick="onClickSubmit();" />
 </p>
+<div id="calculator-result-group">
+    <span><input type="text" id="calculator-result" readonly /><span id="calculator-result-label"></span></span>
+</div>
 
 <script type="text/javascript">
     var inputs = {};
@@ -22,17 +27,16 @@
                 //RequestVerificationToken:
                 //    $('input:hidden[name="__RequestVerificationToken"]').val()
             },
-            data: {
-                inputs: inputs//,
-                //arrayInputs: arrayInputs
-            }
+            data: JSON.stringify({ inputs: inputs })
         })
         .done(function (result) {
-            $("#calculationResult").val(result.value);
+            for (var i = 0; i < result.results.length; i++) {
+                $("")
+            }
         });
     }
 
     function inputValueControlOnInputCallback(e) {
-        inputs[e.Key] = e.Value;
+        inputs[e.Key] = e.Value.toString();
     }
 </script>

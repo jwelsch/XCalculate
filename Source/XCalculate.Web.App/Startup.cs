@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using XCalculate.Web.App.Binders;
 using XCalculate.Web.Core.Interfaces;
 using XCalculate.Web.Core.Services;
 using XCalculate.Web.Infrastructure;
@@ -33,8 +34,15 @@ namespace XCalculate.Web.App
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddMvc(options =>
+            {
+                // Add custom binder to beginning of collection.
+                options.ModelBinderProviders.Insert(0, new JsonDictionaryBinderProvider());
+            });
+
             var calculatorRepository = services.InitializeCalculatorStore(this.Configuration["CalculatorDirectory"]);
 
+            // Set up dependency injection.
             services.AddSingleton<ICalculatorService>(s => new CalculatorService(calculatorRepository));
         }
 
