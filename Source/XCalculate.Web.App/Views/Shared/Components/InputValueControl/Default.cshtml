@@ -1,13 +1,15 @@
 ﻿@model XCalculate.Web.App.Components.InputValueControlModel
 
 <div>
-    <span>@Model.Name</span>: <input id="inputValueControl" type="text" value="@Model.Value" oninput="inputValueControlOnInput(this);" /><span>@Model.UnitLabel</span>
+    <span>@Model.Name</span>: <input id="input-@Model.Name" class="inputValue" type="text" value="@Model.Value" oninput="inputValueControlOnInput(this);" /><span>@Model.UnitLabel</span>
 </div>
 
 <script type="text/javascript">
     function inputValueControlOnInput(e) {
-        var callback = @Model.OnInputCallback
-
-        callback(e);
+        var callback = @Model.OnInputCallback;
+        callback({
+            Key: e.id.substr(6),
+            Value: parseFloat(e.value)
+        });
     }
 </script>

@@ -1,33 +1,42 @@
 ﻿@model XCalculate.Web.App.Components.CalculatorPhaseControlModel
 
+<div id="calculator-input-group">
 @foreach (var input in Model.Inputs)
 {
-    <vc:input-value-control calculator-id="@Model.CalculatorId" phase-id="@Model.PhaseId" value-name="@input.Info.Name" on-input-callback="inputValueControlOnInput" />
+    <vc:input-value-control input="@input" on-input-callback="inputValueControlOnInputCallback" />
 }
+</div>
 <p>
-    <input type="button" value="Calculate" onclick="onClickSubmit();" />
+    <input type="button" class="btn" value="Calculate" onclick="onClickSubmit();" />
 </p>
+<div id="calculator-result-group">
+    <span><input type="text" id="calculator-result" readonly /><span id="calculator-result-label"></span></span>
+</div>
 
 <script type="text/javascript">
+    var inputs = {};
+    var arrayInputs = [];
+
     function onClickSubmit() {
+        var url = "/Calculator/@Model.CalculatorId/Calculate/" + "@Model.PhaseId";
         $.ajax({
-            url: "/Calculator/@Model.CalculatorId/Calculate/" + "@Model.PhaseId",
-            type: "GET",
+            url: url,
+            type: "POST",
+            contentType: "application/json",
             headers: {
                 //RequestVerificationToken:
                 //    $('input:hidden[name="__RequestVerificationToken"]').val()
             },
-            data: {
-                argument1: $("#argument1").val(),
-                argument2: $("#argument2").val()
-            }
+            data: JSON.stringify({ inputs: inputs })
         })
         .done(function (result) {
-            $("#calculationResult").val(result.value);
+            for (var i = 0; i < result.results.length; i++) {
+                $("")
+            }
         });
     }
 
-    function inputValueControlOnInput(e) {
-        console.log("inputValueControlOnInput");
+    function inputValueControlOnInputCallback(e) {
+        inputs[e.Key] = e.Value.toString();
     }
 </script>

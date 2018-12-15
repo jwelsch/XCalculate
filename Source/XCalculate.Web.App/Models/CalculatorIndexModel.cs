@@ -1,4 +1,6 @@
-﻿namespace XCalculate.Web.App.Models
+﻿using XCalculateLib;
+
+namespace XCalculate.Web.App.Models
 {
     public class CalculatorIndexModel
     {
@@ -26,7 +28,7 @@
             set;
         }
 
-        public int PhaseId
+        public IPhase Phase
         {
             get;
             set;

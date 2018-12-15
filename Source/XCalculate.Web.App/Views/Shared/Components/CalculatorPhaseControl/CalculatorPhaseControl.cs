@@ -16,21 +16,11 @@ namespace XCalculate.Web.App.Components
             this.repository = repository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int calculatorId, int phaseId)
+        public async Task<IViewComponentResult> InvokeAsync(int calculatorId, IPhase phase)
         {
-            var calculator = this.repository.GetById(calculatorId);
-
-            IPhase phase = null;
-
-            do
-            {
-                phase = calculator.Module.Function.Calculate(phase);
-            }
-            while (phase.Id != phaseId);
-
             var model = new CalculatorPhaseControlModel()
             {
-                CalculatorId = calculator.Id,
+                CalculatorId = calculatorId,
                 PhaseId = phase.Id,
                 Name = phase.Name,
                 Description = phase.Description,
