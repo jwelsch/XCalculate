@@ -1,7 +1,7 @@
 ﻿@model XCalculate.Web.App.Components.InputValueControlModel
 
 <div>
-    <span>@Model.Name</span>: <input id="input-@Model.Name" class="inputValue" type="text" value="@Model.Value" oninput="inputValueControlOnInput(this);" /><span>@Model.UnitLabel</span>
+    <span>@Model.Name</span>: <input id="input-@Model.Name" class="inputValue form-control mr-sm-2" type="text" value="@Model.Value" oninput="inputValueControlOnInput(this);" /><span>@Model.UnitLabel</span>
 </div>
 
 <script type="text/javascript">

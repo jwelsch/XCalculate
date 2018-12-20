@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace XCalculateLib
 {
@@ -7,10 +8,48 @@ namespace XCalculateLib
         public IFunctionInfo FunctionInfo
         {
             get;
-            private set;
+        }
+
+        protected IValue[] Inputs
+        {
+            get;
+        }
+
+        protected BaseFunction(IFunctionInfo functionInfo, IValue[] inputs)
+        {
+            this.FunctionInfo = functionInfo;
+            this.Inputs = inputs;
+        }
+
+        protected BaseFunction(IFunctionInfo functionInfo, IValue inputs)
+            : this(functionInfo, new IValue[] { inputs })
+        {
+        }
+
+        public IValue[] GetInputs()
+        {
+            return this.Inputs;
         }
 
         public abstract IValue[] Calculate(IValue[] inputs);
+
+        protected void CheckInputs(IValue[] inputs)
+        {
+            if (inputs.Length != this.Inputs.Length)
+            {
+                throw new ArgumentException($"Expected {this.Inputs.Length} inputs.", nameof(inputs));
+            }
+
+            foreach (var input in this.Inputs)
+            {
+                var found = inputs.FirstOrDefault(i => i.Info.Name == input.Info.Name);
+
+                if (found == null)
+                {
+                    throw new ArgumentException($"Input \"{input.Info.Name}\" was not found.", nameof(inputs));
+                }
+            }
+        }
 
         protected static T GetValue<T>(IValue value)
         {
@@ -40,6 +79,22 @@ namespace XCalculateLib
             }
 
             return TypeConverter.ToArray<T>((Array)value.Value);
+        }
+
+        protected IValue[] CreateResults(object[] values)
+        {
+            if (this.FunctionInfo.ResultInfo.Length != values.Length)
+            {
+                throw new ArgumentException($"Expected {this.FunctionInfo.ResultInfo.Length} result values.");
+            }
+
+            var j = 0;
+            return values.Select(i => new AgnosticValue(i, this.FunctionInfo.ResultInfo[j++])).ToArray();
+        }
+
+        protected IValue[] CreateResults(object value)
+        {
+            return this.CreateResults(new object[] { value });
         }
     }
 }

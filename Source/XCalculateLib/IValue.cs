@@ -15,7 +15,7 @@ namespace XCalculateLib
             set;
         }
 
-        Type ValueType
+        bool IsArrayValue
         {
             get;
         }

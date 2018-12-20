@@ -1,40 +1,34 @@
-﻿using XCalculateLib;
+﻿using System;
 
 namespace XCalculate.Web.App.Models
 {
-    public class CalculatorIndexModel
+    public class CalculatorValueModel
     {
-        public int Id
+        public object Value
         {
             get;
             set;
         }
 
-        public string Name
+        public Type ValueType
         {
             get;
             set;
         }
 
-        public string Description
+        public string ValueLabel
         {
             get;
             set;
         }
 
-        public string[] Tags
+        public string UnitLabel
         {
             get;
             set;
         }
 
-        public CalculatorValueModel[] Inputs
-        {
-            get;
-            set;
-        }
-
-        public CalculatorValueModel[] Results
+        public bool IsArray
         {
             get;
             set;

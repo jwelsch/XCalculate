@@ -6,6 +6,16 @@ namespace XCalculateLib.Tests.Unit
     public class AgnosticArrayValueConstructorShould
     {
         [Fact]
+        public void SuccesfullyCreateObjectWithNoArguments()
+        {
+            var value = new AgnosticArrayValue();
+
+            Assert.NotNull(value);
+            Assert.Null(value.Info);
+            Assert.Null(value.Value);
+        }
+
+        [Fact]
         public void SuccesfullyCreateObjectWithMinimalArguments()
         {
             var defaultValue = new int[] { 1, 2, 3 };
@@ -17,7 +27,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(defaultValue.GetType(), value.ValueType);
+            Assert.Equal(defaultValue.GetType(), value.Value.GetType());
         }
 
         [Fact]
@@ -36,7 +46,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(defaultValue.GetType(), value.ValueType);
+            Assert.Equal(defaultValue.GetType(), value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -56,7 +66,6 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value);
             Assert.Null(value.Value);
-            Assert.Null(value.ValueType);
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);

@@ -8,6 +8,10 @@ namespace XCalculateLib
             get;
         }
 
+        IValue[] GetInputs();
+
         IValue[] Calculate(IValue[] inputs);
+
+        //IValue[] Calculate(object[] inputValues);
     }
 }

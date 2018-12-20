@@ -24,15 +24,14 @@ namespace XCalculate.Web.App.Controllers
         {
             var calculator = this.calculatorService.GetById(calculatorId);
 
-            var phase = calculator.Module.Function.Calculate();
-
             var vm = new CalculatorIndexModel()
             {
                 Id = calculator.Id,
                 Name = calculator.Module.Function.FunctionInfo.Name,
                 Description = calculator.Module.Function.FunctionInfo.Description,
                 Tags = calculator.Module.Function.FunctionInfo.Tags,
-                Phase = phase
+                Inputs = calculator.Module.Function.GetInputs().Select(i => new CalculatorValueModel() { ValueLabel = i.GetName(), ValueType = i.GetValueType(), UnitLabel = i.GetUnitLabel(), IsArray = i.IsArrayValue }).ToArray(),
+                Results = calculator.Module.Function.FunctionInfo.ResultInfo.Select(i => new CalculatorValueModel() { ValueLabel = i.GetName(), UnitLabel = i.GetUnitLabel() }).ToArray()
             };
 
             return View(vm);
@@ -49,17 +48,17 @@ namespace XCalculate.Web.App.Controllers
         [Route("{calculatorId}/Calculate/{phaseId}")]
         //[AutoValidateAntiforgeryToken]
         [HttpPost]
-        public IActionResult Calculate(int calculatorId, int phaseId, [FromBody] Dictionary<string, string> inputs/*, [FromBody] Dictionary<string, string[]> arrayInputs*/)
+        public IActionResult Calculate(int calculatorId, int phaseId, [FromBody] Dictionary<string, string> inputs, [FromBody] Dictionary<string, string[]> arrayInputs)
         {
             var calculator = this.calculatorService.GetById(calculatorId);
 
-            var inputValues = new List<IValue>();
+            var valueInputs = calculator.Module.Function.GetInputs();
 
-            foreach (var input in inputs)
+            for (var i = 0; i < valueInputs.Length; i++)
             {
-                var inputValue = new AgnosticValue(TypeConverter.ToObject<double>(input.Value), new ValueInfo(input.Key));
+                var input = inputs.FirstOrDefault(j => j.Key == valueInputs[i].Info.Name);
 
-                inputValues.Add(inputValue);
+                valueInputs[i].Value = TypeConverter.ToObject<double>(input.Value);
             }
 
             //foreach (var arrayInput in arrayInputs)
@@ -71,11 +70,9 @@ namespace XCalculate.Web.App.Controllers
             //    inputValues.Add(arrayInputValue);
             //}
 
-            var transition = new PhaseTransition(phaseId, inputValues);
+            var result = calculator.Module.Function.Calculate(valueInputs);
 
-            var phase = calculator.Module.Function.Calculate(transition);
-
-            return Json(new CalculateResult(phase, calculator.Module.Function.CurrentResult));
+            return Json(new CalculateResult(result));
         }
     }
 }

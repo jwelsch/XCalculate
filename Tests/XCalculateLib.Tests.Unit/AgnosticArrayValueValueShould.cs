@@ -20,7 +20,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(newValue[1], i),
                 i => Assert.Equal(newValue[2], i),
                 i => Assert.Equal(newValue[3], i));
-            Assert.Equal(newValue.GetType(), value.ValueType);
+            Assert.Equal(newValue.GetType(), value.Value.GetType());
         }
 
         [Fact]
@@ -38,7 +38,23 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(newValue[1], i),
                 i => Assert.Equal(newValue[2], i),
                 i => Assert.Equal(newValue[3], i));
-            Assert.Equal(newValue.GetType(), value.ValueType);
+            Assert.Equal(newValue.GetType(), value.Value.GetType());
+        }
+
+        [Fact]
+        public void SuccessfullySetValueOfNullTypeWithNonNullType()
+        {
+            var newValue = new int[] { 1, 2, 3 };
+
+            var value = new AgnosticArrayValue();
+
+            value.Value = newValue;
+
+            Assert.Collection((int[])value.Value,
+                i => Assert.Equal(newValue[0], i),
+                i => Assert.Equal(newValue[1], i),
+                i => Assert.Equal(newValue[2], i));
+            Assert.Equal(newValue.GetType(), value.Value.GetType());
         }
 
         [Fact]
@@ -55,6 +71,19 @@ namespace XCalculateLib.Tests.Unit
             }
 
             var value = new AgnosticArrayValue(defaultValue, new ValueInfo(name, description, unit), validator);
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                value.Value = newValue;
+            });
+        }
+
+        [Fact]
+        public void FailToSetNewValueThatIsNonArray()
+        {
+            var newValue = 123;
+
+            var value = (IValue) new AgnosticArrayValue();
 
             Assert.Throws<ArgumentException>(() =>
             {

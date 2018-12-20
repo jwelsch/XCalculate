@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using XCalculateLib;
 
 namespace MathCalculators
@@ -8,20 +7,26 @@ namespace MathCalculators
     public class AddFunction : BaseFunction
     {
         public AddFunction()
-            : base(new FunctionInfo(new Version("1.0.0"), "Add", "Add numbers.", "add"))
+            : base(
+                  new FunctionInfo(new Version("1.0.0"), "Add", new ValueInfo("Sum", "Sum of the numbers"), "Add numbers.", "add"),
+                  new AgnosticArrayValue(new ValueInfo("Addends", "Numbers to add together"), i => i == null ? true : i.Length > 1))
         {
         }
 
-        public override IPhase Calculate(IPhaseTransition transition = null)
+        public override IValue[] Calculate(IValue[] inputs)
         {
-            return this.SingleCalculate(transition,
-                new FirstPhase(
-                    "Specify Operands",
-                    "Specify numbers to add.",
-                    new AgnosticArrayValue(
-                        new ValueInfo("Operands", "Operands to add."),
-                        i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true)),
-                v => GetValues<double[]>(v).Aggregate((x, y) => x + y));
+            this.CheckInputs(inputs);
+
+            var arrayInput = (AgnosticArrayValue)inputs[0];
+
+            var result = 0.0;
+
+            foreach (var input in arrayInput.Value)
+            {
+                result += TypeConverter.ToObject<double>(input);
+            }
+
+            return this.CreateResults(result);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace XCalculateLib.Tests.Unit
             Assert.NotNull(value);
             Assert.Equal(defaultValue, value.Value);
             Assert.Equal(defaultValue.GetType(), value.ValueType);
+            Assert.False(value.IsArrayValue);
         }
 
         [Fact]
@@ -35,6 +36,7 @@ namespace XCalculateLib.Tests.Unit
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
             Assert.Equal(unit, value.Info.Unit);
+            Assert.False(value.IsArrayValue);
         }
 
         [Fact]

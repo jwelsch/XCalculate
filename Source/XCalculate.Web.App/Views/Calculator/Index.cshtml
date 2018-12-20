@@ -16,7 +16,105 @@
         }
     </ul>
 </p>
-<vc:calculator-phase-control calculator-id="@Model.Id" phase="@Model.Phase" />
+<div id="calculator-input-group">
+    @for (var i = 0; i < Model.Inputs.Length; i++)
+    {
+        if (Model.Inputs[i].IsArray)
+        {
+            <div id="array-input-group-@Model.Inputs[i].ValueLabel">
+                <div id="array-input-group-@Model.Inputs[i].ValueLabel-@i-0" class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">@Model.Inputs[i].ValueLabel</span>
+                    </div>
+                    <input type="text" class="form-control" id="input-@Model.Inputs[i].ValueLabel-@i-0" oninput="onInputValue(this);">
+                    <div id="array-value-button" class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" onclick="onClickInputValueButton(this);">+</button>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div id="input-group-@Model.Inputs[i].ValueLabel" class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">@Model.Inputs[i].ValueLabel</span>
+                </div>
+                <input type="text" class="form-control" id="input-@Model.Inputs[i].ValueLabel" oninput="onInputValue(this);">
+            </div>
+        }
+    }
+</div>
+<p>
+    <input type="button" class="btn" value="Calculate" onclick="onClickSubmit();" />
+</p>
+<div id="calculator-result-group">
+    @for(var i = 0; i < Model.Results.Length; i++)
+    {
+        <span><input type="text" id="calculator-result-@i" class="form-control mr-sm-2" readonly /><span id="calculator-result-label-@i"></span></span>
+    }
+</div>
 
 <script type="text/javascript">
+    var inputs = {};
+    var arrayInputs = [];
+
+    function onClickSubmit() {
+        var url = "/Calculator/@Model.Id/Calculate";
+        $.ajax({
+            url: url,
+            type: "POST",
+            contentType: "application/json",
+            headers: {
+                //RequestVerificationToken:
+                //    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: JSON.stringify({ inputs: inputs, arrayInputs: arrayInputs })
+        })
+        .done(function (result) {
+            //for (var i = 0; i < result.results.length; i++) {
+            //    $("#calculator-result-" + i).val(result.results[i].Value);
+            //}
+        });
+    }
+
+    function onInputValue(e) {
+        inputs[e.Key] = e.Value.toString();
+    }
+
+    function onClickInputValueButton(e) {
+        var $appendGroup = $(e).parent();
+        var $valueInputGroup = $appendGroup.parent();
+        var $inputGroup = $valueInputGroup.parent();
+
+        if (e.innerText === "+") {
+            e.innerText = "-";
+
+            var $clone = $valueInputGroup.clone(true, true);
+            $button = $clone.find("button");
+            $button.text("+");
+            $clone.find("input").attr("id", incrementId($clone.find("input").attr("id")));
+            $clone.attr("id", incrementId($clone.attr("id")));
+
+            $clone.appendTo($inputGroup);
+        }
+        else if (e.innerText === "-") {
+            $valueInputGroup.remove();
+        }
+        else {
+            console.log("Unknown array input button text.");
+        }
+    }
+
+    function incrementId(id) {
+        var parts = id.split("-");
+        parts[parts.length - 1] = (parseInt(parts[parts.length - 1]) + 1).toString();
+        var newId = "";
+        for (var i = 0; i < parts.length; i++) {
+            if (i != 0) {
+                newId += "-";
+            }
+            newId += parts[i];
+        }
+        return newId;
+    }
 </script>

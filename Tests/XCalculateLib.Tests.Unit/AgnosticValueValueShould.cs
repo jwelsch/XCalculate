@@ -34,6 +34,19 @@ namespace XCalculateLib.Tests.Unit
         }
 
         [Fact]
+        public void SuccessfullySetValueOfNullTypeWithNonNullType()
+        {
+            var newValue = 321;
+
+            var value = new AgnosticValue();
+
+            value.Value = newValue;
+
+            Assert.Equal(newValue, value.Value);
+            Assert.Equal(newValue.GetType(), value.ValueType);
+        }
+
+        [Fact]
         public void FailToSetNewValueThatIsInvalid()
         {
             var defaultValue = 123;

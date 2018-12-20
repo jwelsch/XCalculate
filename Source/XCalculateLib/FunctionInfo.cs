@@ -43,5 +43,10 @@ namespace XCalculateLib
             this.Description = description;
             this.Tags = tags;
         }
+
+        public FunctionInfo(Version version, string name, IValueInfo resultInfo, string description = null, params string[] tags)
+            : this(version, name, new IValueInfo[] { resultInfo }, description, tags)
+        {
+        }
     }
 }
