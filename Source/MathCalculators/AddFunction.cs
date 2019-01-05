@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using XCalculateLib;
 
 namespace MathCalculators
@@ -17,14 +18,7 @@ namespace MathCalculators
         {
             this.CheckInputs(inputs);
 
-            var arrayInput = (AgnosticArrayValue)inputs[0];
-
-            var result = 0.0;
-
-            foreach (var input in arrayInput.Value)
-            {
-                result += TypeConverter.ToObject<double>(input);
-            }
+            var result = GetValues<double[]>(inputs[0]).Aggregate((x, y) => x + y);
 
             return this.CreateResults(result);
         }

@@ -15,15 +15,10 @@ namespace XCalculateLib
             get;
         }
 
-        protected BaseFunction(IFunctionInfo functionInfo, IValue[] inputs)
+        protected BaseFunction(IFunctionInfo functionInfo, params IValue[] inputs)
         {
             this.FunctionInfo = functionInfo;
             this.Inputs = inputs;
-        }
-
-        protected BaseFunction(IFunctionInfo functionInfo, IValue inputs)
-            : this(functionInfo, new IValue[] { inputs })
-        {
         }
 
         public IValue[] GetInputs()
@@ -81,7 +76,7 @@ namespace XCalculateLib
             return TypeConverter.ToArray<T>((Array)value.Value);
         }
 
-        protected IValue[] CreateResults(object[] values)
+        protected IValue[] CreateResults(params object[] values)
         {
             if (this.FunctionInfo.ResultInfo.Length != values.Length)
             {
@@ -90,11 +85,6 @@ namespace XCalculateLib
 
             var j = 0;
             return values.Select(i => new AgnosticValue(i, this.FunctionInfo.ResultInfo[j++])).ToArray();
-        }
-
-        protected IValue[] CreateResults(object value)
-        {
-            return this.CreateResults(new object[] { value });
         }
     }
 }
