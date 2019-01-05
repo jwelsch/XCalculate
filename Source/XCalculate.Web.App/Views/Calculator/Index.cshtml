@@ -27,7 +27,7 @@
                         <span class="input-group-text">@Model.Inputs[i].ValueLabel</span>
                     </div>
                     <input type="text" class="form-control" id="input-@Model.Inputs[i].ValueLabel-@i-0" oninput="onInputValue(this);">
-                    <div id="array-value-button" class="input-group-append">
+                    <div id="array-value-button-@i" class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" onclick="onClickInputValueButton(this);">+</button>
                     </div>
                 </div>
@@ -50,7 +50,21 @@
 <div id="calculator-result-group">
     @for(var i = 0; i < Model.Results.Length; i++)
     {
-        <span><input type="text" id="calculator-result-@i" class="form-control mr-sm-2" readonly /><span id="calculator-result-label-@i"></span></span>
+    <div class="input-group mb-3">
+            @if (Model.Results[i].ValueLabel != null && Model.Results[i].ValueLabel.Length > 0)
+            {
+                <div class="input-group-prepend">
+                    <span class="input-group-text">@Model.Results[i].ValueLabel</span>
+                </div>
+            }
+            <input type="text" id="calculator-result-@i" class="form-control mr-sm-2" readonly />
+            @if (Model.Results[i].UnitLabel != null && Model.Results[i].UnitLabel.Length > 0)
+            {
+                <div class="input-group-append">
+                    <span class="input-group-text">@Model.Results[i].UnitLabel</span>
+                </div>
+            }
+        </div>
     }
 </div>
 
@@ -78,7 +92,7 @@
     }
 
     function onInputValue(e) {
-        inputs[e.Key] = e.Value.toString();
+        inputs[e.Key] = $(e).val().toString();
     }
 
     function onClickInputValueButton(e) {
@@ -92,8 +106,10 @@
             var $clone = $valueInputGroup.clone(true, true);
             $button = $clone.find("button");
             $button.text("+");
-            $clone.find("input").attr("id", incrementId($clone.find("input").attr("id")));
+            var $input = $clone.find("input");
+            $input.attr("id", incrementId($input.attr("id")));
             $clone.attr("id", incrementId($clone.attr("id")));
+            $input.val("");
 
             $clone.appendTo($inputGroup);
         }
