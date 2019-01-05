@@ -22,12 +22,12 @@
         if (Model.Inputs[i].IsArray)
         {
             <div id="array-input-group-@Model.Inputs[i].ValueLabel">
-                <div id="array-input-group-@Model.Inputs[i].ValueLabel-@i-0" class="input-group mb-3">
+                <div id="array-input-group-@Model.Inputs[i].ValueLabel-@i" class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">@Model.Inputs[i].ValueLabel</span>
                     </div>
-                    <input type="text" class="form-control" id="input-@Model.Inputs[i].ValueLabel-@i-0" oninput="onInputValue(this);">
-                    <div id="array-value-button-@i" class="input-group-append">
+                    <input type="text" class="form-control" id="input-@Model.Inputs[i].ValueLabel-@i" oninput="onInputValue(this);">
+                    <div id="array-value-button-@Model.Inputs[i].ValueLabel-@i" class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" onclick="onClickInputValueButton(this);">+</button>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
 
 <script type="text/javascript">
     var inputs = {};
-    var arrayInputs = [];
+    var arrayInputs = {};
 
     function onClickSubmit() {
         var url = "/Calculator/@Model.Id/Calculate";
@@ -92,7 +92,27 @@
     }
 
     function onInputValue(e) {
-        inputs[e.Key] = $(e).val().toString();
+        var id = $(e).attr("id");
+        var parts = id.split("-");
+        var valueName = parts[1];
+        var value = $(e).val().toString();
+
+        if (parts.length > 2) {
+            var index = parseInt(parts[2]);
+            if (!arrayInputs[valueName]) {
+                arrayInputs[valueName] = [];
+            }
+
+            if (arrayInputs[valueName][index]) {
+                arrayInputs[valueName][index] = value;
+            }
+            else {
+                arrayInputs[valueName].push(value);
+            }
+        }
+        else {
+            inputs[valueName] = value;
+        }
     }
 
     function onClickInputValueButton(e) {

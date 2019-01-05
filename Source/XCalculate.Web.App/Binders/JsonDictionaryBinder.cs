@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace XCalculate.Web.App.Binders
@@ -21,10 +22,15 @@ namespace XCalculate.Web.App.Binders
                 body = reader.ReadToEnd();
             }
 
-            // Remove the last '}', then the first '{', finally the name of the field plus the surrounding '"' and the ':'.
-            body = body.Substring(0, body.Length - 1).TrimStart('{').Substring(bindingContext.FieldName.Length + 3);
+            var searchName = "\"" + bindingContext.FieldName + "\":";
 
-            var inputs = JsonConvert.DeserializeObject<Dictionary<string, string>>(body);
+            var searchStartIndex = body.IndexOf(searchName) + searchName.Length;
+
+            var endBracketIndex = body.IndexOfMatchingBracket(searchStartIndex);
+
+            var data = body.Substring(searchStartIndex, endBracketIndex - searchStartIndex + 1);
+
+            var inputs = JsonConvert.DeserializeObject<Dictionary<string, string>>(data);
 
             bindingContext.Result = ModelBindingResult.Success(inputs);
 

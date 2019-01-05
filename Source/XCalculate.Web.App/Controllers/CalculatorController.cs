@@ -41,14 +41,13 @@ namespace XCalculate.Web.App.Controllers
         /// Calculates a phase of a calculator.
         /// </summary>
         /// <param name="calculatorId">ID of the calculator.</param>
-        /// <param name="phaseId">ID of the phase of the calculator.</param>
         /// <param name="inputs">Single inputs of the phase of the calculator.</param>
         /// <param name="arrayInputs">Array inputs of the phase of the calculator.</param>
         /// <returns>The calculation result.</returns>
-        [Route("{calculatorId}/Calculate/{phaseId}")]
+        [Route("{calculatorId}/Calculate")]
         //[AutoValidateAntiforgeryToken]
         [HttpPost]
-        public IActionResult Calculate(int calculatorId, int phaseId, [FromBody] Dictionary<string, string> inputs, [FromBody] Dictionary<string, string[]> arrayInputs)
+        public IActionResult Calculate(int calculatorId, [FromBody] Dictionary<string, string> inputs, [FromBody] Dictionary<string, string[]> arrayInputs)
         {
             var calculator = this.calculatorService.GetById(calculatorId);
 
