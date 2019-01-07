@@ -41,13 +41,12 @@ namespace XCalculate.Web.App.Controllers
         /// Calculates a phase of a calculator.
         /// </summary>
         /// <param name="calculatorId">ID of the calculator.</param>
-        /// <param name="inputs">Single inputs of the phase of the calculator.</param>
-        /// <param name="arrayInputs">Array inputs of the phase of the calculator.</param>
+        /// <param name="calculatorInput">Inputs of the calculator.</param>
         /// <returns>The calculation result.</returns>
         [Route("{calculatorId}/Calculate")]
         //[AutoValidateAntiforgeryToken]
         [HttpPost]
-        public IActionResult Calculate(int calculatorId, [FromBody] Dictionary<string, string> inputs, [FromBody] Dictionary<string, string[]> arrayInputs)
+        public IActionResult Calculate(int calculatorId, [FromBody] CalculatorInput calculatorInput)
         {
             var calculator = this.calculatorService.GetById(calculatorId);
 
@@ -55,19 +54,21 @@ namespace XCalculate.Web.App.Controllers
 
             for (var i = 0; i < valueInputs.Length; i++)
             {
-                var input = inputs.FirstOrDefault(j => j.Key == valueInputs[i].Info.Name);
+                var input = calculatorInput.Inputs.FirstOrDefault(j => j.Key == valueInputs[i].Info.Name);
 
-                valueInputs[i].Value = TypeConverter.ToObject<double>(input.Value);
+                if (input.Key != null && input.Value != null)
+                {
+                    valueInputs[i].Value = TypeConverter.ToObject<double>(input.Value);
+                    continue;
+                }
+
+                var arrayInput = calculatorInput.ArrayInputs.FirstOrDefault(j => j.Key == valueInputs[i].Info.Name);
+
+                if (arrayInput.Key != null && arrayInput.Value != null)
+                {
+                    valueInputs[i].Value = TypeConverter.ToArray<double[]>(arrayInput.Value);
+                }
             }
-
-            //foreach (var arrayInput in arrayInputs)
-            //{
-            //    var array = TypeConverter.ToArray<double[]>(arrayInput.Value);
-
-            //    var arrayInputValue = new AgnosticArrayValue(array, new ValueInfo(arrayInput.Key));
-
-            //    inputValues.Add(arrayInputValue);
-            //}
 
             var result = calculator.Module.Function.Calculate(valueInputs);
 

@@ -80,6 +80,11 @@ namespace XCalculate.Web.App
                 count = me.Length - start;
             }
 
+            if (me.Length == 0)
+            {
+                return none;
+            }
+
             var startBracket = me[start];
             var endBracket = default(char);
 
