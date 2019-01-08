@@ -9,7 +9,7 @@ namespace MathCalculators
     {
         public DivideFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Divide", new[] { new ValueInfo("Decimal quotient", "The decimal quotient of the division."), new ValueInfo("Whole quotient", "The whole number quotient of the division."), new ValueInfo("Whole remainder", "The whole number reminder of the division.") }, "Divide numbers.", "divide"),
+                  new FunctionInfo(new Version("1.0.0"), "Divide", new[] { new ValueInfo("Decimal quotient", "The decimal quotient of the division."), new ValueInfo("Whole quotient", "The whole number quotient of the division."), new ValueInfo("Whole remainder", "The whole number reminder of the division.") }, "Divide numbers.", "arithmetic", "divide"),
                   new AgnosticArrayValue(
                         new [] { 0.0, 1.0 },
                         new ValueInfo("Operands", "Operands to divide."),

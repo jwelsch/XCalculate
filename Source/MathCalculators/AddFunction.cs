@@ -9,8 +9,8 @@ namespace MathCalculators
     {
         public AddFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Add", new ValueInfo("Sum", "Sum of the numbers"), "Add numbers.", "add"),
-                  new AgnosticArrayValue(new[] { 0.0, 0.0 }, new ValueInfo("Addends", "Numbers to add together"), i => i.Length > 1))
+                  new FunctionInfo(new Version("1.0.0"), "Add", new ValueInfo("Sum", "Sum of the numbers"), "Add numbers.", "arithmetic", "add"),
+                  new AgnosticArrayValue(new[] { 0.0, 0.0 }, new ValueInfo("Addends", "Numbers to add together"), i => i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true))
         {
         }
 

@@ -15,6 +15,7 @@ namespace MathCalculators.Tests.Functional
             Assert.Equal(new Version("1.0.0"), function.FunctionInfo.Version);
             Assert.Equal("Divide numbers.", function.FunctionInfo.Description);
             Assert.Collection(function.FunctionInfo.Tags,
+                i => Assert.Equal("arithmetic", i),
                 i => Assert.Equal("divide", i));
         }
     }

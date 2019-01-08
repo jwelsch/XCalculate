@@ -8,7 +8,7 @@ namespace MathCalculators
     {
         public ExponentFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Exponent", new ValueInfo("Result", "The base raised to the power."), "Raise a number to a power.", "exponent", "power"),
+                  new FunctionInfo(new Version("1.0.0"), "Exponent", new ValueInfo("Result", "The base raised to the power."), "Raise a number to a power.", "arithmetic", "exponent", "power"),
                   new AgnosticValue(0.0, new ValueInfo("Base")),
                   new AgnosticValue(0.0, new ValueInfo("Exponent")))
         {
