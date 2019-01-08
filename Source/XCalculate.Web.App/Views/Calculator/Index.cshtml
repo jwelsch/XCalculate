@@ -22,15 +22,16 @@
         var label = Model.Inputs[i].ValueLabel.Replace(" ", string.Empty);
         if (Model.Inputs[i].IsArray)
         {
-            <div id="array-input-group-@label">
-                <div id="array-input-group-@label-@i" class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">@Model.Inputs[i].ValueLabel</span>
+            <div id="array-input-group-@label" class="card mb-3">
+                <div class="card-body">
+                    <div class="card-title">@Model.Inputs[i].ValueLabel</div>
+                    <div id="array-input-group-@label-@i" class="input-group mb-3">
+                        <input type="text" class="form-control" oninput="onInputValue(this);">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" disabled onclick="onClickInputRemoveButton(this);">-</button>
+                        </div>
                     </div>
-                    <input type="text" class="form-control" id="input-@label-@i" oninput="onInputValue(this);">
-                    <div id="array-value-button-@label-@i" class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" onclick="onClickInputValueButton(this);">+</button>
-                    </div>
+                    <input type="button" class="btn" value="Add +" onclick="onClickInputAddButton(this);"/>
                 </div>
             </div>
         }
@@ -95,70 +96,85 @@
     }
 
     function onInputValue(e) {
-        var id = $(e).attr("id");
-        var parts = id.split("-");
-        var valueName = parts[1];
-        var value = $(e).val().toString();
+        var id = $(e).parent().attr("id");
+        var parsedId = parseInputId(id);
+        var value = $(e).val();
 
-        if (parts.length > 2) {
-            var index = parseInt(parts[2]);
-            if (!arrayInputs[valueName]) {
-                arrayInputs[valueName] = [];
+        if (parsedId.isArray) {
+            if (!arrayInputs[parsedId.label]) {
+                arrayInputs[parsedId.label] = [];
             }
 
-            if (arrayInputs[valueName][index]) {
-                arrayInputs[valueName][index] = value;
+            if (arrayInputs[parsedId.label][parsedId.index] !== undefined) {
+                arrayInputs[parsedId.label][parsedId.index] = value;
             }
             else {
-                arrayInputs[valueName].push(value);
+                arrayInputs[parsedId.label].push(value);
             }
         }
         else {
-            inputs[valueName] = value;
+            inputs[parsedId.label] = value;
         }
     }
 
-    function onClickInputValueButton(e) {
+    function onClickInputAddButton(e) {
+        var $valueInputGroup = $(e).siblings("div[id^='array-input-group']:last");
+        var $clone = $valueInputGroup.clone(true, true);
+        var $input = $clone.find("input");
+        var $button = $clone.find("button");
+        $clone.attr("id", changeInputIdIndex($clone.attr("id"), function (i) { return i + 1; }));
+        $input.val("");
+        $button.attr("disabled", false);
+
+        $clone.insertAfter($valueInputGroup);
+
+        var label = parseInputId($valueInputGroup.attr("id")).label;
+        if (arrayInputs[label].length == 1) {
+            $valueInputGroup.find("button").attr("disabled", false);
+        }
+    }
+
+    function onClickInputRemoveButton(e) {
         var $appendGroup = $(e).parent();
         var $valueInputGroup = $appendGroup.parent();
-        var $inputGroup = $valueInputGroup.parent();
 
-        if (e.innerText === "+") {
-            e.innerText = "-";
+        var id = $valueInputGroup.attr("id");
+        var parsedId = parseInputId(id);
+        arrayInputs[parsedId.label].splice(parsedId.index, 1);
 
-            var $clone = $valueInputGroup.clone(true, true);
-            $button = $clone.find("button");
-            $button.text("+");
-            var $input = $clone.find("input");
-            $input.attr("id", incrementId($input.attr("id")));
-            $clone.attr("id", incrementId($clone.attr("id")));
-            $input.val("");
+        $siblings = $valueInputGroup.siblings("div[id^='array-input-group']");
 
-            $clone.appendTo($inputGroup);
+        $valueInputGroup.remove();
+
+        for (var i = 0; i < $siblings.length; i++) {
+            var newId = changeInputIdIndex($($siblings[i]).attr("id"), function (idx) { return i; });
+            $($siblings[i]).attr("id", newId);
         }
-        else if (e.innerText === "-") {
-            var id = $valueInputGroup.attr("id");
-            var parts = id.split("-");
-            var index = parseInt(parts[parts.length - 1]);
-            var valueName = parts[parts.length - 2];
-            arrayInputs[valueName].splice(index, 1);
-            $valueInputGroup.remove();
-        }
-        else {
-            console.log("Unknown array input button text.");
+
+        if ($siblings.length == 1) {
+            $siblings.find("button").attr("disabled", true);
         }
     }
 
-    function incrementId(id) {
-        var parts = id.split("-");
-        parts[parts.length - 1] = (parseInt(parts[parts.length - 1]) + 1).toString();
+    function changeInputIdIndex(id, callback) {
+        var parsedId = parseInputId(id);
         var newId = "";
-        for (var i = 0; i < parts.length; i++) {
-            if (i != 0) {
-                newId += "-";
-            }
-            newId += parts[i];
+        for (var i = 0; i < parsedId.parts.length - 1; i++) {
+            newId += parsedId.parts[i] + "-";
         }
+
+        newId += callback ? callback(parsedId.index) : parsedId.index;
+
         return newId;
+    }
+
+    function parseInputId(id) {
+        var parts = id.split("-");
+        return {
+            isArray: parts[0] === "array",
+            label: parts[parts.length - 2],
+            index: parseInt(parts[parts.length - 1]),
+            parts: parts
+        };
     }
 </script>
