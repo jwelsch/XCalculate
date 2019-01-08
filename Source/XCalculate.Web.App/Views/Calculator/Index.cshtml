@@ -32,7 +32,7 @@
                         <div id="array-input-group-@label-@j" class="input-group mb-3">
                             <input type="text" class="form-control" oninput="onInputValue(this);" value="@value">
                             <div class="input-group-append">
-                                <input type="button" class="btn btn-outline-secondary" value="-" onclick="onClickInputRemoveButton(this);" disabled />
+                                <input type="button" class="btn btn-outline-secondary" value="-" onclick="onClickInputRemoveButton(this);" @(((Array)Model.Inputs[i].Value).Length < 2 ? "disabled" : "") />
                             </div>
                         </div>
                     }
@@ -160,17 +160,17 @@
     function onClickInputAddButton(e) {
         var $valueInputGroup = $(e).siblings("div[id^='array-input-group']:last");
         var $clone = $valueInputGroup.clone(true, true);
-        var $input = $clone.find("input");
-        var $button = $clone.find("button");
+        var $input = $clone.find("input[type='text']");
+        var $button = $clone.find("input[type='button']");
         $clone.attr("id", changeInputIdIndex($clone.attr("id"), function (i) { return i + 1; }));
         $input.val("");
         $button.attr("disabled", false);
 
         $clone.insertAfter($valueInputGroup);
 
-        var label = parseInputId($valueInputGroup.attr("id")).label;
-        if (arrayInputs[label].length == 1) {
-            $valueInputGroup.find("button").attr("disabled", false);
+        var $groups = $valueInputGroup.parent().children("div");
+        if ($groups.length > 1) {
+            $groups.find("input[type='button']").attr("disabled", false);
         }
     }
 
@@ -192,7 +192,7 @@
         }
 
         if ($siblings.length == 1) {
-            $siblings.find("button").attr("disabled", true);
+            $siblings.find("input[type='button']").attr("disabled", true);
         }
     }
 
