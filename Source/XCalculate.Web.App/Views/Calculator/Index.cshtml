@@ -137,6 +137,11 @@
             $clone.appendTo($inputGroup);
         }
         else if (e.innerText === "-") {
+            var id = $valueInputGroup.attr("id");
+            var parts = id.split("-");
+            var index = parseInt(parts[parts.length - 1]);
+            var valueName = parts[parts.length - 2];
+            arrayInputs[valueName].splice(index, 1);
             $valueInputGroup.remove();
         }
         else {
