@@ -25,23 +25,28 @@
             <div id="array-input-group-@label" class="card mb-3">
                 <div class="card-body">
                     <div class="card-title">@Model.Inputs[i].ValueLabel</div>
-                    <div id="array-input-group-@label-@i" class="input-group mb-3">
-                        <input type="text" class="form-control" oninput="onInputValue(this);">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" disabled onclick="onClickInputRemoveButton(this);">-</button>
+                    @for (var j = 0; j < ((Array)Model.Inputs[i].Value).Length; j++)
+                    {
+                        var value = ((Array)Model.Inputs[i].Value).GetValue(j).ToString();
+                        <div id="array-input-group-@label-@j" class="input-group mb-3">
+                            <input type="text" class="form-control" oninput="onInputValue(this);" value="@value">
+                            <div class="input-group-append">
+                                <input type="button" class="btn btn-outline-secondary" value="-" onclick="onClickInputRemoveButton(this);" disabled />
+                            </div>
                         </div>
-                    </div>
-                    <input type="button" class="btn" value="Add +" onclick="onClickInputAddButton(this);"/>
+                    }
+                    <input type="button" class="btn" value="Add +" onclick="onClickInputAddButton(this);" />
                 </div>
             </div>
         }
         else
         {
+            var value = Model.Inputs[i].Value.ToString();
             <div id="input-group-@label" class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon3">@label</span>
                 </div>
-                <input type="text" class="form-control" id="input-@label" oninput="onInputValue(this);">
+                <input type="text" class="form-control" id="input-@label" oninput="onInputValue(this);" value="@value" />
             </div>
         }
     }
@@ -49,31 +54,43 @@
 <p>
     <input type="button" class="btn" value="Calculate" onclick="onClickSubmit();" />
 </p>
-<div id="calculator-result-group">
-    @for(var i = 0; i < Model.Results.Length; i++)
-    {
-        var label = Model.Results[i].ValueLabel.Replace(" ", string.Empty);
-        <div class="input-group mb-3">
-            @if (Model.Results[i].ValueLabel != null && Model.Results[i].ValueLabel.Length > 0)
-            {
-                <div class="input-group-prepend">
-                    <span class="input-group-text">@Model.Results[i].ValueLabel</span>
-                </div>
-            }
-            <input type="text" id="calculator-result-@label" class="form-control mr-sm-2" readonly />
-            @if (Model.Results[i].UnitLabel != null && Model.Results[i].UnitLabel.Length > 0)
-            {
-                <div class="input-group-append">
-                    <span class="input-group-text">@Model.Results[i].UnitLabel</span>
-                </div>
-            }
-        </div>
-    }
+<div id="calculator-result-group" class="card mb-3">
+    <div class="card-body">
+        <div class="card-title">Result</div>
+        @for (var i = 0; i < Model.Results.Length; i++)
+        {
+            var label = Model.Results[i].ValueLabel.Replace(" ", string.Empty);
+            <div class="input-group mb-3">
+                @if (Model.Results[i].ValueLabel != null && Model.Results[i].ValueLabel.Length > 0)
+                {
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">@Model.Results[i].ValueLabel</span>
+                    </div>
+                }
+                <input type="text" id="calculator-result-@label" class="form-control mr-sm-2" readonly />
+                @if (Model.Results[i].UnitLabel != null && Model.Results[i].UnitLabel.Length > 0)
+                {
+                    <div class="input-group-append">
+                        <span class="input-group-text">@Model.Results[i].UnitLabel</span>
+                    </div>
+                }
+            </div>
+        }
+    </div>
 </div>
 
+@section scripts {
 <script type="text/javascript">
     var inputs = {};
     var arrayInputs = {};
+
+    $(document).ready(function () {
+        var $inputs = $("#calculator-input-group").find("input[type='text']");
+
+        $inputs.each(function () {
+            setInputValue(this);
+        });
+    });
 
     function onClickSubmit() {
         var url = "/Calculator/@Model.Id/Calculate";
@@ -96,12 +113,16 @@
     }
 
     function onInputValue(e) {
-        var id = $(e).parent().attr("id");
+        setInputValue(e);
+    }
+
+    function setInputValue(input) {
+        var id = $(input).parent().attr("id");
         var parsedId = parseInputId(id);
-        var value = $(e).val();
+        var value = $(input).val();
 
         if (parsedId.isArray) {
-            if (!arrayInputs[parsedId.label]) {
+            if (arrayInputs[parsedId.label] === undefined) {
                 arrayInputs[parsedId.label] = [];
             }
 
@@ -170,11 +191,13 @@
 
     function parseInputId(id) {
         var parts = id.split("-");
+        var isArray = parts[0] === "array";
         return {
-            isArray: parts[0] === "array",
-            label: parts[parts.length - 2],
-            index: parseInt(parts[parts.length - 1]),
+            isArray: isArray,
+            label: parts[parts.length - (isArray ? 2 : 1)],
+            index: isArray ? parseInt(parts[parts.length - 1]) : undefined,
             parts: parts
         };
     }
 </script>
+}

@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using XCalculate.Web.App.Models;
 using XCalculate.Web.Core.Interfaces;
@@ -30,7 +28,7 @@ namespace XCalculate.Web.App.Controllers
                 Name = calculator.Module.Function.FunctionInfo.Name,
                 Description = calculator.Module.Function.FunctionInfo.Description,
                 Tags = calculator.Module.Function.FunctionInfo.Tags,
-                Inputs = calculator.Module.Function.GetInputs().Select(i => new CalculatorValueModel() { ValueLabel = i.GetName(), ValueType = i.GetValueType(), UnitLabel = i.GetUnitLabel(), IsArray = i.IsArrayValue }).ToArray(),
+                Inputs = calculator.Module.Function.GetInputs().Select(i => new CalculatorValueModel() { ValueLabel = i.GetName(), ValueType = i.GetValueType(), UnitLabel = i.GetUnitLabel(), IsArray = i.IsArrayValue, Value = i.Value }).ToArray(),
                 Results = calculator.Module.Function.FunctionInfo.ResultInfo.Select(i => new CalculatorValueModel() { ValueLabel = i.GetName(), UnitLabel = i.GetUnitLabel() }).ToArray()
             };
 
@@ -58,7 +56,15 @@ namespace XCalculate.Web.App.Controllers
 
                 if (input.Key != null && input.Value != null)
                 {
-                    valueInputs[i].Value = TypeConverter.ToObject<double>(input.Value);
+                    try
+                    {
+                        valueInputs[i].Value = TypeConverter.ToObject<double>(input.Value);
+                    }
+                    catch
+                    {
+                        return this.BadRequest();
+                    }
+
                     continue;
                 }
 
@@ -66,13 +72,27 @@ namespace XCalculate.Web.App.Controllers
 
                 if (arrayInput.Key != null && arrayInput.Value != null)
                 {
-                    valueInputs[i].Value = TypeConverter.ToArray<double[]>(arrayInput.Value);
+                    try
+                    {
+                        valueInputs[i].Value = TypeConverter.ToArray<double[]>(arrayInput.Value);
+                    }
+                    catch
+                    {
+                        return this.BadRequest();
+                    }
                 }
             }
 
-            var result = calculator.Module.Function.Calculate(valueInputs);
+            try
+            {
+                var result = calculator.Module.Function.Calculate(valueInputs);
 
-            return Json(new CalculateResult(result));
+                return Json(new CalculateResult(result));
+            }
+            catch
+            {
+                return this.BadRequest();
+            }
         }
     }
 }
