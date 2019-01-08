@@ -9,7 +9,7 @@ namespace MathCalculators
     {
         public MultiplyFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Multiply", new ValueInfo("Product", "Product of the numbers"), "Multiply numbers.", "arithmetic", "multiply"),
+                  new FunctionInfo(new Version("1.0.0"), "Multiply", new ValueInfo("Product", "Product of the numbers"), "Multiply numbers.", "algebra", "multiply"),
                   new AgnosticArrayValue(new[] { 0.0, 0.0 }, new ValueInfo("Factors", "Numbers to multiply together"), i => i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true))
         {
         }

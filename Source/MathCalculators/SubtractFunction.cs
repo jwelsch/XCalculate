@@ -9,7 +9,7 @@ namespace MathCalculators
     {
         public SubtractFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Subtract", new ValueInfo("Difference", "Difference of the numbers"), "Subtract numbers.", "arithmetic", "subtract", "difference"),
+                  new FunctionInfo(new Version("1.0.0"), "Subtract", new ValueInfo("Difference", "Difference of the numbers"), "Subtract numbers.", "algebra", "subtract", "difference"),
                   new AgnosticArrayValue(new[] { 0.0, 0.0 }, new ValueInfo("Operands", "Numbers to subtract"), i => i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true))
         {
         }

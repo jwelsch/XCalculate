@@ -11,25 +11,17 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new NaturalLogarithmFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-            Assert.NotNull(phase);
-            Assert.Equal("Specify Arguments", phase.Name);
-            Assert.Equal("Specify natural logarithm argument.", phase.Description);
-            Assert.Collection(phase.Inputs,
+            Assert.Single(inputs);
+
+            var result = function.Calculate(inputs);
+
+            Assert.NotNull(result);
+            Assert.Collection(result,
                 i =>
                 {
-                    Assert.Equal("Argument", i.Info.Name);
-                    Assert.Equal("Argument to the natural logarithm.", i.Info.Description);
-                    Assert.Null(i.Info.Unit);
-                });
-
-            Assert.Null(function.Calculate(phase));
-
-            Assert.Collection(function.CurrentResult,
-                i =>
-                {
-                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(typeof(double), i.Value.GetType());
                     Assert.Equal(0, TypeConverter.ToObject<int>(i.Value));
                 });
         }
@@ -39,16 +31,19 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new NaturalLogarithmFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-            phase.Inputs[0].Value = 27.3;
+            Assert.Single(inputs);
 
-            function.Calculate(phase);
+            inputs[0].Value = 27.3;
 
-            Assert.Collection(function.CurrentResult,
+            var result = function.Calculate(inputs);
+
+            Assert.NotNull(result);
+            Assert.Collection(result,
                 i =>
                 {
-                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(typeof(double), i.Value.GetType());
                     Assert.Equal(3.3068867021909143, TypeConverter.ToObject<double>(i.Value));
                 });
         }
@@ -58,11 +53,11 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new NaturalLogarithmFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
             Assert.Throws<ArgumentException>(() =>
             {
-                phase.Inputs[0].Value = 0;
+                inputs[0].Value = 0;
             });
         }
 
@@ -71,11 +66,11 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new NaturalLogarithmFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
             Assert.Throws<ArgumentException>(() =>
             {
-                phase.Inputs[0].Value = -1;
+                inputs[0].Value = -1;
             });
         }
     }
