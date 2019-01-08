@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using XCalculate.Web.App.Models;
 using XCalculate.Web.Core.Interfaces;
@@ -60,9 +61,9 @@ namespace XCalculate.Web.App.Controllers
                     {
                         valueInputs[i].Value = TypeConverter.ToObject<double>(input.Value);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        return this.BadRequest();
+                        return this.BadRequest(new CalculateResult($"Bad value for input \"{valueInputs[i].Info.Name}\": {ex.Message}"));
                     }
 
                     continue;
@@ -76,9 +77,9 @@ namespace XCalculate.Web.App.Controllers
                     {
                         valueInputs[i].Value = TypeConverter.ToArray<double[]>(arrayInput.Value);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        return this.BadRequest();
+                        return this.BadRequest(new CalculateResult($"Bad value for input \"{valueInputs[i].Info.Name}\": {ex.Message}"));
                     }
                 }
             }
@@ -89,9 +90,9 @@ namespace XCalculate.Web.App.Controllers
 
                 return Json(new CalculateResult(result));
             }
-            catch
+            catch (Exception ex)
             {
-                return this.BadRequest();
+                return this.BadRequest(new CalculateResult($"An error occurred during calculation: {ex.Message}."));
             }
         }
     }

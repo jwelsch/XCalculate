@@ -17,6 +17,7 @@
     </ul>
 </p>
 <div id="calculator-input-group">
+    <div id="alert-error" class="alert alert-danger d-none"></div>
     @for (var i = 0; i < Model.Inputs.Length; i++)
     {
         var label = Model.Inputs[i].ValueLabel.Replace(" ", string.Empty);
@@ -93,6 +94,10 @@
     });
 
     function onClickSubmit() {
+        var $alert = $("#alert-error");
+        $alert.html("");
+        $alert.addClass("d-none");
+
         var url = "/Calculator/@Model.Id/Calculate";
         $.ajax({
             url: url,
@@ -102,12 +107,26 @@
                 //RequestVerificationToken:
                 //    $('input:hidden[name="__RequestVerificationToken"]').val()
             },
-            data: JSON.stringify({ inputs: inputs, arrayInputs: arrayInputs })
-        })
-        .done(function (result) {
-            for (var i = 0; i < result.results.length; i++) {
-                var label = result.results[i].info.name.replace(/ /g, "");
-                $("#calculator-result-" + label).val(result.results[i].value);
+            data: JSON.stringify({ inputs: inputs, arrayInputs: arrayInputs }),
+            success: function (data, status) {
+                for (var i = 0; i < data.results.length; i++) {
+                    var label = data.results[i].info.name.replace(/ /g, "");
+                    $("#calculator-result-" + label).val(data.results[i].value);
+                }
+            },
+            error: function (xhr, status, error) {
+                if (xhr.responseJSON.isError) {
+                    $alert.html(xhr.responseJSON.errorMessage);
+                }
+                else {
+                    $alert.html(`The HTTP status code ${xhr.status} indicates an error, but the return object reports success.`);
+                }
+                $alert.removeClass("d-none");
+
+                var $inputs = $("#calculator-result-group").find("input");
+                $inputs.each(function (index) {
+                    $(this).val("");
+                });
             }
         });
     }
