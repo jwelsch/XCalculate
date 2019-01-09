@@ -98,6 +98,22 @@
         $alert.html("");
         $alert.addClass("d-none");
 
+        $.each(inputs, function (key, value) {
+            if (inputs[key] === "") {
+                inputs[key] = "0";
+                $(`#input-group-${key}`).children("input").val("0");
+            }
+        });
+
+        $.each(arrayInputs, function (key1, value1) {
+            $.each(value1, function (key2, value2) {
+                if (value1[key2] === "") {
+                    value1[key2] = "0";
+                    $(`#array-input-group-${key1}-${key2}`).children("input").val("0");
+                }
+            });
+        });
+
         var url = "/Calculator/@Model.Id/Calculate";
         $.ajax({
             url: url,
@@ -122,7 +138,6 @@
                     $alert.html(`The HTTP status code ${xhr.status} indicates an error, but the return object reports success.`);
                 }
                 $alert.removeClass("d-none");
-
                 var $inputs = $("#calculator-result-group").find("input");
                 $inputs.each(function (index) {
                     $(this).val("");
