@@ -29,8 +29,8 @@ namespace XCalculate.Web.App.Controllers
                 Name = calculator.Module.Function.FunctionInfo.Name,
                 Description = calculator.Module.Function.FunctionInfo.Description,
                 Tags = calculator.Module.Function.FunctionInfo.Tags,
-                Inputs = calculator.Module.Function.GetInputs().Select(i => new CalculatorValueModel() { ValueLabel = i.GetName(), ValueType = i.GetValueType(), UnitLabel = i.GetUnitLabel(), IsArray = i.IsArrayValue, Value = i.Value }).ToArray(),
-                Results = calculator.Module.Function.FunctionInfo.ResultInfo.Select(i => new CalculatorValueModel() { ValueLabel = i.GetName(), UnitLabel = i.GetUnitLabel() }).ToArray()
+                Inputs = calculator.Module.Function.GetInputs().Select(i => new CalculatorValueModel() { ValueLabel = i.GetName(), ValueType = i.GetValueType(), UnitLabel = i.GetUnitLabel(false), IsArray = i.IsArrayValue, Value = i.Value }).ToArray(),
+                Results = calculator.Module.Function.FunctionInfo.ResultInfo.Select(i => new CalculatorValueModel() { ValueLabel = i.GetName(), UnitLabel = i.GetUnitLabel(false) }).ToArray()
             };
 
             return View(vm);
@@ -53,7 +53,7 @@ namespace XCalculate.Web.App.Controllers
 
             for (var i = 0; i < valueInputs.Length; i++)
             {
-                var input = calculatorInput.Inputs.FirstOrDefault(j => j.Key == valueInputs[i].Info.Name);
+                var input = calculatorInput.Inputs.FirstOrDefault(j => j.Key.Replace("_", " ") == valueInputs[i].Info.Name);
 
                 if (input.Key != null && input.Value != null)
                 {
@@ -69,7 +69,7 @@ namespace XCalculate.Web.App.Controllers
                     continue;
                 }
 
-                var arrayInput = calculatorInput.ArrayInputs.FirstOrDefault(j => j.Key == valueInputs[i].Info.Name);
+                var arrayInput = calculatorInput.ArrayInputs.FirstOrDefault(j => j.Key.Replace("_", " ") == valueInputs[i].Info.Name);
 
                 if (arrayInput.Key != null && arrayInput.Value != null)
                 {

@@ -20,7 +20,7 @@
     <div id="alert-error" class="alert alert-danger d-none"></div>
     @for (var i = 0; i < Model.Inputs.Length; i++)
     {
-        var label = Model.Inputs[i].ValueLabel.Replace(" ", string.Empty);
+        var label = Model.Inputs[i].ValueLabel.Replace(" ", "_");
         if (Model.Inputs[i].IsArray)
         {
             <div id="array-input-group-@label" class="card mb-3">
@@ -45,7 +45,7 @@
             var value = Model.Inputs[i].Value.ToString();
             <div id="input-group-@label" class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">@label</span>
+                    <span class="input-group-text" id="basic-addon3">@Model.Inputs[i].ValueLabel</span>
                 </div>
                 <input type="text" class="form-control" id="input-@label" oninput="onInputValue(this);" value="@value" />
             </div>
@@ -60,7 +60,7 @@
         <div class="card-title">Result</div>
         @for (var i = 0; i < Model.Results.Length; i++)
         {
-            var label = Model.Results[i].ValueLabel.Replace(" ", string.Empty);
+            var label = Model.Results[i].ValueLabel.Replace(" ", "_");
             <div class="input-group mb-3">
                 @if (Model.Results[i].ValueLabel != null && Model.Results[i].ValueLabel.Length > 0)
                 {
@@ -110,7 +110,7 @@
             data: JSON.stringify({ inputs: inputs, arrayInputs: arrayInputs }),
             success: function (data, status) {
                 for (var i = 0; i < data.results.length; i++) {
-                    var label = data.results[i].info.name.replace(/ /g, "");
+                    var label = data.results[i].info.name.replace(/ /g, "_");
                     $("#calculator-result-" + label).val(data.results[i].value);
                 }
             },
