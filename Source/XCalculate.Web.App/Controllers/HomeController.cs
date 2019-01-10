@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using XCalculate.Web.App.Models;
@@ -26,35 +25,10 @@ namespace XCalculate.Web.App.Controllers
             var calculators = this.calculatorService.GetAll();
             var viewModel = new HomeIndexModel()
             {
-                CalculatorIds = calculators.Select(i => i.Id).ToList()
+                CalculatorIds = calculators.OrderBy(i => i.Module.Function.FunctionInfo.Name).Select(i => i.Id).ToList()
             };
 
             return View(viewModel);
-        }
-
-        [Route("[controller]/[action]")]
-        [HttpGet]
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        [Route("[controller]/[action]")]
-        [HttpGet]
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        [Route("[controller]/[action]")]
-        [HttpGet]
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [Route("[controller]/[action]")]
