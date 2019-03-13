@@ -6,49 +6,41 @@ namespace MathCalculators.Tests.Functional
 {
     public class SubtractFunctionCalculateShould
     {
-        //[Fact]
-        //public void SuccessfullySubtractNumbers()
-        //{
-        //    var function = new SubtractFunction();
+        [Fact]
+        public void SuccessfullySubtractNumbers()
+        {
+            var function = new SubtractFunction();
 
-        //    var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-        //    Assert.NotNull(phase);
-        //    Assert.Equal("Specify Operands", phase.Name);
-        //    Assert.Equal("Specify numbers to subtract.", phase.Description);
-        //    Assert.Collection(phase.Inputs,
-        //        i =>
-        //        {
-        //            Assert.Equal("Operands", i.Info.Name);
-        //            Assert.Equal("Operands to subtract.", i.Info.Description);
-        //            Assert.Null(i.Info.Unit);
-        //        });
+            Assert.Single(inputs);
 
-        //    phase.Inputs[0].Value = new int[] { 3, 2, 1 };
+            inputs[0].Value = new[] { 3, 2, 1 };
 
-        //    Assert.Null(function.Calculate(phase));
+            var result = function.Calculate(inputs);
 
-        //    Assert.Collection(function.CurrentResult,
-        //        i =>
-        //        {
-        //            Assert.Equal(typeof(double), i.ValueType);
-        //            Assert.Equal(0, TypeConverter.ToObject<int>(i.Value));
-        //        });
-        //}
+            Assert.NotNull(result);
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.Value.GetType());
+                    Assert.Equal(0, TypeConverter.ToObject<int>(i.Value));
+                });
+        }
 
-        //[Fact]
-        //public void FailToSubtractASingleNumber()
-        //{
-        //    var function = new SubtractFunction();
+        [Fact]
+        public void FailToSubtractASingleNumber()
+        {
+            var function = new SubtractFunction();
 
-        //    Assert.Throws<ArgumentException>(() =>
-        //    {
-        //        var phase = function.Calculate();
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var inputs = function.GetInputs();
 
-        //        Assert.NotNull(phase);
+                inputs[0].Value = new[] { 1 };
 
-        //        phase.Inputs[0].Value = new int[] { 1 };
-        //    });
-        //}
+                var result = function.Calculate(inputs);
+            });
+        }
     }
 }

@@ -6,85 +6,83 @@ namespace MathCalculators.Tests.Functional
 {
     public class GammaFunctionCalculateShould
     {
-        //[Fact]
-        //public void SuccessfullyReturnValueGivenAPositiveInteger()
-        //{
-        //    var function = new GammaFunction();
+        [Fact]
+        public void SuccessfullyReturnValueGivenAPositiveInteger()
+        {
+            var function = new GammaFunction();
 
-        //    var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-        //    Assert.NotNull(phase);
-        //    Assert.Equal("Specify Argument", phase.Name);
-        //    Assert.Equal("Argument for the gamma function.", phase.Description);
-        //    Assert.Collection(phase.Inputs,
-        //        i =>
-        //        {
-        //            Assert.Equal("z", i.Info.Name);
-        //            Assert.Equal("Value to the gamma function.", i.Info.Description);
-        //            Assert.Null(i.Info.Unit);
-        //        });
+            Assert.Single(inputs);
 
-        //    phase.Inputs[0].Value = 5;
+            inputs[0].Value = 5;
 
-        //    Assert.Null(function.Calculate(phase));
+            var result = function.Calculate(inputs);
 
-        //    Assert.Collection(function.CurrentResult,
-        //        i =>
-        //        {
-        //            Assert.Equal(typeof(double), i.ValueType);
-        //            Assert.Equal(24, TypeConverter.ToObject<int>(i.Value));
-        //        });
-        //}
+            Assert.NotNull(result);
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.Value.GetType());
+                    Assert.Equal(24, TypeConverter.ToObject<int>(i.Value));
+                });
+        }
 
-        //[Fact]
-        //public void SuccessfullyReturnValueGivenAPositiveDouble()
-        //{
-        //    var function = new GammaFunction();
+        [Fact]
+        public void SuccessfullyReturnValueGivenAPositiveDouble()
+        {
+            var function = new GammaFunction();
 
-        //    var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-        //    phase.Inputs[0].Value = 5.5;
+            Assert.Single(inputs);
 
-        //    Assert.Null(function.Calculate(phase));
+            inputs[0].Value = 5.5;
 
-        //    Assert.Collection(function.CurrentResult,
-        //        i =>
-        //        {
-        //            Assert.Equal(typeof(double), i.ValueType);
-        //            Assert.Equal(52.342777784553583, TypeConverter.ToObject<double>(i.Value));
-        //        });
-        //}
+            var result = function.Calculate(inputs);
 
-        //[Fact]
-        //public void SuccessfullyReturnNaNGivenZero()
-        //{
-        //    var function = new GammaFunction();
+            Assert.NotNull(result);
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.Value.GetType());
+                    Assert.Equal(52.342777784553583, TypeConverter.ToObject<double>(i.Value));
+                });
+        }
 
-        //    var phase = function.Calculate();
+        [Fact]
+        public void SuccessfullyReturnNaNGivenZero()
+        {
+            var function = new GammaFunction();
 
-        //    phase.Inputs[0].Value = 0;
+            var inputs = function.GetInputs();
 
-        //    Assert.Null(function.Calculate(phase));
+            Assert.Single(inputs);
 
-        //    Assert.Collection(function.CurrentResult,
-        //        i =>
-        //        {
-        //            Assert.Equal(typeof(double), i.ValueType);
-        //            Assert.True(Double.IsNaN(TypeConverter.ToObject<double>(i.Value)));
-        //        });
-        //}
+            inputs[0].Value = 0;
 
-        //[Fact]
-        //public void FailWhenGivenANegativeInteger()
-        //{
-        //    var function = new GammaFunction();
+            var result = function.Calculate(inputs);
 
-        //    var phase = function.Calculate();
+            Assert.NotNull(result);
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.Value.GetType());
+                    Assert.True(Double.IsNaN(TypeConverter.ToObject<double>(i.Value)));
+                });
+        }
 
-        //    Assert.Throws<ArgumentException>(() =>
-        //    {
-        //        phase.Inputs[0].Value = -5;
-        //    });
-        //}
+        [Fact]
+        public void FailWhenGivenANegativeInteger()
+        {
+            var function = new GammaFunction();
+
+            var inputs = function.GetInputs();
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                inputs[0].Value = -5;
+            });
+        }
     }
 }

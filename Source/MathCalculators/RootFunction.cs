@@ -7,19 +7,23 @@ namespace MathCalculators
     public class RootFunction : BaseFunction
     {
         public RootFunction()
-            : base(new FunctionInfo(new Version("1.0.0"), "Root", "Find the root of a number.", "root"))
+            : base(
+                  new FunctionInfo(new Version("1.0.0"), "Root", new ValueInfo("Root", "The root of the number."), "Find the root of a number.", "algebra", "root"),
+                  new AgnosticValue(0.0, new ValueInfo("Radicand")),
+                  new AgnosticValue(2.0, new ValueInfo("Index")))
         {
         }
 
-        public override IPhase Calculate(IPhaseTransition transition = null)
+        public override IValue[] Calculate(IValue[] inputs)
         {
-            return this.SingleCalculate(transition,
-                new FirstPhase(
-                    "Specify Operands",
-                    "Specify root operation values.",
-                    new AgnosticValue(0.0, new ValueInfo("Radicand")),
-                    new AgnosticValue(2.0, new ValueInfo("Index"))),
-                v => Math.Pow(GetValue<double>(v[0]), 1.0 / GetValue<double>(v[1])));
+            this.CheckInputs(inputs);
+
+            var radicandInput = (AgnosticValue)inputs[0];
+            var indexInput = (AgnosticValue)inputs[1];
+
+            var result = Math.Pow(radicandInput.GetValueAs<double>(), 1.0 / indexInput.GetValueAs<double>());
+
+            return this.CreateResults(result);
         }
     }
 }

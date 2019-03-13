@@ -4,7 +4,12 @@ namespace XCalculate.Web.App.Models
 {
     public class CalculateResult
     {
-        public IPhase Phase
+        public bool IsError
+        {
+            get;
+        }
+
+        public string ErrorMessage
         {
             get;
         }
@@ -14,10 +19,21 @@ namespace XCalculate.Web.App.Models
             get;
         }
 
-        public CalculateResult(IPhase phase, IValue[] results)
+        protected CalculateResult(bool isError, string errorMessage, IValue[] results)
         {
-            this.Phase = phase;
+            this.IsError = isError;
+            this.ErrorMessage = errorMessage;
             this.Results = results;
+        }
+
+        public CalculateResult(IValue[] results)
+            : this(false, null, results)
+        {
+        }
+
+        public CalculateResult(string errorMessage)
+            : this(true, errorMessage, null)
+        {
         }
     }
 }

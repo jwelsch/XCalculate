@@ -16,6 +16,11 @@ namespace XCalculateLib
             get;
         }
 
+        public bool IsArrayValue
+        {
+            get { return false; }
+        }
+
         public T Value
         {
             get { return this.value; }

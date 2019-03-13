@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using System;
 
 namespace XCalculate.Web.App
 {
@@ -7,7 +8,14 @@ namespace XCalculate.Web.App
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            try
+            {
+                CreateWebHostBuilder(args).Build().Run();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine($"Program.Main caught exception: {ex}");
+            }
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

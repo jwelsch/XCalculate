@@ -16,7 +16,222 @@
         }
     </ul>
 </p>
-<vc:calculator-phase-control calculator-id="@Model.Id" phase="@Model.Phase" />
+<div id="calculator-input-group">
+    <div id="alert-error" class="alert alert-danger d-none"></div>
+    @for (var i = 0; i < Model.Inputs.Length; i++)
+    {
+        var label = Model.Inputs[i].ValueLabel.Replace(" ", "_");
+        if (Model.Inputs[i].IsArray)
+        {
+            <div id="array-input-group-@label" class="card mb-3">
+                <div class="card-body">
+                    <div class="card-title">@Model.Inputs[i].ValueLabel</div>
+                    @for (var j = 0; j < ((Array)Model.Inputs[i].Value).Length; j++)
+                    {
+                        var value = ((Array)Model.Inputs[i].Value).GetValue(j).ToString();
+                        <div id="array-input-group-@label-@j" class="input-group mb-3">
+                            <input type="text" class="form-control" oninput="onInputValue(this);" value="@value">
+                            <div class="input-group-append">
+                                <input type="button" class="btn btn-outline-secondary" value="-" onclick="onClickInputRemoveButton(this);" @(((Array)Model.Inputs[i].Value).Length < 2 ? "disabled" : "") />
+                            </div>
+                        </div>
+                    }
+                    <input type="button" class="btn" value="Add +" onclick="onClickInputAddButton(this);" />
+                </div>
+            </div>
+        }
+        else
+        {
+            var value = Model.Inputs[i].Value.ToString();
+            <div id="input-group-@label" class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">@Model.Inputs[i].ValueLabel</span>
+                </div>
+                <input type="text" class="form-control" id="input-@label" oninput="onInputValue(this);" value="@value" />
+            </div>
+        }
+    }
+</div>
+<p>
+    <input type="button" class="btn" value="Calculate" onclick="onClickSubmit();" />
+</p>
+<div id="calculator-result-group" class="card mb-3">
+    <div class="card-body">
+        <div class="card-title">Result</div>
+        @for (var i = 0; i < Model.Results.Length; i++)
+        {
+            var label = Model.Results[i].ValueLabel.Replace(" ", "_");
+            <div class="input-group mb-3">
+                @if (Model.Results[i].ValueLabel != null && Model.Results[i].ValueLabel.Length > 0)
+                {
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">@Model.Results[i].ValueLabel</span>
+                    </div>
+                }
+                <input type="text" id="calculator-result-@label" class="form-control mr-sm-2" readonly />
+                @if (Model.Results[i].UnitLabel != null && Model.Results[i].UnitLabel.Length > 0)
+                {
+                    <div class="input-group-append">
+                        <span class="input-group-text">@Model.Results[i].UnitLabel</span>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
 
+@section scripts {
 <script type="text/javascript">
+    var inputs = {};
+    var arrayInputs = {};
+
+    $(document).ready(function () {
+        var $inputs = $("#calculator-input-group").find("input[type='text']");
+
+        $inputs.each(function () {
+            setInputValue(this);
+        });
+    });
+
+    function onClickSubmit() {
+        var $alert = $("#alert-error");
+        $alert.html("");
+        $alert.addClass("d-none");
+
+        $.each(inputs, function (key, value) {
+            if (inputs[key] === "") {
+                inputs[key] = "0";
+                $(`#input-group-${key}`).children("input").val("0");
+            }
+        });
+
+        $.each(arrayInputs, function (key1, value1) {
+            $.each(value1, function (key2, value2) {
+                if (value1[key2] === "") {
+                    value1[key2] = "0";
+                    $(`#array-input-group-${key1}-${key2}`).children("input").val("0");
+                }
+            });
+        });
+
+        var url = "/Calculator/@Model.Id/Calculate";
+        $.ajax({
+            url: url,
+            type: "POST",
+            contentType: "application/json",
+            headers: {
+                //RequestVerificationToken:
+                //    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: JSON.stringify({ inputs: inputs, arrayInputs: arrayInputs }),
+            success: function (data, status) {
+                for (var i = 0; i < data.results.length; i++) {
+                    var label = data.results[i].info.name.replace(/ /g, "_");
+                    $("#calculator-result-" + label).val(data.results[i].value);
+                }
+            },
+            error: function (xhr, status, error) {
+                if (xhr.responseJSON.isError) {
+                    $alert.html(xhr.responseJSON.errorMessage);
+                }
+                else {
+                    $alert.html(`The HTTP status code ${xhr.status} indicates an error, but the return object reports success.`);
+                }
+                $alert.removeClass("d-none");
+                var $inputs = $("#calculator-result-group").find("input");
+                $inputs.each(function (index) {
+                    $(this).val("");
+                });
+            }
+        });
+    }
+
+    function onInputValue(e) {
+        setInputValue(e);
+    }
+
+    function setInputValue(input) {
+        var id = $(input).parent().attr("id");
+        var parsedId = parseInputId(id);
+        var value = $(input).val();
+
+        if (parsedId.isArray) {
+            if (arrayInputs[parsedId.label] === undefined) {
+                arrayInputs[parsedId.label] = [];
+            }
+
+            if (arrayInputs[parsedId.label][parsedId.index] !== undefined) {
+                arrayInputs[parsedId.label][parsedId.index] = value;
+            }
+            else {
+                arrayInputs[parsedId.label].push(value);
+            }
+        }
+        else {
+            inputs[parsedId.label] = value;
+        }
+    }
+
+    function onClickInputAddButton(e) {
+        var $valueInputGroup = $(e).siblings("div[id^='array-input-group']:last");
+        var $clone = $valueInputGroup.clone(true, true);
+        var $input = $clone.find("input[type='text']");
+        var $button = $clone.find("input[type='button']");
+        $clone.attr("id", changeInputIdIndex($clone.attr("id"), function (i) { return i + 1; }));
+        $input.val("");
+        $button.attr("disabled", false);
+
+        $clone.insertAfter($valueInputGroup);
+
+        var $groups = $valueInputGroup.parent().children("div");
+        if ($groups.length > 1) {
+            $groups.find("input[type='button']").attr("disabled", false);
+        }
+    }
+
+    function onClickInputRemoveButton(e) {
+        var $appendGroup = $(e).parent();
+        var $valueInputGroup = $appendGroup.parent();
+
+        var id = $valueInputGroup.attr("id");
+        var parsedId = parseInputId(id);
+        arrayInputs[parsedId.label].splice(parsedId.index, 1);
+
+        $siblings = $valueInputGroup.siblings("div[id^='array-input-group']");
+
+        $valueInputGroup.remove();
+
+        for (var i = 0; i < $siblings.length; i++) {
+            var newId = changeInputIdIndex($($siblings[i]).attr("id"), function (idx) { return i; });
+            $($siblings[i]).attr("id", newId);
+        }
+
+        if ($siblings.length == 1) {
+            $siblings.find("input[type='button']").attr("disabled", true);
+        }
+    }
+
+    function changeInputIdIndex(id, callback) {
+        var parsedId = parseInputId(id);
+        var newId = "";
+        for (var i = 0; i < parsedId.parts.length - 1; i++) {
+            newId += parsedId.parts[i] + "-";
+        }
+
+        newId += callback ? callback(parsedId.index) : parsedId.index;
+
+        return newId;
+    }
+
+    function parseInputId(id) {
+        var parts = id.split("-");
+        var isArray = parts[0] === "array";
+        return {
+            isArray: isArray,
+            label: parts[parts.length - (isArray ? 2 : 1)],
+            index: isArray ? parseInt(parts[parts.length - 1]) : undefined,
+            parts: parts
+        };
+    }
 </script>
+}

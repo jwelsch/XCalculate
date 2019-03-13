@@ -18,7 +18,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(defaultValue.GetType(), value.ValueType);
+            Assert.Equal(defaultValue.GetType(), value.Value.GetType());
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal((double)defaultValue[0], i),
                 i => Assert.Equal((double)defaultValue[1], i),
                 i => Assert.Equal((double)defaultValue[2], i));
-            Assert.Equal(defaultValue.GetType(), value.ValueType);
+            Assert.Equal(defaultValue.GetType(), value.Value.GetType());
         }
 
         [Fact]

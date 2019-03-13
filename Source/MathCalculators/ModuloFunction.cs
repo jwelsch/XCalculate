@@ -7,19 +7,23 @@ namespace MathCalculators
     public class ModuloFunction : BaseFunction
     {
         public ModuloFunction()
-            : base(new FunctionInfo(new Version("1.0.0"), "Modulo", "Find the modulo of two numbers.", "modulo", "remainder"))
+            : base(
+                  new FunctionInfo(new Version("1.0.0"), "Modulo", new ValueInfo("Remainder", "The C# standard remainder of two numbers."), "Find the C# standard remainder of two numbers.", "algebra", "modulo", "remainder"),
+                  new AgnosticValue(0.0, new ValueInfo("Dividend")),
+                  new AgnosticValue(1.0, new ValueInfo("Divisor"), i => TypeConverter.ToObject<double>(i) == 0.0 ? throw new DivideByZeroException() : true))
         {
         }
 
-        public override IPhase Calculate(IPhaseTransition transition = null)
+        public override IValue[] Calculate(IValue[] inputs)
         {
-            return this.SingleCalculate(transition,
-                new FirstPhase(
-                    "Specify Operands",
-                    "Specify the operands of the modulo operation.",
-                    new AgnosticValue(0.0, new ValueInfo("a", "Dividend value.")),
-                    new AgnosticValue(1.0, new ValueInfo("n", "Divisor value."), i => TypeConverter.ToObject<double>(i) == 0.0 ? throw new DivideByZeroException("The divisor cannot be zero.") : true)),
-                v => Math.IEEERemainder(GetValue<double>(v[0]), GetValue<double>(v[1])));
+            this.CheckInputs(inputs);
+
+            var dividendInput = (AgnosticValue)inputs[0];
+            var divisorInput = (AgnosticValue)inputs[1];
+
+            var result = dividendInput.GetValueAs<double>() % divisorInput.GetValueAs<double>();
+
+            return this.CreateResults(result);
         }
     }
 }

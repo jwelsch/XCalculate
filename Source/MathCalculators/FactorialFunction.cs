@@ -8,18 +8,20 @@ namespace MathCalculators
     public class FactorialFunction : BaseFunction
     {
         public FactorialFunction()
-            : base(new FunctionInfo(new Version("1.0.0"), "Factorial", "Apply the factorial function to a number.", "factorial"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Factorial", new ValueInfo("Factorial", "Factorial of the number."), "Apply the factorial function to a number.", "algebra", "factorial"),
+                  new AgnosticValue(0.0, new ValueInfo("n"), i => TypeConverter.ToObject<double>(i) >= 0.0 ? true : throw new ArgumentException("Value must be greater than or equal to zero.")))
         {
         }
 
-        public override IPhase Calculate(IPhaseTransition transition = null)
+        public override IValue[] Calculate(IValue[] inputs)
         {
-            return this.SingleCalculate(transition,
-                new FirstPhase(
-                    "Specify Argument",
-                    "Argument for the factorial function.",
-                    new AgnosticValue(new ValueInfo("n", "Value to the factorial function."), i => TypeConverter.ToObject<double>(i) >= 0.0)),
-                v => GammaFunction.Gamma(new Complex(GetValue<double>(v[0]) + 1.0, 0.0)).Real);
+            this.CheckInputs(inputs);
+
+            var nInput = (AgnosticValue)inputs[0];
+
+            var result = GammaFunction.Gamma(new Complex(GetValue<double>(nInput) + 1.0, 0.0));
+
+            return this.CreateResults(result.Real);
         }
     }
 }

@@ -18,7 +18,8 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(defaultValue.GetType(), value.ValueType);
+            Assert.Equal(defaultValue.GetType(), value.Value.GetType());
+            Assert.True(value.IsArrayValue);
         }
 
         [Fact]
@@ -37,11 +38,12 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(defaultValue.GetType(), value.ValueType);
+            Assert.Equal(defaultValue.GetType(), value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
             Assert.Equal(unit, value.Info.Unit);
+            Assert.True(value.IsArrayValue);
         }
 
         [Fact]
@@ -59,19 +61,19 @@ namespace XCalculateLib.Tests.Unit
             });
         }
 
-        [Fact]
-        public void FailWhenTypeIsNotAnArray()
-        {
-            var defaultValue = 123;
-            var name = "foobar";
-            var description = "foobar description";
-            var unit = new XCalculateLib.Unit("foobar", "foobars", "fb", "fbs");
-            bool validator(int i) => i >= 0 && i < 100;
+        //[Fact]
+        //public void FailWhenTypeIsNotAnArray()
+        //{
+        //    var defaultValue = 123;
+        //    var name = "foobar";
+        //    var description = "foobar description";
+        //    var unit = new XCalculateLib.Unit("foobar", "foobars", "fb", "fbs");
+        //    bool validator(int i) => i >= 0 && i < 100;
 
-            Assert.Throws<ArgumentException>(() =>
-            {
-                var value = new ArrayValue<int>(defaultValue, new ValueInfo(name, description, unit), validator);
-            });
-        }
+        //    Assert.Throws<ArgumentException>(() =>
+        //    {
+        //        var value = new ArrayValue<int>(defaultValue, new ValueInfo(name, description, unit), validator);
+        //    });
+        //}
     }
 }

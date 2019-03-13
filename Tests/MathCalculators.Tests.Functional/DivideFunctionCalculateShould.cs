@@ -6,64 +6,64 @@ namespace MathCalculators.Tests.Functional
 {
     public class DivideFunctionCalculateShould
     {
-        //[Fact]
-        //public void SuccessfullyDivideNumbers()
-        //{
-        //    var function = new DivideFunction();
+        [Fact]
+        public void SuccessfullyDivideNumbers()
+        {
+            var function = new DivideFunction();
 
-        //    var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-        //    Assert.NotNull(phase);
-        //    Assert.Equal("Specify Operands", phase.Name);
-        //    Assert.Equal("Specify numbers to divide.", phase.Description);
-        //    Assert.Collection(phase.Inputs,
-        //        i =>
-        //        {
-        //            Assert.Equal("Operands", i.Info.Name);
-        //            Assert.Equal("Operands to divide.", i.Info.Description);
-        //            Assert.Null(i.Info.Unit);
-        //        });
+            Assert.Single(inputs);
 
-        //    phase.Inputs[0].Value = new int[] { 100, 2, 2 };
+            inputs[0].Value = new [] { 100, 4, 2 };
 
-        //    Assert.Null(function.Calculate(phase));
+            var result = function.Calculate(inputs);
 
-        //    Assert.Collection(function.CurrentResult,
-        //        i =>
-        //        {
-        //            Assert.Equal(typeof(double), i.ValueType);
-        //            Assert.Equal(25, TypeConverter.ToObject<int>(i.Value));
-        //        });
-        //}
+            Assert.NotNull(result);
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.GetValueType());
+                    Assert.Equal(12.5, TypeConverter.ToObject<double>(i.Value));
+                },
+                i =>
+                {
+                    Assert.Equal(typeof(int), i.GetValueType());
+                    Assert.Equal(12, TypeConverter.ToObject<int>(i.Value));
+                },
+                i =>
+                {
+                    Assert.Equal(typeof(int), i.GetValueType());
+                    Assert.Equal(1, TypeConverter.ToObject<int>(i.Value));
+                });
+        }
 
-        //[Fact]
-        //public void FailToDivideASingleNumber()
-        //{
-        //    var function = new DivideFunction();
+        [Fact]
+        public void FailToDivideASingleNumber()
+        {
+            var function = new DivideFunction();
 
-        //    Assert.Throws<ArgumentException>(() =>
-        //    {
-        //        var phase = function.Calculate();
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var inputs = function.GetInputs();
 
-        //        Assert.NotNull(phase);
+                inputs[0].Value = new[] { 100 };
 
-        //        phase.Inputs[0].Value = new int[] { 1 };
-        //    });
-        //}
+                var result = function.Calculate(inputs);
+            });
+        }
 
-        //[Fact]
-        //public void FailToDivideByZero()
-        //{
-        //    var function = new DivideFunction();
+        [Fact]
+        public void FailToDivideByZero()
+        {
+            var function = new DivideFunction();
 
-        //    Assert.Throws<DivideByZeroException>(() =>
-        //    {
-        //        var phase = function.Calculate();
+            Assert.Throws<DivideByZeroException>(() =>
+            {
+                var inputs = function.GetInputs();
 
-        //        Assert.NotNull(phase);
-
-        //        phase.Inputs[0].Value = new int[] { 2, 0 };
-        //    });
-        //}
+                inputs[0].Value = new int[] { 2, 0 };
+            });
+        }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections;
 
 namespace XCalculateLib
 {
-    public abstract class BaseArrayValue<T> : IValue
+    public abstract class BaseArrayValue<T> : IValue where T : IList
     {
         private T value = default(T);
 
@@ -14,6 +15,11 @@ namespace XCalculateLib
         public IValueInfo Info
         {
             get;
+        }
+
+        public bool IsArrayValue
+        {
+            get { return true; }
         }
 
         public T Value
@@ -44,20 +50,16 @@ namespace XCalculateLib
         object IValue.Value
         {
             get { return this.Value; }
+
             set
             {
-                if (value.GetType() != this.ValueType)
+                if (value.GetType() != typeof(T))
                 {
-                    throw new ArgumentException($"The incoming type, {value.GetType()}, does not match the value type, {this.ValueType}.");
+                    throw new ArgumentException($"The incoming type, {value.GetType()}, does not match the value type, {typeof(T)}.");
                 }
 
                 this.Value = (T)value;
             }
-        }
-
-        public virtual Type ValueType
-        {
-            get { return typeof(T); }
         }
 
         protected BaseArrayValue(T value, IValueInfo info, ValueValidator<T> validator)

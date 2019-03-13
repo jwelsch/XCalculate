@@ -8,20 +8,19 @@ namespace MathCalculators
     public class SubtractFunction : BaseFunction
     {
         public SubtractFunction()
-            : base(new FunctionInfo(new Version("1.0.0"), "Subtract", "Subtract numbers.", "subtract"))
+            : base(
+                  new FunctionInfo(new Version("1.0.0"), "Subtract", new ValueInfo("Difference", "Difference of the numbers"), "Subtract numbers.", "algebra", "subtract", "difference"),
+                  new AgnosticArrayValue(new[] { 0.0, 0.0 }, new ValueInfo("Operands", "Numbers to subtract"), i => i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true))
         {
         }
 
-        public override IPhase Calculate(IPhaseTransition transition = null)
+        public override IValue[] Calculate(IValue[] inputs)
         {
-            return this.SingleCalculate(transition,
-                new FirstPhase(
-                    "Specify Operands",
-                    "Specify numbers to subtract.",
-                    new AgnosticArrayValue(
-                        new ValueInfo("Operands", "Operands to subtract."),
-                        i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true)),
-                v => GetValues<double[]>(v).Aggregate((x, y) => x - y));
+            this.CheckInputs(inputs);
+
+            var result = GetValues<double[]>(inputs[0]).Aggregate((x, y) => x - y);
+
+            return this.CreateResults(result);
         }
     }
 }

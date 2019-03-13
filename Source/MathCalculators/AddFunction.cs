@@ -8,20 +8,19 @@ namespace MathCalculators
     public class AddFunction : BaseFunction
     {
         public AddFunction()
-            : base(new FunctionInfo(new Version("1.0.0"), "Add", "Add numbers.", "add"))
+            : base(
+                  new FunctionInfo(new Version("1.0.0"), "Add", new ValueInfo("Sum", "Sum of the numbers"), "Add numbers.", "algebra", "add"),
+                  new AgnosticArrayValue(new[] { 0.0, 0.0 }, new ValueInfo("Addends", "Numbers to add together"), i => i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true))
         {
         }
 
-        public override IPhase Calculate(IPhaseTransition transition = null)
+        public override IValue[] Calculate(IValue[] inputs)
         {
-            return this.SingleCalculate(transition,
-                new FirstPhase(
-                    "Specify Operands",
-                    "Specify numbers to add.",
-                    new AgnosticArrayValue(
-                        new ValueInfo("Operands", "Operands to add."),
-                        i => i != null && i.Length <= 1 ? throw new ArgumentException("Two or more values must be specified.") : true)),
-                v => GetValues<double[]>(v).Aggregate((x, y) => x + y));
+            this.CheckInputs(inputs);
+
+            var result = GetValues<double[]>(inputs[0]).Aggregate((x, y) => x + y);
+
+            return this.CreateResults(result);
         }
     }
 }

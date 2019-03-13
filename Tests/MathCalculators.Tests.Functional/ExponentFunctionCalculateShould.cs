@@ -5,82 +5,81 @@ namespace MathCalculators.Tests.Functional
 {
     public class ExponentFunctionCalculateShould
     {
-       // [Fact]
-       // public void SuccessfullyCalculateAnExponent()
-       // {
-       //     var function = new ExponentFunction();
+        [Fact]
+        public void SuccessfullyCalculateAnExponent()
+        {
+            var function = new ExponentFunction();
+            var inputs = function.GetInputs();
 
-       //     var phase = function.Calculate();
+            Assert.NotNull(inputs);
 
-       //     Assert.NotNull(phase);
-       //     Assert.Equal("Specify Operands", phase.Name);
-       //     Assert.Equal("Specify exponential equation values.", phase.Description);
-       //     Assert.Collection(phase.Inputs,
-       //         i =>
-       //         {
-       //             Assert.Equal("Base", i.Info.Name);
-       //             Assert.Null(i.Info.Description);
-       //             Assert.Null(i.Info.Unit);
-       //         },
-       //         i =>
-       //         {
-       //             Assert.Equal("Exponent", i.Info.Name);
-       //             Assert.Null(i.Info.Description);
-       //             Assert.Null(i.Info.Unit);
-       //         });
+            Assert.Collection(inputs,
+                i =>
+                {
+                    Assert.Equal("Base", i.Info.Name);
+                    Assert.Null(i.Info.Description);
+                    Assert.Null(i.Info.Unit);
+                },
+                i =>
+                {
+                    Assert.Equal("Exponent", i.Info.Name);
+                    Assert.Null(i.Info.Description);
+                    Assert.Null(i.Info.Unit);
+                });
 
-       //     phase.Inputs[0].Value = 8;
-       //     phase.Inputs[1].Value = 3;
+            inputs[0].Value = 8;
+            inputs[1].Value = 3;
 
-       //     Assert.Null(function.Calculate(phase));
+            var result = function.Calculate(inputs);
 
-       //     Assert.Collection(function.CurrentResult,
-       //         i =>
-       //         {
-       //             Assert.Equal(typeof(double), i.ValueType);
-       //             Assert.Equal(512, TypeConverter.ToObject<int>(i.Value));
-       //         });
-       //}
+            Assert.NotNull(result);
 
-       // [Fact]
-       // public void SuccessfullyCalculateAnExponentWithOnlyBaseSpecified()
-       // {
-       //     var function = new ExponentFunction();
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.GetValueType());
+                    Assert.Equal(512, TypeConverter.ToObject<int>(i.Value));
+                });
+        }
 
-       //     var phase = function.Calculate();
+        [Fact]
+        public void SuccessfullyCalculateAnExponentWithOnlyBaseSpecified()
+        {
+            var function = new ExponentFunction();
+            var inputs = function.GetInputs();
 
-       //     Assert.NotNull(phase);
+            Assert.NotNull(inputs);
 
-       //     phase.Inputs[0].Value = 8;
+            inputs[0].Value = 8;
 
-       //     Assert.Null(function.Calculate(phase));
+            var result = function.Calculate(inputs);
 
-       //     Assert.Collection(function.CurrentResult,
-       //         i =>
-       //         {
-       //             Assert.Equal(typeof(double), i.ValueType);
-       //             Assert.Equal(1, TypeConverter.ToObject<int>(i.Value));
-       //         });
-       // }
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.GetValueType());
+                    Assert.Equal(1, TypeConverter.ToObject<int>(i.Value));
+                });
+        }
 
-       // [Fact]
-       // public void SuccessfullyCalculateAnExponentWithOnlyExponentSpecified()
-       // {
-       //     var function = new ExponentFunction();
-       //     var phase = function.Calculate();
+        [Fact]
+        public void SuccessfullyCalculateAnExponentWithOnlyExponentSpecified()
+        {
+            var function = new ExponentFunction();
+            var inputs = function.GetInputs();
 
-       //     Assert.NotNull(phase);
+            Assert.NotNull(inputs);
 
-       //     phase.Inputs[1].Value = 3;
+            inputs[1].Value = 3;
 
-       //     Assert.Null(function.Calculate(phase));
+            var result = function.Calculate(inputs);
 
-       //     Assert.Collection(function.CurrentResult,
-       //         i =>
-       //         {
-       //             Assert.Equal(typeof(double), i.ValueType);
-       //             Assert.Equal(0, TypeConverter.ToObject<int>(i.Value));
-       //         });
-       // }
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.GetValueType());
+                    Assert.Equal(0, TypeConverter.ToObject<int>(i.Value));
+                });
+        }
     }
 }

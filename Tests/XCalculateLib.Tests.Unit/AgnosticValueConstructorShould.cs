@@ -6,6 +6,16 @@ namespace XCalculateLib.Tests.Unit
     public class AgnosticValueConstructorShould
     {
         [Fact]
+        public void SuccesfullyCreateObjectWithNullArguments()
+        {
+            var value = new AgnosticValue();
+
+            Assert.NotNull(value);
+            Assert.Null(value.Value);
+            Assert.Null(value.ValueType);
+        }
+
+        [Fact]
         public void SuccesfullyCreateObjectWithMinimalArguments()
         {
             var defaultValue = 123;

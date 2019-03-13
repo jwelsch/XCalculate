@@ -6,20 +6,19 @@ namespace XCalculateLib
     {
         object IValue.Value
         {
-            get { return this.Value; }
-            set { this.Value = (Array)value; }
-        }
-
-        public override Type ValueType
-        {
             get
             {
-                if (this.Value == null)
+                return this.Value;
+            }
+
+            set
+            {
+                if (value != null && !value.GetType().IsArray)
                 {
-                    return null;
+                    throw new ArgumentException("Assigned value must be an array type.");
                 }
 
-                return this.Value.GetType();
+                this.Value = (Array)value;
             }
         }
 

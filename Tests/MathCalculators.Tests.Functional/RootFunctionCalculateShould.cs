@@ -11,34 +11,20 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new RootFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-            Assert.NotNull(phase);
-            Assert.Equal("Specify Operands", phase.Name);
-            Assert.Equal("Specify root operation values.", phase.Description);
-            Assert.Collection(phase.Inputs,
+            Assert.Equal(2, inputs.Length);
+
+            inputs[0].Value = 9;
+            inputs[1].Value = 2;
+
+            var result = function.Calculate(inputs);
+
+            Assert.NotNull(result);
+            Assert.Collection(result,
                 i =>
                 {
-                    Assert.Equal("Radicand", i.Info.Name);
-                    Assert.Null(i.Info.Description);
-                    Assert.Null(i.Info.Unit);
-                },
-                i =>
-                {
-                    Assert.Equal("Index", i.Info.Name);
-                    Assert.Null(i.Info.Description);
-                    Assert.Null(i.Info.Unit);
-                });
-
-            phase.Inputs[0].Value = 9;
-            phase.Inputs[1].Value = 2;
-
-            Assert.Null(function.Calculate(phase));
-
-            Assert.Collection(function.CurrentResult,
-                i =>
-                {
-                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(typeof(double), i.Value.GetType());
                     Assert.Equal(Math.Sqrt(9), TypeConverter.ToObject<double>(i.Value));
                 });
         }
@@ -48,17 +34,20 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new RootFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-            phase.Inputs[0].Value = 8471;
-            phase.Inputs[1].Value = 5;
+            Assert.Equal(2, inputs.Length);
 
-            function.Calculate(phase);
+            inputs[0].Value = 8471;
+            inputs[1].Value = 5;
 
-            Assert.Collection(function.CurrentResult,
+            var result = function.Calculate(inputs);
+
+            Assert.NotNull(result);
+            Assert.Collection(result,
                 i =>
                 {
-                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(typeof(double), i.Value.GetType());
                     Assert.Equal(Math.Pow(8471, 1.0 / 5), TypeConverter.ToObject<double>(i.Value));
                 });
         }
@@ -68,16 +57,19 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new RootFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-            phase.Inputs[0].Value = 16;
+            Assert.Equal(2, inputs.Length);
 
-            function.Calculate(phase);
+            inputs[0].Value = 16;
 
-            Assert.Collection(function.CurrentResult,
+            var result = function.Calculate(inputs);
+
+            Assert.NotNull(result);
+            Assert.Collection(result,
                 i =>
                 {
-                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(typeof(double), i.Value.GetType());
                     Assert.Equal(Math.Pow(16, 1.0 / 2), TypeConverter.ToObject<double>(i.Value));
                 });
         }
@@ -87,17 +79,20 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new RootFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-            phase.Inputs[1].Value = 3;
+            Assert.Equal(2, inputs.Length);
 
-            function.Calculate(phase);
+            inputs[1].Value = 3;
 
-            Assert.Collection(function.CurrentResult,
+            var result = function.Calculate(inputs);
+
+            Assert.NotNull(result);
+            Assert.Collection(result,
                 i =>
                 {
-                    Assert.Equal(typeof(double), i.ValueType);
-                    Assert.Equal(Math.Pow(0, 1.0 / 3), TypeConverter.ToObject<double>(i.Value));
+                    Assert.Equal(typeof(double), i.Value.GetType());
+                    Assert.Equal(Math.Pow(0, 1.0 / 2), TypeConverter.ToObject<double>(i.Value));
                 });
         }
 
@@ -106,18 +101,21 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new RootFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-            phase.Inputs[0].Value = -10;
-            phase.Inputs[1].Value = -3;
+            Assert.Equal(2, inputs.Length);
 
-            function.Calculate(phase);
+            inputs[0].Value = -10.0;
+            inputs[1].Value = -3.0;
 
-            Assert.Collection(function.CurrentResult,
+            var result = function.Calculate(inputs);
+
+            Assert.NotNull(result);
+            Assert.Collection(result,
                 i =>
                 {
-                    Assert.Equal(typeof(double), i.ValueType);
-                    Assert.Equal(Math.Pow(-10, 1.0 / -3), TypeConverter.ToObject<double>(i.Value));
+                    Assert.Equal(typeof(double), i.Value.GetType());
+                    Assert.Equal(Math.Pow(-10.0, 1.0 / -3.0), TypeConverter.ToObject<double>(i.Value));
                 });
         }
     }

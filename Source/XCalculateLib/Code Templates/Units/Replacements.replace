@@ -344,9 +344,16 @@
    ]
    [
       ${ClassName}=Terabyte
-      ${NameSingular}=terabytes
+      ${NameSingular}=terabyte
 	  ${NamePlural}=terabytes
       ${AbreviationSingular}=TB
 	  ${AbreviationPlural}=TB
+   ]
+   [
+      ${ClassName}=SquareFoot
+      ${NameSingular}=square foot
+	  ${NamePlural}=square feet
+      ${AbreviationSingular}=sqft
+	  ${AbreviationPlural}=sqft
    ]
 ]

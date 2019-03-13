@@ -7,19 +7,23 @@ namespace MathCalculators
     public class ExponentFunction : BaseFunction
     {
         public ExponentFunction()
-            : base(new FunctionInfo(new Version("1.0.0"), "Exponent", "Raise a number to a power.", "exponent", "power"))
+            : base(
+                  new FunctionInfo(new Version("1.0.0"), "Exponent", new ValueInfo("Result", "The base raised to the power."), "Raise a number to a power.", "algebra", "exponent", "power"),
+                  new AgnosticValue(0.0, new ValueInfo("Base")),
+                  new AgnosticValue(0.0, new ValueInfo("Exponent")))
         {
         }
 
-        public override IPhase Calculate(IPhaseTransition transition = null)
+        public override IValue[] Calculate(IValue[] inputs)
         {
-            return this.SingleCalculate(transition,
-                new FirstPhase(
-                    "Specify Operands",
-                    "Specify exponential equation values.",
-                    new AgnosticValue(0.0, new ValueInfo("Base")),
-                    new AgnosticValue(0.0, new ValueInfo("Exponent"))),
-                v => Math.Pow(GetValue<double>(v[0]), GetValue<double>(v[1])));
+            this.CheckInputs(inputs);
+
+            var baseInput = (AgnosticValue)inputs[0];
+            var exponentInput = (AgnosticValue)inputs[1];
+
+            var result = Math.Pow(baseInput.GetValueAs<double>(), exponentInput.GetValueAs<double>());
+
+            return this.CreateResults(result);
         }
     }
 }

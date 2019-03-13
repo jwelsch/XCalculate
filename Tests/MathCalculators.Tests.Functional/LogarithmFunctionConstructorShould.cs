@@ -13,6 +13,7 @@ namespace MathCalculators.Tests.Functional
             Assert.Equal("Logarithm", function.FunctionInfo.Name);
             Assert.Equal("Find the logarithm of a number.", function.FunctionInfo.Description);
             Assert.Collection(function.FunctionInfo.Tags,
+                i => Assert.Equal("algebra", i),
                 i => Assert.Equal("logarithm", i));
         }
     }

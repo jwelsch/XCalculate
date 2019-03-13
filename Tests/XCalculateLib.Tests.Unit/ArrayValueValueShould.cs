@@ -21,7 +21,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(newValue[1], i),
                 i => Assert.Equal(newValue[2], i),
                 i => Assert.Equal(newValue[3], i));
-            Assert.Equal(newValue.GetType(), value.ValueType);
+            Assert.Equal(newValue.GetType(), value.Value.GetType());
         }
 
         [Fact]

@@ -11,31 +11,16 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new ModuloFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-            Assert.NotNull(phase);
-            Assert.Equal("Specify Operands", phase.Name);
-            Assert.Equal("Specify the operands of the modulo operation.", phase.Description);
-            Assert.Collection(phase.Inputs,
+            Assert.Equal(2, inputs.Length);
+
+            var result = function.Calculate(inputs);
+
+            Assert.Collection(result,
                 i =>
                 {
-                    Assert.Equal("a", i.Info.Name);
-                    Assert.Equal("Dividend value.", i.Info.Description);
-                    Assert.Null(i.Info.Unit);
-                },
-                i =>
-                {
-                    Assert.Equal("n", i.Info.Name);
-                    Assert.Equal("Divisor value.", i.Info.Description);
-                    Assert.Null(i.Info.Unit);
-                });
-
-            Assert.Null(function.Calculate(phase));
-
-            Assert.Collection(function.CurrentResult,
-                i =>
-                {
-                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(typeof(double), i.Value.GetType());
                     Assert.Equal(0, TypeConverter.ToObject<int>(i.Value));
                 });
         }
@@ -45,17 +30,19 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new ModuloFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-            phase.Inputs[0].Value = 17;
-            phase.Inputs[1].Value = 5;
+            Assert.Equal(2, inputs.Length);
 
-            Assert.Null(function.Calculate(phase));
+            inputs[0].Value = 17;
+            inputs[1].Value = 5;
 
-            Assert.Collection(function.CurrentResult,
+            var result = function.Calculate(inputs);
+
+            Assert.Collection(result,
                 i =>
                 {
-                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(typeof(double), i.Value.GetType());
                     Assert.Equal(2, TypeConverter.ToObject<int>(i.Value));
                 });
         }
@@ -65,17 +52,19 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new ModuloFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-            phase.Inputs[0].Value = 5;
-            phase.Inputs[1].Value = 17;
+            Assert.Equal(2, inputs.Length);
 
-            Assert.Null(function.Calculate(phase));
+            inputs[0].Value = 5;
+            inputs[1].Value = 17;
 
-            Assert.Collection(function.CurrentResult,
+            var result = function.Calculate(inputs);
+
+            Assert.Collection(result,
                 i =>
                 {
-                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(typeof(double), i.Value.GetType());
                     Assert.Equal(5, TypeConverter.ToObject<int>(i.Value));
                 });
         }
@@ -85,17 +74,19 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new ModuloFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-            phase.Inputs[0].Value = 17;
-            phase.Inputs[1].Value = 17;
+            Assert.Equal(2, inputs.Length);
 
-            Assert.Null(function.Calculate(phase));
+            inputs[0].Value = 17;
+            inputs[1].Value = 17;
 
-            Assert.Collection(function.CurrentResult,
+            var result = function.Calculate(inputs);
+
+            Assert.Collection(result,
                 i =>
                 {
-                    Assert.Equal(typeof(double), i.ValueType);
+                    Assert.Equal(typeof(double), i.Value.GetType());
                     Assert.Equal(0, TypeConverter.ToObject<int>(i.Value));
                 });
         }
@@ -105,12 +96,12 @@ namespace MathCalculators.Tests.Functional
         {
             var function = new ModuloFunction();
 
-            var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
             Assert.Throws<DivideByZeroException>(() =>
             {
-                phase.Inputs[0].Value = 17;
-                phase.Inputs[1].Value = 0;
+                inputs[0].Value = 17;
+                inputs[1].Value = 0;
             });
         }
     }

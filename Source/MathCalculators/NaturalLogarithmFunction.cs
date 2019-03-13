@@ -7,18 +7,20 @@ namespace MathCalculators
     public class NaturalLogarithmFunction : BaseFunction
     {
         public NaturalLogarithmFunction()
-            : base(new FunctionInfo(new Version("1.0.0"), "Natural Logarithm", "Find the natural logarithm of a number.", "natural", "logarithm", "e"))
+            : base(new FunctionInfo(new Version("1.0.0"), "Natural Logarithm", new ValueInfo("Natural Logarithm", "Natural logarithm of the number."), "Find the natural logarithm of a number.", "algebra", "natural", "logarithm", "e"),
+                  new AgnosticValue(1.0, new ValueInfo("n"), i => TypeConverter.ToObject<double>(i) > 0.0 ? true : throw new ArgumentException("Value must be greater than zero.")))
         {
         }
 
-        public override IPhase Calculate(IPhaseTransition transition = null)
+        public override IValue[] Calculate(IValue[] inputs)
         {
-            return this.SingleCalculate(transition,
-                new FirstPhase(
-                    "Specify Arguments",
-                    "Specify natural logarithm argument.",
-                    new AgnosticValue(1.0, new ValueInfo("Argument", "Argument to the natural logarithm."), i => TypeConverter.ToObject<double>(i) > 0.0)),
-                v => Math.Log(GetValue<double>(v[0])));
+            this.CheckInputs(inputs);
+
+            var nInput = (AgnosticValue)inputs[0];
+
+            var result = Math.Log(nInput.GetValueAs<double>());
+
+            return this.CreateResults(result);
         }
     }
 }

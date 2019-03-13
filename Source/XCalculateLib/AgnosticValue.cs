@@ -32,5 +32,10 @@ namespace XCalculateLib
             : base(null, info, validator)
         {
         }
+
+        public T GetValueAs<T>()
+        {
+            return TypeConverter.ToObject<T>(this.Value);
+        }
     }
 }

@@ -8,11 +8,10 @@ namespace XCalculateLib
             get;
         }
 
-        IPhase Calculate(IPhaseTransition transition = null);
+        IValue[] GetInputs();
 
-        IValue[] CurrentResult
-        {
-            get;
-        }
+        IValue[] Calculate(IValue[] inputs);
+
+        //IValue[] Calculate(object[] inputValues);
     }
 }

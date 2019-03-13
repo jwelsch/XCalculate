@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace XCalculateLib
@@ -9,93 +8,42 @@ namespace XCalculateLib
         public IFunctionInfo FunctionInfo
         {
             get;
-            private set;
         }
 
-        protected IPhaseCollection Phases
+        protected IValue[] Inputs
         {
             get;
         }
 
-        public BaseFunction(IFunctionInfo functionInfo)
-            : this(functionInfo, new PhaseCollection())
-        {
-        }
-
-        public BaseFunction(IFunctionInfo functionInfo, IPhaseCollection phases)
+        protected BaseFunction(IFunctionInfo functionInfo, params IValue[] inputs)
         {
             this.FunctionInfo = functionInfo;
-            this.Phases = phases;
+            this.Inputs = inputs;
         }
 
-        public abstract IPhase Calculate(IPhaseTransition transition = null);
-
-        public IValue[] CurrentResult
+        public IValue[] GetInputs()
         {
-            get;
-            private set;
+            return this.Inputs;
         }
 
-        protected void SetCurrentResult(IEnumerable<IValue> values)
-        {
-            this.CurrentResult = values.ToArray();
-        }
+        public abstract IValue[] Calculate(IValue[] inputs);
 
-        protected void SetCurrentResult(IValue value)
+        protected void CheckInputs(IValue[] inputs)
         {
-            this.SetCurrentResult(new IValue[] { value });
-        }
-
-        protected void SetCurrentResult(object value)
-        {
-            this.SetCurrentResult(new IValue[] { new AgnosticValue(value) });
-        }
-
-        protected IPhase SetFinalResult(IEnumerable<IValue> values)
-        {
-            this.SetCurrentResult(values);
-
-            return null;
-        }
-
-        protected IPhase SetFinalResult(IValue value)
-        {
-            return this.SetFinalResult(new IValue[] { value });
-        }
-
-        protected IPhase SetFinalResult(object value)
-        {
-            return this.SetFinalResult(new IValue[] { new AgnosticValue(value) });
-        }
-
-        protected IPhase SingleCalculate(IPhaseTransition transition, IPhase firstPhase, Func<IValue, object> calculator)
-        {
-            if (transition == null)
+            if (inputs.Length != this.Inputs.Length)
             {
-                return firstPhase;
+                throw new ArgumentException($"Expected {this.Inputs.Length} inputs.", nameof(inputs));
             }
 
-            return this.SetFinalResult(new AgnosticValue(calculator(transition.Inputs.First())));
-        }
-
-        protected IPhase SingleCalculate(IPhaseTransition transition, IPhase firstPhase, Func<IValue[], object> calculator)
-        {
-            if (transition == null)
+            foreach (var input in this.Inputs)
             {
-                return firstPhase;
+                var found = inputs.FirstOrDefault(i => i.Info.Name == input.Info.Name);
+
+                if (found == null)
+                {
+                    throw new ArgumentException($"Input \"{input.Info.Name}\" was not found.", nameof(inputs));
+                }
             }
-
-            return this.SetFinalResult(new AgnosticValue(calculator(transition.Inputs)));
-        }
-
-        protected IPhase SingleCalculate(IPhaseTransition transition, IPhase firstPhase, Func<IValue[], object[]> calculator)
-        {
-            if (transition == null)
-            {
-                return firstPhase;
-            }
-
-            return this.SetFinalResult(calculator(transition.Inputs).Select(i => new AgnosticValue(i)));
         }
 
         protected static T GetValue<T>(IValue value)
@@ -126,6 +74,17 @@ namespace XCalculateLib
             }
 
             return TypeConverter.ToArray<T>((Array)value.Value);
+        }
+
+        protected IValue[] CreateResults(params object[] values)
+        {
+            if (this.FunctionInfo.ResultInfo.Length != values.Length)
+            {
+                throw new ArgumentException($"Expected {this.FunctionInfo.ResultInfo.Length} result values.");
+            }
+
+            var j = 0;
+            return values.Select(i => new AgnosticValue(i, this.FunctionInfo.ResultInfo[j++])).ToArray();
         }
     }
 }

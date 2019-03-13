@@ -1,0 +1,19 @@
+﻿@model XCalculate.Web.App.Components.InputArrayValueControlModel
+
+@*<div id="array-input-group">
+    <vc:input-value-control input="@Model" on-input-callback="inputValueControlOnInputCallback" />
+</div>*@
+
+<script type="text/javascript">
+    function inputValueControlOnInput(e) {
+        if (e.value[e.value.length - 1] == '+') {
+
+        }
+
+        var callback = @Model.OnInputCallback;
+        callback({
+            Key: e.id.substr(6),
+            Value: parseFloat(e.value)
+        });
+    }
+</script>

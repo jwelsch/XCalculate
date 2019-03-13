@@ -6,79 +6,68 @@ namespace MathCalculators.Tests.Functional
 {
     public class LogarithmFunctionCalculateShould
     {
-        //[Fact]
-        //public void SuccessfullyCalculateALogarithm()
-        //{
-        //    var function = new LogarithmFunction();
+        [Fact]
+        public void SuccessfullyCalculateALogarithm()
+        {
+            var function = new LogarithmFunction();
 
-        //    var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-        //    Assert.NotNull(phase);
-        //    Assert.Equal("Specify Arguments", phase.Name);
-        //    Assert.Equal("Specify logarithm arguments.", phase.Description);
-        //    Assert.Collection(phase.Inputs,
-        //        i =>
-        //        {
-        //            Assert.Equal("Argument", i.Info.Name);
-        //            Assert.Equal("Argument of the logarithm.", i.Info.Description);
-        //            Assert.Null(i.Info.Unit);
-        //        },
-        //        i =>
-        //        {
-        //            Assert.Equal("Base", i.Info.Name);
-        //            Assert.Equal("Base of the logarithm.", i.Info.Description);
-        //            Assert.Null(i.Info.Unit);
-        //        });
+            Assert.Equal(2, inputs.Length);
 
-        //    phase.Inputs[0].Value = 8;
-        //    phase.Inputs[1].Value = 3;
+            inputs[0].Value = 8;
+            inputs[1].Value = 3;
 
-        //    Assert.Null(function.Calculate(phase));
+            var result = function.Calculate(inputs);
 
-        //    Assert.Collection(function.CurrentResult,
-        //        i =>
-        //        {
-        //            Assert.Equal(typeof(double), i.ValueType);
-        //            Assert.Equal(Math.Log(8, 3), TypeConverter.ToObject<double>(i.Value));
-        //        });
-        //}
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.Value.GetType());
+                    Assert.Equal(Math.Log(8, 3), TypeConverter.ToObject<double>(i.Value));
+                });
+        }
 
-        //[Fact]
-        //public void SuccessfullyCalculateALogarithmWithOnlyBaseSpecified()
-        //{
-        //    var function = new LogarithmFunction();
+        [Fact]
+        public void SuccessfullyCalculateALogarithmWithOnlyBaseSpecified()
+        {
+            var function = new LogarithmFunction();
 
-        //    var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-        //    phase.Inputs[1].Value = 3;
+            Assert.Equal(2, inputs.Length);
 
-        //    Assert.Null(function.Calculate(phase));
+            inputs[1].Value = 3;
 
-        //    Assert.Collection(function.CurrentResult,
-        //        i =>
-        //        {
-        //            Assert.Equal(typeof(double), i.ValueType);
-        //            Assert.Equal(Math.Log(0, 3), TypeConverter.ToObject<double>(i.Value));
-        //        });
-        //}
+            var result = function.Calculate(inputs);
 
-        //[Fact]
-        //public void SuccessfullyCalculateALogarithmWithOnlyLogarithmSpecified()
-        //{
-        //    var function = new LogarithmFunction();
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.Value.GetType());
+                    Assert.Equal(Math.Log(0, 3), TypeConverter.ToObject<double>(i.Value));
+                });
+        }
 
-        //    var phase = function.Calculate();
+        [Fact]
+        public void SuccessfullyCalculateALogarithmWithOnlyLogarithmSpecified()
+        {
+            var function = new LogarithmFunction();
 
-        //    phase.Inputs[0].Value = 8;
+            var inputs = function.GetInputs();
 
-        //    Assert.Null(function.Calculate(phase));
+            Assert.Equal(2, inputs.Length);
 
-        //    Assert.Collection(function.CurrentResult,
-        //        i =>
-        //        {
-        //            Assert.Equal(typeof(double), i.ValueType);
-        //            Assert.Equal(Math.Log(8, 10), TypeConverter.ToObject<double>(i.Value));
-        //        });
-        //}
+            inputs[0].Value = 8;
+
+            var result = function.Calculate(inputs);
+
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.Value.GetType());
+                    Assert.Equal(Math.Log(8, 10), TypeConverter.ToObject<double>(i.Value));
+                });
+        }
     }
 }

@@ -23,5 +23,10 @@ namespace XCalculateLib
         {
             get;
         }
+
+        IValueInfo[] ResultInfo
+        {
+            get;
+        }
     }
 }

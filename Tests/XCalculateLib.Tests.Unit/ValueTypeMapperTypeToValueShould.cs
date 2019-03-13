@@ -29,7 +29,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as ByteValue);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -59,7 +59,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as SByteValue);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -89,7 +89,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as Int16Value);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -119,7 +119,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as UInt16Value);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -149,7 +149,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as Int32Value);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -179,7 +179,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as UInt32Value);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -209,7 +209,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as Int64Value);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -239,7 +239,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as UInt64Value);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -269,7 +269,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as SingleValue);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -299,7 +299,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as DoubleValue);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -329,7 +329,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as DecimalValue);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -359,7 +359,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as BooleanValue);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -389,7 +389,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as StringValue);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -419,7 +419,7 @@ namespace XCalculateLib.Tests.Unit
 
             Assert.NotNull(value as DateTimeValue);
             Assert.Equal(defaultValue, value.Value);
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -453,7 +453,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -487,7 +487,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -521,7 +521,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -555,7 +555,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -589,7 +589,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -623,7 +623,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -657,7 +657,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -691,7 +691,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -725,7 +725,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -759,7 +759,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -793,7 +793,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -827,7 +827,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -861,7 +861,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);
@@ -895,7 +895,7 @@ namespace XCalculateLib.Tests.Unit
                 i => Assert.Equal(defaultValue[0], i),
                 i => Assert.Equal(defaultValue[1], i),
                 i => Assert.Equal(defaultValue[2], i));
-            Assert.Equal(type, value.ValueType);
+            Assert.Equal(type, value.Value.GetType());
             Assert.NotNull(value.Info);
             Assert.Equal(name, value.Info.Name);
             Assert.Equal(description, value.Info.Description);

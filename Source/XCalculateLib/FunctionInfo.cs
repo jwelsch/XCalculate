@@ -29,12 +29,24 @@ namespace XCalculateLib
             protected set;
         }
 
-        public FunctionInfo(Version version, string name, string description = null, params string[] tags)
+        public IValueInfo[] ResultInfo
+        {
+            get;
+            protected set;
+        }
+
+        public FunctionInfo(Version version, string name, IValueInfo[] resultInfo, string description = null, params string[] tags)
         {
             this.Version = version;
             this.Name = name;
+            this.ResultInfo = resultInfo;
             this.Description = description;
             this.Tags = tags;
+        }
+
+        public FunctionInfo(Version version, string name, IValueInfo resultInfo, string description = null, params string[] tags)
+            : this(version, name, new IValueInfo[] { resultInfo }, description, tags)
+        {
         }
     }
 }

@@ -22,7 +22,7 @@ namespace XCalculate.Web.App.Components
             {
                 Name = input?.Info.Name,
                 Description = input?.Info.Description,
-                UnitLabel = input?.Info.Unit.AbreviationPlural,
+                UnitLabel = input?.Info.Unit?.AbreviationPlural,
                 Value = null,
                 OnInputCallback = onInputCallback
             };

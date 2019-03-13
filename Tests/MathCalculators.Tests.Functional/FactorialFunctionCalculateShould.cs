@@ -6,85 +6,81 @@ namespace MathCalculators.Tests.Functional
 {
     public class FactorialFunctionCalculateShould
     {
-        //[Fact]
-        //public void SuccessfullyReturnValueGivenAPositiveInteger()
-        //{
-        //    var function = new FactorialFunction();
+        [Fact]
+        public void SuccessfullyReturnValueGivenAPositiveInteger()
+        {
+            var function = new FactorialFunction();
 
-        //    var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-        //    Assert.NotNull(phase);
-        //    Assert.Equal("Specify Argument", phase.Name);
-        //    Assert.Equal("Argument for the factorial function.", phase.Description);
-        //    Assert.Collection(phase.Inputs,
-        //        i =>
-        //        {
-        //            Assert.Equal("n", i.Info.Name);
-        //            Assert.Equal("Value to the factorial function.", i.Info.Description);
-        //            Assert.Null(i.Info.Unit);
-        //        });
+            Assert.Single(inputs);
 
-        //    phase.Inputs[0].Value = 5;
+            inputs[0].Value = 5;
 
-        //    Assert.Null(function.Calculate(phase));
+            var result = function.Calculate(inputs);
 
-        //    Assert.Collection(function.CurrentResult,
-        //        i =>
-        //        {
-        //            Assert.Equal(typeof(double), i.ValueType);
-        //            Assert.Equal(120, TypeConverter.ToObject<int>(i.Value));
-        //        });
-        //}
+            Assert.NotNull(result);
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.Value.GetType());
+                    Assert.Equal(120, TypeConverter.ToObject<int>(i.Value));
+                });
+        }
 
-        //[Fact]
-        //public void SuccessfullyReturnValueGivenAPositiveDouble()
-        //{
-        //    var function = new FactorialFunction();
+        [Fact]
+        public void SuccessfullyReturnValueGivenAPositiveDouble()
+        {
+            var function = new FactorialFunction();
 
-        //    var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-        //    phase.Inputs[0].Value = 5.5;
+            inputs[0].Value = 5.5;
 
-        //    Assert.Null(function.Calculate(phase));
+            var result = function.Calculate(inputs);
 
-        //    Assert.Collection(function.CurrentResult,
-        //        i =>
-        //        {
-        //            Assert.Equal(typeof(double), i.ValueType);
-        //            Assert.Equal(287.88527781504507, TypeConverter.ToObject<double>(i.Value));
-        //        });
-        //}
+            Assert.NotNull(result);
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.Value.GetType());
+                    Assert.Equal(287.88527781504507, TypeConverter.ToObject<double>(i.Value));
+                });
+        }
 
-        //[Fact]
-        //public void SuccessfullyReturnOneGivenZero()
-        //{
-        //    var function = new FactorialFunction();
+        [Fact]
+        public void SuccessfullyReturnOneGivenZero()
+        {
+            var function = new FactorialFunction();
 
-        //    var phase = function.Calculate();
+            var inputs = function.GetInputs();
 
-        //    phase.Inputs[0].Value = 0;
+            Assert.Single(inputs);
 
-        //    Assert.Null(function.Calculate(phase));
+            inputs[0].Value = 0;
 
-        //    Assert.Collection(function.CurrentResult,
-        //        i =>
-        //        {
-        //            Assert.Equal(typeof(double), i.ValueType);
-        //            Assert.Equal(1, TypeConverter.ToObject<int>(i.Value));
-        //        });
-        //}
+            var result = function.Calculate(inputs);
 
-        //[Fact]
-        //public void FailWhenGivenANegativeInteger()
-        //{
-        //    var function = new FactorialFunction();
+            Assert.NotNull(result);
+            Assert.Collection(result,
+                i =>
+                {
+                    Assert.Equal(typeof(double), i.Value.GetType());
+                    Assert.Equal(1, TypeConverter.ToObject<int>(i.Value));
+                });
+        }
 
-        //    var phase = function.Calculate();
+        [Fact]
+        public void FailWhenGivenANegativeInteger()
+        {
+            var function = new FactorialFunction();
 
-        //    Assert.Throws<ArgumentException>(() =>
-        //    {
-        //        phase.Inputs[0].Value = -5;
-        //    });
-        //}
+            var inputs = function.GetInputs();
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                inputs[0].Value = -5;
+            });
+        }
     }
 }

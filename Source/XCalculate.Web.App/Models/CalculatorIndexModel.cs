@@ -28,7 +28,13 @@ namespace XCalculate.Web.App.Models
             set;
         }
 
-        public IPhase Phase
+        public CalculatorValueModel[] Inputs
+        {
+            get;
+            set;
+        }
+
+        public CalculatorValueModel[] Results
         {
             get;
             set;
