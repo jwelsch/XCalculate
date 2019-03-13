@@ -18,7 +18,7 @@ namespace XCalculate.Web.App.Controllers
         [Route("")]
         [Route("[controller]/[action]")]
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index([FromQuery] string s = null)
         {
             var url = Url.Action("Index", "Calculator", new { id = 1 });
 
