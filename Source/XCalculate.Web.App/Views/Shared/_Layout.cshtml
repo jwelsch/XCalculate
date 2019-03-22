@@ -27,15 +27,15 @@
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0 ml-auto">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <input id="nav-search" class="form-control mr-sm-2" type="search" placeholder="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="onClickNavSearch(this);">Search</button>
                     </form>
                 </div>
             </nav>
             <div class="d-flex">
                 <div class="mt-1">
                     <ul id="sidebar" class="nav flex-column">
-                        <li class="nav-item"><a class="nav-link" href="#">Algebra</a></li>
+                        <li class="nav-item"><a class="nav-link" href="~/Search/?s=algebra">Algebra</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Geometry</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Trigonometry</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Financial</a></li>
@@ -48,10 +48,68 @@
         </div>
         <footer class="text-center py-1">
             <hr />
-            <span class="text-muted">&copy; 2018 - <a href="http://www.digimodern.com">DigiModern Software Solutions Incorporated</a></span>
+            <span class="text-muted">&copy; 2019 - <a href="http://www.digimodern.com">DigiModern Software Solutions Incorporated</a></span>
         </footer>
     </div>
     <script src="~/js/site.min.js"></script>
+    <script src="~/js/navigationUrl.js"></script>
     @RenderSection("Scripts", required: false)
+    <script type="text/javascript">
+        function onClickNavSearch(e) {
+            var term = $("#nav-search").val();
+
+            var authority = `${location.protocol}//${location.host}`;
+            var url = `${authority}/Search?s=${term}`;
+
+            var navUrl = navigationUrl();
+
+            var u1 = navUrl.splitUrl("https://www.example.com");
+            var u2 = navUrl.splitUrl("https://www.example.com/");
+            var u3 = navUrl.splitUrl("https://www.example.com:5000");
+            var u4 = navUrl.splitUrl("https://www.example.com:5000/");
+            var u5 = navUrl.splitUrl("https://www.example.com:5000/hello");
+            var u6 = navUrl.splitUrl("https://www.example.com:5000/hello/");
+            var u7 = navUrl.splitUrl("https://www.example.com:5000/hello/world");
+            var u8 = navUrl.splitUrl("https://www.example.com:5000/hello/world/");
+            var u9 = navUrl.splitUrl("https://www.example.com:5000/hello/world?foo=bar");
+            var u10 = navUrl.splitUrl("https://www.example.com:5000/hello/world/?foo=bar");
+            var u11 = navUrl.splitUrl("https://www.example.com:5000/hello/world?foo=bar&a=b");
+            var u12 = navUrl.splitUrl("https://www.example.com:5000/hello/world/?foo=bar&a=b");
+            var u13 = navUrl.splitUrl("https://www.example.com/hello");
+            var u14 = navUrl.splitUrl("https://www.example.com/hello/");
+            var u15 = navUrl.splitUrl("https://www.example.com/hello/world");
+            var u16 = navUrl.splitUrl("https://www.example.com/hello/world/");
+            var u17 = navUrl.splitUrl("https://www.example.com/hello/world?foo=bar");
+            var u18 = navUrl.splitUrl("https://www.example.com/hello/world/?foo=bar");
+            var u19 = navUrl.splitUrl("https://www.example.com/hello/world?foo=bar&a=b");
+            var u20 = navUrl.splitUrl("https://www.example.com/hello/world/?foo=bar&a=b");
+            var u21 = navUrl.splitUrl("https://www.example.com/hello?foo=bar");
+            var u22 = navUrl.splitUrl("https://www.example.com/hello/?foo=bar");
+            var u23 = navUrl.splitUrl("https://www.example.com?foo=bar&a=b");
+            var u24 = navUrl.splitUrl("https://www.example.com/?foo=bar&a=b");
+            var u25 = navUrl.splitUrl("https://www.example.com:5000?foo=bar&a=b");
+            var u26 = navUrl.splitUrl("https://www.example.com:5000/?foo=bar&a=b");
+            var u27 = navUrl.splitUrl("https://www.example.com?");
+            var u28 = navUrl.splitUrl("https://www.example.com/?");
+            var u29 = navUrl.splitUrl("https://www.example.com:5000?");
+            var u30 = navUrl.splitUrl("https://www.example.com:5000/?");
+
+            //navUrl.goToUrl(url);
+
+            //$.ajax({
+            //    url: url,
+            //    type: "POST",
+            //    data: {
+            //        s: term
+            //    },
+            //    error: function (xhr, status, error) {
+            //        console.log(`AJAX error - status: ${JSON.stringify(status)}, error: ${JSON.stringify(error)}`);
+            //    },
+            //    success: function (data, status, xhr) {
+            //        console.log(`AJAX success - status: ${JSON.stringify(status)}, data: ${JSON.stringify(data)}`);
+            //    }
+            //});
+        }
+    </script>
 </body>
 </html>

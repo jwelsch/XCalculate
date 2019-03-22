@@ -18,15 +18,9 @@ namespace XCalculate.Web.App.Controllers
         [Route("")]
         [Route("[controller]/[action]")]
         [HttpGet]
-        public IActionResult Index([FromQuery] string s = null)
+        public IActionResult Index()
         {
-            var url = Url.Action("Index", "Calculator", new { id = 1 });
-
-            var calculators = this.calculatorService.GetAll();
-            var viewModel = new HomeIndexModel()
-            {
-                CalculatorIds = calculators.OrderBy(i => i.Module.Function.FunctionInfo.Name).Select(i => i.Id).ToList()
-            };
+            var viewModel = new HomeIndexModel();
 
             return View(viewModel);
         }
