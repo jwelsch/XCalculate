@@ -106,6 +106,10 @@ function navigationUrl() {
                     state = "query";
                     continue;
                 }
+                else if (c === '#') {
+                    state = "hash";
+                    continue;
+                }
                 result.host = result.host ? result.host + c : c;
             }
             else if (state === "port") {
@@ -115,6 +119,10 @@ function navigationUrl() {
                 }
                 else if (c === '?') {
                     state = "query";
+                    continue;
+                }
+                else if (c === '#') {
+                    state = "hash";
                     continue;
                 }
                 result.port = result.port ? result.port + c : c;
@@ -128,7 +136,7 @@ function navigationUrl() {
                         result.paths.push(part);
                         part = "";
                     }
-                    if (i !== url.length - 1 && url[i + 1] !== '?') {
+                    if (i !== url.length - 1 && url[i + 1] !== '?' && url[i + 1] !== '#') {
                         result.path = result.path ? result.path + c : c;
                     }
                     continue;
@@ -142,6 +150,17 @@ function navigationUrl() {
                         part = "";
                     }
                     state = "query";
+                    continue;
+                }
+                if (c === '#') {
+                    if (part) {
+                        if (!result.paths) {
+                            result.paths = [];
+                        }
+                        result.paths.push(part);
+                        part = "";
+                    }
+                    state = "hash";
                     continue;
                 }
                 part += c;
@@ -161,9 +180,27 @@ function navigationUrl() {
                     }
                     continue;
                 }
+                else if (c === '#') {
+                    if (part) {
+                        if (!result.queries) {
+                            result.queries = [];
+                        }
+                        result.queries.push(part);
+                        part = "";
+                    }
+                    state = "hash";
+                    continue;
+                }
                 part += c;
                 result.query = result.query ? result.query + c : c;
             }
+            else if (state === "hash") {
+                result.hash = result.hash ? result.hash + c : c;
+            }
+        }
+
+        if (result.port) {
+            result.port = parseInt(result.port, 10);
         }
 
         if (part) {
