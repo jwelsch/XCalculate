@@ -9,7 +9,9 @@ namespace XCalculate.Web.App.Components
 {
     public class InputArrayValueControl : ViewComponent
     {
+#pragma warning disable 1998
         public async Task<IViewComponentResult> InvokeAsync(IValue input, string onInputCallback)
+#pragma warning restore 1998
         {
             var model = new InputArrayValueControlModel()
             {

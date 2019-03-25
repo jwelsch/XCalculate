@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace XCalculate.Web.Core.Interfaces
+﻿namespace XCalculate.Web.Core.Interfaces
 {
     public interface ICalculatorService
     {
-        IList<ICalculator> GetAll();
+        ICalculator[] GetAll();
 
         ICalculator GetById(int id);
+
+        ICalculator[] Filter(string term, CalculatorFilterTarget target, bool matchCase, bool matchWholeString);
     }
 }

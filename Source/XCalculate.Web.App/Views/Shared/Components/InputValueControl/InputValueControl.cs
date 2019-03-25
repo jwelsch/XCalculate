@@ -16,7 +16,9 @@ namespace XCalculate.Web.App.Components
             this.repository = repository;
         }
 
+#pragma warning disable 1998
         public async Task<IViewComponentResult> InvokeAsync(IValue input, string onInputCallback)
+#pragma warning restore 1998
         {
             var model = new InputValueControlModel()
             {

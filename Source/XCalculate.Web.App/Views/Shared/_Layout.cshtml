@@ -28,17 +28,17 @@
                     </ul>
                     <form class="form-inline my-2 my-lg-0 ml-auto">
                         <input id="nav-search" class="form-control mr-sm-2" type="search" placeholder="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="onClickNavSearch(this);">Search</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="return onClickNavSearch(this);">Search</button>
                     </form>
                 </div>
             </nav>
             <div class="d-flex">
                 <div class="mt-1">
                     <ul id="sidebar" class="nav flex-column">
-                        <li class="nav-item"><a class="nav-link" href="~/Search/?s=algebra">Algebra</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Geometry</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Trigonometry</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Financial</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Calculator/?s=algebra">Algebra</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Search/?s=geometry">Geometry</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Search/?s=trigonometry">Trigonometry</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Search/?s=financial">Financial</a></li>
                     </ul>
                 </div>
                 <main class="container mt-2">
@@ -58,89 +58,78 @@
         function onClickNavSearch(e) {
             var term = $("#nav-search").val();
 
-            var authority = `${location.protocol}//${location.host}`;
-            var url = `${authority}/Search?s=${term}`;
+            if (term) {
+                var authority = `${location.protocol}//${location.host}`;
+                var url = `${authority}/Calculator/?s=${term}`;
 
-            var navUrl = navigationUrl();
+                var navUrl = navigationUrl();
+                navUrl.goToUrl(url);
+            }
 
-            var u1 = navUrl.splitUrl("https://www.example.com");
-            var u2 = navUrl.splitUrl("https://www.example.com/");
-            var u3 = navUrl.splitUrl("https://www.example.com:5000");
-            var u4 = navUrl.splitUrl("https://www.example.com:5000/");
-            var u5 = navUrl.splitUrl("https://www.example.com:5000/hello");
-            var u6 = navUrl.splitUrl("https://www.example.com:5000/hello/");
-            var u7 = navUrl.splitUrl("https://www.example.com:5000/hello/world");
-            var u8 = navUrl.splitUrl("https://www.example.com:5000/hello/world/");
-            var u9 = navUrl.splitUrl("https://www.example.com:5000/hello/world?foo=bar");
-            var u10 = navUrl.splitUrl("https://www.example.com:5000/hello/world/?foo=bar");
-            var u11 = navUrl.splitUrl("https://www.example.com:5000/hello/world?foo=bar&a=b");
-            var u12 = navUrl.splitUrl("https://www.example.com:5000/hello/world/?foo=bar&a=b");
-            var u13 = navUrl.splitUrl("https://www.example.com/hello");
-            var u14 = navUrl.splitUrl("https://www.example.com/hello/");
-            var u15 = navUrl.splitUrl("https://www.example.com/hello/world");
-            var u16 = navUrl.splitUrl("https://www.example.com/hello/world/");
-            var u17 = navUrl.splitUrl("https://www.example.com/hello/world?foo=bar");
-            var u18 = navUrl.splitUrl("https://www.example.com/hello/world/?foo=bar");
-            var u19 = navUrl.splitUrl("https://www.example.com/hello/world?foo=bar&a=b");
-            var u20 = navUrl.splitUrl("https://www.example.com/hello/world/?foo=bar&a=b");
-            var u21 = navUrl.splitUrl("https://www.example.com/hello?foo=bar");
-            var u22 = navUrl.splitUrl("https://www.example.com/hello/?foo=bar");
-            var u23 = navUrl.splitUrl("https://www.example.com?foo=bar&a=b");
-            var u24 = navUrl.splitUrl("https://www.example.com/?foo=bar&a=b");
-            var u25 = navUrl.splitUrl("https://www.example.com:5000?foo=bar&a=b");
-            var u26 = navUrl.splitUrl("https://www.example.com:5000/?foo=bar&a=b");
-            var u27 = navUrl.splitUrl("https://www.example.com?");
-            var u28 = navUrl.splitUrl("https://www.example.com/?");
-            var u29 = navUrl.splitUrl("https://www.example.com:5000?");
-            var u30 = navUrl.splitUrl("https://www.example.com:5000/?");
-            var u31 = navUrl.splitUrl("https://www.example.com:5000/hello/world#foo");
-            var u32 = navUrl.splitUrl("https://www.example.com:5000/hello/world/#foo");
-            var u33 = navUrl.splitUrl("https://www.example.com/hello/world#foo");
-            var u34 = navUrl.splitUrl("https://www.example.com/hello/world/#foo");
-            var u35 = navUrl.splitUrl("https://www.example.com/hello#foo");
-            var u36 = navUrl.splitUrl("https://www.example.com/hello/#foo");
-            var u37 = navUrl.splitUrl("https://www.example.com#foo");
-            var u38 = navUrl.splitUrl("https://www.example.com/#foo");
-            var u39 = navUrl.splitUrl("https://www.example.com:5000#foo");
-            var u40 = navUrl.splitUrl("https://www.example.com:5000/#foo");
-            var u41 = navUrl.splitUrl("https://www.example.com#");
-            var u42 = navUrl.splitUrl("https://www.example.com/#");
-            var u43 = navUrl.splitUrl("https://www.example.com:5000#");
-            var u44 = navUrl.splitUrl("https://www.example.com:5000/#");
-            var u45 = navUrl.splitUrl("https://www.example.com:5000/hello/world?foo=bar#baz");
-            var u46 = navUrl.splitUrl("https://www.example.com:5000/hello/world/?foo=bar#baz");
-            var u47 = navUrl.splitUrl("https://www.example.com:5000/hello/world?foo=bar&a=b#baz");
-            var u48 = navUrl.splitUrl("https://www.example.com:5000/hello/world/?foo=bar&a=b#baz");
-            var u49 = navUrl.splitUrl("https://www.example.com/hello/world?foo=bar#baz");
-            var u50 = navUrl.splitUrl("https://www.example.com/hello/world/?foo=bar#baz");
-            var u51 = navUrl.splitUrl("https://www.example.com/hello/world?foo=bar&a=b#baz");
-            var u52 = navUrl.splitUrl("https://www.example.com/hello/world/?foo=bar&a=b#baz");
-            var u53 = navUrl.splitUrl("https://www.example.com/hello?foo=bar#baz");
-            var u54 = navUrl.splitUrl("https://www.example.com/hello/?foo=bar#baz");
-            var u55 = navUrl.splitUrl("https://www.example.com?foo=bar&a=b#baz");
-            var u56 = navUrl.splitUrl("https://www.example.com/?foo=bar&a=b#baz");
-            var u57 = navUrl.splitUrl("https://www.example.com:5000?foo=bar&a=b#baz");
-            var u58 = navUrl.splitUrl("https://www.example.com:5000/?foo=bar&a=b#baz");
-            var u59 = navUrl.splitUrl("https://www.example.com?#baz");
-            var u60 = navUrl.splitUrl("https://www.example.com/?#baz");
-            var u61 = navUrl.splitUrl("https://www.example.com:5000?#baz");
-            var u62 = navUrl.splitUrl("https://www.example.com:5000/?#baz");
+            //var u1 = navUrl.splitUrl("https://www.example.com");
+            //var u2 = navUrl.splitUrl("https://www.example.com/");
+            //var u3 = navUrl.splitUrl("https://www.example.com:5000");
+            //var u4 = navUrl.splitUrl("https://www.example.com:5000/");
+            //var u5 = navUrl.splitUrl("https://www.example.com:5000/hello");
+            //var u6 = navUrl.splitUrl("https://www.example.com:5000/hello/");
+            //var u7 = navUrl.splitUrl("https://www.example.com:5000/hello/world");
+            //var u8 = navUrl.splitUrl("https://www.example.com:5000/hello/world/");
+            //var u9 = navUrl.splitUrl("https://www.example.com:5000/hello/world?foo=bar");
+            //var u10 = navUrl.splitUrl("https://www.example.com:5000/hello/world/?foo=bar");
+            //var u11 = navUrl.splitUrl("https://www.example.com:5000/hello/world?foo=bar&a=b");
+            //var u12 = navUrl.splitUrl("https://www.example.com:5000/hello/world/?foo=bar&a=b");
+            //var u13 = navUrl.splitUrl("https://www.example.com/hello");
+            //var u14 = navUrl.splitUrl("https://www.example.com/hello/");
+            //var u15 = navUrl.splitUrl("https://www.example.com/hello/world");
+            //var u16 = navUrl.splitUrl("https://www.example.com/hello/world/");
+            //var u17 = navUrl.splitUrl("https://www.example.com/hello/world?foo=bar");
+            //var u18 = navUrl.splitUrl("https://www.example.com/hello/world/?foo=bar");
+            //var u19 = navUrl.splitUrl("https://www.example.com/hello/world?foo=bar&a=b");
+            //var u20 = navUrl.splitUrl("https://www.example.com/hello/world/?foo=bar&a=b");
+            //var u21 = navUrl.splitUrl("https://www.example.com/hello?foo=bar");
+            //var u22 = navUrl.splitUrl("https://www.example.com/hello/?foo=bar");
+            //var u23 = navUrl.splitUrl("https://www.example.com?foo=bar&a=b");
+            //var u24 = navUrl.splitUrl("https://www.example.com/?foo=bar&a=b");
+            //var u25 = navUrl.splitUrl("https://www.example.com:5000?foo=bar&a=b");
+            //var u26 = navUrl.splitUrl("https://www.example.com:5000/?foo=bar&a=b");
+            //var u27 = navUrl.splitUrl("https://www.example.com?");
+            //var u28 = navUrl.splitUrl("https://www.example.com/?");
+            //var u29 = navUrl.splitUrl("https://www.example.com:5000?");
+            //var u30 = navUrl.splitUrl("https://www.example.com:5000/?");
+            //var u31 = navUrl.splitUrl("https://www.example.com:5000/hello/world#foo");
+            //var u32 = navUrl.splitUrl("https://www.example.com:5000/hello/world/#foo");
+            //var u33 = navUrl.splitUrl("https://www.example.com/hello/world#foo");
+            //var u34 = navUrl.splitUrl("https://www.example.com/hello/world/#foo");
+            //var u35 = navUrl.splitUrl("https://www.example.com/hello#foo");
+            //var u36 = navUrl.splitUrl("https://www.example.com/hello/#foo");
+            //var u37 = navUrl.splitUrl("https://www.example.com#foo");
+            //var u38 = navUrl.splitUrl("https://www.example.com/#foo");
+            //var u39 = navUrl.splitUrl("https://www.example.com:5000#foo");
+            //var u40 = navUrl.splitUrl("https://www.example.com:5000/#foo");
+            //var u41 = navUrl.splitUrl("https://www.example.com#");
+            //var u42 = navUrl.splitUrl("https://www.example.com/#");
+            //var u43 = navUrl.splitUrl("https://www.example.com:5000#");
+            //var u44 = navUrl.splitUrl("https://www.example.com:5000/#");
+            //var u45 = navUrl.splitUrl("https://www.example.com:5000/hello/world?foo=bar#baz");
+            //var u46 = navUrl.splitUrl("https://www.example.com:5000/hello/world/?foo=bar#baz");
+            //var u47 = navUrl.splitUrl("https://www.example.com:5000/hello/world?foo=bar&a=b#baz");
+            //var u48 = navUrl.splitUrl("https://www.example.com:5000/hello/world/?foo=bar&a=b#baz");
+            //var u49 = navUrl.splitUrl("https://www.example.com/hello/world?foo=bar#baz");
+            //var u50 = navUrl.splitUrl("https://www.example.com/hello/world/?foo=bar#baz");
+            //var u51 = navUrl.splitUrl("https://www.example.com/hello/world?foo=bar&a=b#baz");
+            //var u52 = navUrl.splitUrl("https://www.example.com/hello/world/?foo=bar&a=b#baz");
+            //var u53 = navUrl.splitUrl("https://www.example.com/hello?foo=bar#baz");
+            //var u54 = navUrl.splitUrl("https://www.example.com/hello/?foo=bar#baz");
+            //var u55 = navUrl.splitUrl("https://www.example.com?foo=bar&a=b#baz");
+            //var u56 = navUrl.splitUrl("https://www.example.com/?foo=bar&a=b#baz");
+            //var u57 = navUrl.splitUrl("https://www.example.com:5000?foo=bar&a=b#baz");
+            //var u58 = navUrl.splitUrl("https://www.example.com:5000/?foo=bar&a=b#baz");
+            //var u59 = navUrl.splitUrl("https://www.example.com?#baz");
+            //var u60 = navUrl.splitUrl("https://www.example.com/?#baz");
+            //var u61 = navUrl.splitUrl("https://www.example.com:5000?#baz");
+            //var u62 = navUrl.splitUrl("https://www.example.com:5000/?#baz");
 
-            //navUrl.goToUrl(url);
-
-            //$.ajax({
-            //    url: url,
-            //    type: "POST",
-            //    data: {
-            //        s: term
-            //    },
-            //    error: function (xhr, status, error) {
-            //        console.log(`AJAX error - status: ${JSON.stringify(status)}, error: ${JSON.stringify(error)}`);
-            //    },
-            //    success: function (data, status, xhr) {
-            //        console.log(`AJAX success - status: ${JSON.stringify(status)}, data: ${JSON.stringify(data)}`);
-            //    }
-            //});
+            return false;
         }
     </script>
 </body>

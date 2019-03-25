@@ -14,7 +14,9 @@ namespace XCalculate.Web.App.Components
             this.repository = repository;
         }
 
+#pragma warning disable 1998
         public async Task<IViewComponentResult> InvokeAsync(int calculatorId)
+#pragma warning restore 1998
         {
             var calculator = this.repository.GetById(calculatorId);
 

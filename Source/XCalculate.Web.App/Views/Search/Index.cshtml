@@ -1,9 +1,0 @@
-﻿@model SearchModel
-
-@{
-    ViewData["Title"] = "Search Result";
-}
-
-<h1>Search Result</h1>
-
-@await Html.PartialAsync("Result", new SearchResultModel { CalculatorIds = Model.CalculatorIds })

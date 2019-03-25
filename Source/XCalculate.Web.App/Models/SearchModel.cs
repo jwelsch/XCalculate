@@ -12,5 +12,11 @@ namespace XCalculate.Web.App.Models
             get;
             set;
         }
+
+        public IList<string> Filters
+        {
+            get;
+            set;
+        }
     }
 }

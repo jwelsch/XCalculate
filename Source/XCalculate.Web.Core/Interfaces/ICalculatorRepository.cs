@@ -4,7 +4,7 @@ namespace XCalculate.Web.Core.Interfaces
 {
     public interface ICalculatorRepository
     {
-        IList<ICalculator> GetAll();
+        ICalculator[] GetAll();
 
         ICalculator GetById(int id);
 

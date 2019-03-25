@@ -323,10 +323,10 @@ function navigationUrl() {
     //
     function findQueryParam(key, defaultValue) {
         if (key) {
-            var params = url.queryParams.params.filter(function (i) { return i.key === key });
+            var params = url.queryParams.params.filter(function (i) { return i.key === key; });
             return params.length > 0 ? params[0].value : defaultValue;
         }
-    };
+    }
 
     //
     // Appends the query parameter to the URL.
@@ -444,10 +444,10 @@ function navigationUrl() {
     //
     function goToUrl(newUrl) {
         if (newUrl) {
-            window.location.href = newUrl;
+            window.location = newUrl;
         }
         else {
-            window.location.href = navigationUrl().url.location.href;
+            window.location = navigationUrl().url.location.href;
         }
         return navigationUrl();
     }
