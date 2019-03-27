@@ -47,7 +47,7 @@ namespace XCalculate.Web.App.Controllers
                     Filters = new[] { s }
                 };
 
-                return View("Search", vm);
+                return PartialView("Search", vm);
             }
         }
 

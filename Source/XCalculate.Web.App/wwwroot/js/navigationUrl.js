@@ -29,7 +29,7 @@ function navigationUrl() {
         var queryParams = window.location.search.substring(1).split("&").filter(function (i) { return i !== ""; });
         var params = [];
         for (var i = 0; i < queryParams.length; i++) {
-            var pair = queryParams[i].split("=");
+            var pair = queryParams[i].split("=").filter(function (i) { return i !== ""; });
             params.push({ key: pair[0], value: pair[1] });
         }
         return {
@@ -75,10 +75,44 @@ function navigationUrl() {
         return url;
     }
 
+    //
+    // Splits a URL into its constituent parts.
+    //
+    // Returns an object with the URL parts
+    //   {
+    //     protocol: (String) The protocol of the URL.
+    //     host: (String) The host name of the URL.
+    //     port: (Number) The port of the URL.  Undefined if none.
+    //     path: (String) The path of the URL.  Undefined if none.
+    //     paths: (Array of Strings) The path of the URL broken up into components.  Undefined if none.
+    //     query: (String) The query part of the URL.  Undefined if none.
+    //     queries: (Array of Strings) The query part of the URL broken up into components.  Undefined if none.
+    //     hash: (String) The hash part of the URL.  Undefined if none.
+    //   }
+    //
     function splitUrl(url) {
         var result = {};
         var state = "protocol";
         var part = "";
+
+        var processPathPart = function (result, i, c, url, part) {
+            if (part) {
+                if (!result.paths) {
+                    result.paths = [];
+                }
+                result.paths.push(part);
+            }
+        };
+
+        var processQueryPart = function (result, i, c, url, part) {
+            if (part) {
+                if (!result.queries) {
+                    result.queries = [];
+                }
+                var pair = part.split("=").filter(function (i) { return i !== ""; });
+                result.queries.push({ key: pair[0], value: pair[1] });
+            }
+        };
 
         for (var i = 0; i < url.length; i++) {
             var c = url[i];
@@ -129,37 +163,22 @@ function navigationUrl() {
             }
             else if (state === "path") {
                 if (c === '/') {
-                    if (part) {
-                        if (!result.paths) {
-                            result.paths = [];
-                        }
-                        result.paths.push(part);
-                        part = "";
-                    }
+                    processPathPart(result, i, c, url, part);
                     if (i !== url.length - 1 && url[i + 1] !== '?' && url[i + 1] !== '#') {
                         result.path = result.path ? result.path + c : c;
                     }
+                    part = "";
                     continue;
                 }
                 if (c === '?') {
-                    if (part) {
-                        if (!result.paths) {
-                            result.paths = [];
-                        }
-                        result.paths.push(part);
-                        part = "";
-                    }
+                    processPathPart(result, i, c, url, part);
+                    part = "";
                     state = "query";
                     continue;
                 }
                 if (c === '#') {
-                    if (part) {
-                        if (!result.paths) {
-                            result.paths = [];
-                        }
-                        result.paths.push(part);
-                        part = "";
-                    }
+                    processPathPart(result, i, c, url, part);
+                    part = "";
                     state = "hash";
                     continue;
                 }
@@ -168,27 +187,17 @@ function navigationUrl() {
             }
             else if (state === "query") {
                 if (c === '&') {
-                    if (part) {
-                        if (!result.queries) {
-                            result.queries = [];
-                        }
-                        result.queries.push(part);
-                        part = "";
-                    }
+                    processQueryPart(result, i, c, url, part);
                     if (i !== url.length - 1) {
                         result.query = result.query ? result.query + c : c;
                     }
+                    part = "";
                     continue;
                 }
                 else if (c === '#') {
-                    if (part) {
-                        if (!result.queries) {
-                            result.queries = [];
-                        }
-                        result.queries.push(part);
-                        part = "";
-                    }
+                    processQueryPart(result, i, c, url, part);
                     state = "hash";
+                    part = "";
                     continue;
                 }
                 part += c;
@@ -214,7 +223,8 @@ function navigationUrl() {
                 if (!result.queries) {
                     result.queries = [];
                 }
-                result.queries.push(part);
+                var pair = part.split("=").filter(function (i) { return i !== ""; });
+                result.queries.push({ key: pair[0], value: pair[1] });
             }
         }
 
@@ -238,6 +248,42 @@ function navigationUrl() {
     function appendPath(settings) {
         if (settings && settings.path) {
             url.path.components.push(settings.path);
+            return pushNewState({
+                state: settings.state,
+                title: settings.title,
+                raisePopState: settings.raisePopState
+            });
+        }
+        return url;
+    }
+
+    //
+    // Updates the URL with the specified path.
+    //
+    // Returns the new URL.
+    //
+    // Example:
+    //   navigationUrl().url is: http://www.example.com/hello/world
+    //   Call: navigationUrl().updateUrl("http://www.example.com/foo/bar")
+    //   navigationUrl().url is now: http://www.example.com/foo/bar
+    //
+    function updatePath(settings) {
+        if (settings && settings.path) {
+            var parts = [];
+
+            if (settings.path instanceof Array) {
+                parts = settings.path;
+            }
+            else if (settings.path instanceof String ) {
+                parts = settings.path.split("/");
+                //if (parts[parts.length - 1] === "/") {
+                //    parts.splice(parts.length - 1, 1);
+                //}
+            }
+            url.path.components.splice(0, url.path.components.length);
+            for (var part of parts) {
+                url.path.components.push(part);
+            }
             return pushNewState({
                 state: settings.state,
                 title: settings.title,
@@ -433,7 +479,37 @@ function navigationUrl() {
     }
 
     //
-    // Navigates the browser to the specified URL
+    // Updates the URL in the browser window.
+    //
+    // Returns the new URL.
+    //
+    // Example:
+    //   navigationUrl().url is: http://www.example.com/hello/1?foo=bar
+    //   Call: navigationUrl().updateUrl("http://www.example.com/world?bar=foo")
+    //   navigationUrl().url is now: http://www.example.com/world?bar=foo
+    //
+    function updateUrl(settings) {
+        if (settings && settings.url) {
+            var urlParts = splitUrl(settings.url);
+            url.path.components.splice(0, url.path.components.length);
+            for (var p of urlParts.paths) {
+                url.path.components.push(p);
+            }
+            url.queryParams.params.splice(0, url.queryParams.params.length);
+            for (var q of urlParts.queries) {
+                url.queryParams.params.push(q);
+            }
+            return pushNewState({
+                state: settings.state,
+                title: settings.title,
+                raisePopState: settings.raisePopState
+            });
+        }
+        return url;
+    }
+
+    //
+    // Navigates the browser to the specified URL.
     //
     // Returns the new URL.
     //
@@ -455,6 +531,7 @@ function navigationUrl() {
     return {
         url: url,
         appendPath: appendPath,
+        updatePath: updatePath,
         replaceLastPath: replaceLastPath,
         removeLastPath: removeLastPath,
         getLastPath: getLastPath,
@@ -462,7 +539,129 @@ function navigationUrl() {
         appendQueryParam: appendQueryParam,
         updateQueryParam: updateQueryParam,
         removeQueryParam: removeQueryParam,
+        updateUrl: updateUrl,
         goToUrl: goToUrl,
         splitUrl: splitUrl
     };
+}
+
+function testSplitUrl() {
+    function checkUrlObject(actual, expected) {
+        var props = ["protocol", "host", "port", "path", "query", "hash", "paths", "queries" ];
+        if (!actual || !expected) {
+            return { success: false, message: "Actual and/or Expected were either undefined or null." };
+        }
+        for (var prop of props) {
+            if (actual[prop] instanceof Array) {
+                if (actual[prop] && expected[prop]) {
+                    if (actual[prop].length !== expected[prop].length) {
+                        return { success: false, message: `Actual ${prop} length ${actual[prop].length} does not equal Expected ${prop} length ${expected[prop].length}.` };
+                    }
+                    for (var i = 0; i < actual[prop].length; i++) {
+                        if (expected[prop][i] instanceof Object) {
+                            var pairProps = Object.getOwnPropertyNames(expected[prop][i]);
+                            for (var j = 0; j < pairProps.length; j++) {
+                                if (actual[prop][i][j] !== expected[prop][i][j]) {
+                                    return { success: false, message: `Actual ${prop}[${i}].${j} (${actual[prop][i][j]}) does not equal Expected ${prop}[${i}].${j} (${expected[prop][i][j]}).` };
+                                }
+                            }
+                        }
+                        else {
+                            if (actual[prop][i] !== expected[prop][i]) {
+                                return { success: false, message: `Actual ${prop}[${i}] (${actual[prop][i]}) does not equal Expected ${prop}[${i}] (${expected[prop][i]}).` };
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                if (actual[prop] !== expected[prop]) {
+                    return { success: false, message: `Actual ${prop} (${actual[prop]}) does not equal Expected ${prop} (${expected[prop]}).` };
+                }
+            }
+        }
+        return { success: true };
+    }
+
+    function runTest(navUrl, testUrl, expected) {
+        var url = navUrl.splitUrl(testUrl);
+        var result = checkUrlObject(url, expected);
+        if (result.success) {
+            console.log(`Test \"${testUrl}\" succeeded.`);
+        }
+        else {
+            console.log(`Test \"${testUrl}\" failed.`);
+            console.log(`  ${result.message}`);
+        }
+    }
+
+    var testCases = [
+        { url: "https://www.example.com", expected: { protocol: "https", host: "www.example.com" }},
+        { url: "https://www.example.com/", expected: { protocol: "https", host: "www.example.com" }},
+        { url: "https://www.example.com:5000", expected: { protocol: "https", host: "www.example.com", port: 5000 }},
+        { url: "https://www.example.com:5000/", expected: { protocol: "https", host: "www.example.com", port: 5000 }},
+        { url: "https://www.example.com:5000/hello", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello", paths: [ "hello" ] }},
+        { url: "https://www.example.com:5000/hello/", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello", paths: ["hello"] }},
+        { url: "https://www.example.com:5000/hello/world", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello/world", paths: ["hello", "world"] }},
+        { url: "https://www.example.com:5000/hello/world/", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello/world", paths: ["hello", "world"] }},
+        { url: "https://www.example.com:5000/hello/world?foo=bar", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello/world", paths: ["hello", "world"], query: "foo=bar", queries: [ { key: "foo", value: "bar" } ] }},
+        { url: "https://www.example.com:5000/hello/world/?foo=bar", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello/world", paths: ["hello", "world"], query: "foo=bar", queries: [{ key: "foo", value: "bar" }] }},
+        { url: "https://www.example.com:5000/hello/world?foo=bar&a=b", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello/world", paths: ["hello", "world"], query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }] }},
+        { url: "https://www.example.com:5000/hello/world/?foo=bar&a=b", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello/world", paths: ["hello", "world"], query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }] }},
+        { url: "https://www.example.com/hello", expected: { protocol: "https", host: "www.example.com", path: "hello", paths: ["hello"] }},
+        { url: "https://www.example.com/hello/", expected: { protocol: "https", host: "www.example.com", path: "hello", paths: ["hello"] }},
+        { url: "https://www.example.com/hello/world", expected: { protocol: "https", host: "www.example.com", path: "hello/world", paths: ["hello", "world"] }},
+        { url: "https://www.example.com/hello/world/", expected: { protocol: "https", host: "www.example.com", path: "hello/world", paths: ["hello", "world"] }},
+        { url: "https://www.example.com/hello/world?foo=bar", expected: { protocol: "https", host: "www.example.com", path: "hello/world", paths: ["hello", "world"], query: "foo=bar", queries: [{ key: "foo", value: "bar" }] }},
+        { url: "https://www.example.com/hello/world/?foo=bar", expected: { protocol: "https", host: "www.example.com", path: "hello/world", paths: ["hello", "world"], query: "foo=bar", queries: [{ key: "foo", value: "bar" }] }},
+        { url: "https://www.example.com/hello/world?foo=bar&a=b", expected: { protocol: "https", host: "www.example.com", path: "hello/world", paths: ["hello", "world"], query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }] }},
+        { url: "https://www.example.com/hello/world/?foo=bar&a=b", expected: { protocol: "https", host: "www.example.com", path: "hello/world", paths: ["hello", "world"], query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }] }},
+        { url: "https://www.example.com/hello?foo=bar", expected: { protocol: "https", host: "www.example.com", path: "hello", paths: ["hello"], query: "foo=bar", queries: [{ key: "foo", value: "bar" }] }},
+        { url: "https://www.example.com/hello/?foo=bar", expected: { protocol: "https", host: "www.example.com", path: "hello", paths: ["hello"], query: "foo=bar", queries: [{ key: "foo", value: "bar" }] }},
+        { url: "https://www.example.com?foo=bar&a=b", expected: { protocol: "https", host: "www.example.com", query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }] }},
+        { url: "https://www.example.com/?foo=bar&a=b", expected: { protocol: "https", host: "www.example.com", query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }] }},
+        { url: "https://www.example.com:5000?foo=bar&a=b", expected: { protocol: "https", host: "www.example.com", port: 5000, query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }] }},
+        { url: "https://www.example.com:5000/?foo=bar&a=b", expected: { protocol: "https", host: "www.example.com", port: 5000, query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }] }},
+        { url: "https://www.example.com?", expected: { protocol: "https", host: "www.example.com" }},
+        { url: "https://www.example.com/?", expected: { protocol: "https", host: "www.example.com" }},
+        { url: "https://www.example.com:5000?", expected: { protocol: "https", host: "www.example.com", port: 5000 }},
+        { url: "https://www.example.com:5000/?", expected: { protocol: "https", host: "www.example.com", port: 5000 }},
+        { url: "https://www.example.com:5000/hello/world#baz", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello/world", paths: ["hello", "world"], hash: "baz" }},
+        { url: "https://www.example.com:5000/hello/world/#baz", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello/world", paths: ["hello", "world"], hash: "baz" }},
+        { url: "https://www.example.com/hello/world#baz", expected: { protocol: "https", host: "www.example.com", path: "hello/world", paths: ["hello", "world"], hash: "baz" }},
+        { url: "https://www.example.com/hello/world/#baz", expected: { protocol: "https", host: "www.example.com", path: "hello/world", paths: ["hello", "world"], hash: "baz" }},
+        { url: "https://www.example.com/hello#baz", expected: { protocol: "https", host: "www.example.com", path: "hello", paths: ["hello"], hash: "baz" }},
+        { url: "https://www.example.com/hello/#baz", expected: { protocol: "https", host: "www.example.com", path: "hello", paths: ["hello"], hash: "baz" }},
+        { url: "https://www.example.com#baz", expected: { protocol: "https", host: "www.example.com", hash: "baz" }},
+        { url: "https://www.example.com/#baz", expected: { protocol: "https", host: "www.example.com", hash: "baz" }},
+        { url: "https://www.example.com:5000#baz", expected: { protocol: "https", host: "www.example.com", port: 5000, hash: "baz" }},
+        { url: "https://www.example.com:5000/#baz", expected: { protocol: "https", host: "www.example.com", port: 5000, hash: "baz" }},
+        { url: "https://www.example.com#", expected: { protocol: "https", host: "www.example.com" }},
+        { url: "https://www.example.com/#", expected: { protocol: "https", host: "www.example.com" }},
+        { url: "https://www.example.com:5000#", expected: { protocol: "https", host: "www.example.com", port: 5000 }},
+        { url: "https://www.example.com:5000/#", expected: { protocol: "https", host: "www.example.com", port: 5000 }},
+        { url: "https://www.example.com:5000/hello/world?foo=bar#baz", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello/world", paths: ["hello", "world"], query: "foo=bar", queries: [{ key: "foo", value: "bar" }], hash: "baz" }},
+        { url: "https://www.example.com:5000/hello/world/?foo=bar#baz", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello/world", paths: ["hello", "world"], query: "foo=bar", queries: [{ key: "foo", value: "bar" }], hash: "baz" }},
+        { url: "https://www.example.com:5000/hello/world?foo=bar&a=b#baz", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello/world", paths: ["hello", "world"], query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }], hash: "baz" }},
+        { url: "https://www.example.com:5000/hello/world/?foo=bar&a=b#baz", expected: { protocol: "https", host: "www.example.com", port: 5000, path: "hello/world", paths: ["hello", "world"], query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }], hash: "baz" }},
+        { url: "https://www.example.com/hello/world?foo=bar#baz", expected: { protocol: "https", host: "www.example.com", path: "hello/world", paths: ["hello", "world"], query: "foo=bar", queries: [{ key: "foo", value: "bar" }], hash: "baz" }},
+        { url: "https://www.example.com/hello/world/?foo=bar#baz", expected: { protocol: "https", host: "www.example.com", path: "hello/world", paths: ["hello", "world"], query: "foo=bar", queries: [{ key: "foo", value: "bar" }], hash: "baz" }},
+        { url: "https://www.example.com/hello/world?foo=bar&a=b#baz", expected: { protocol: "https", host: "www.example.com", path: "hello/world", paths: ["hello", "world"], query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }], hash: "baz" }},
+        { url: "https://www.example.com/hello/world/?foo=bar&a=b#baz", expected: { protocol: "https", host: "www.example.com", path: "hello/world", paths: ["hello", "world"], query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }], hash: "baz" }},
+        { url: "https://www.example.com/hello?foo=bar#baz", expected: { protocol: "https", host: "www.example.com", path: "hello", paths: ["hello"], query: "foo=bar", queries: [{ key: "foo", value: "bar" }], hash: "baz" }},
+        { url: "https://www.example.com/hello/?foo=bar#baz", expected: { protocol: "https", host: "www.example.com", path: "hello", paths: ["hello"], query: "foo=bar", queries: [{ key: "foo", value: "bar" }], hash: "baz" }},
+        { url: "https://www.example.com?foo=bar&a=b#baz", expected: { protocol: "https", host: "www.example.com", query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }], hash: "baz" }},
+        { url: "https://www.example.com/?foo=bar&a=b#baz", expected: { protocol: "https", host: "www.example.com", query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }], hash: "baz" }},
+        { url: "https://www.example.com:5000?foo=bar&a=b#baz", expected: { protocol: "https", host: "www.example.com", port: 5000, query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }], hash: "baz" }},
+        { url: "https://www.example.com:5000/?foo=bar&a=b#baz", expected: { protocol: "https", host: "www.example.com", port: 5000, query: "foo=bar&a=b", queries: [{ key: "foo", value: "bar" }, { key: "a", value: "b" }], hash: "baz" }},
+        { url: "https://www.example.com?#baz", expected: { protocol: "https", host: "www.example.com", hash: "baz" }},
+        { url: "https://www.example.com/?#baz", expected: { protocol: "https", host: "www.example.com", hash: "baz" }},
+        { url: "https://www.example.com:5000?#baz", expected: { protocol: "https", host: "www.example.com", port: 5000, hash: "baz" }},
+        { url: "https://www.example.com:5000/?#baz", expected: { protocol: "https", host: "www.example.com", port: 5000, hash: "baz" }}
+    ];
+
+    var navUrl = navigationUrl();
+    for (var i = 0; i < testCases.length; i++) {
+        runTest(navUrl, testCases[i].url, testCases[i].expected);
+    }
 }
