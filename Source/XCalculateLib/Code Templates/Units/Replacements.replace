@@ -356,4 +356,18 @@
       ${AbreviationSingular}=sqft
 	  ${AbreviationPlural}=sqft
    ]
+   [
+      ${ClassName}=Dollar
+      ${NameSingular}=dollar
+	  ${NamePlural}=dollars
+      ${AbreviationSingular}=$
+	  ${AbreviationPlural}=$
+   ]
+   [
+      ${ClassName}=Cent
+      ${NameSingular}=cent
+	  ${NamePlural}=cents
+      ${AbreviationSingular}=¢
+	  ${AbreviationPlural}=¢
+   ]
 ]
