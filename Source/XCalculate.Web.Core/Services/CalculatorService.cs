@@ -23,12 +23,14 @@ namespace XCalculate.Web.Core.Services
             return this.repository.GetById(id);
         }
 
-        public ICalculator[] Filter(string term, CalculatorFilterTarget target, bool matchCase, bool matchWholeString)
+        public ICalculator[] Filter(string[] terms, CalculatorFilterTarget target, bool matchCase, bool matchWholeString, MultipleFilterMatch multipleFilterMatch)
         {
-            var search = new FunctionInfoSearch(matchCase, matchWholeString);
+            var search = new FunctionInfoSearch(matchCase, matchWholeString, multipleFilterMatch);
             var allCalculators = repository.GetAll();
 
-            var selectedCalculators = string.IsNullOrEmpty(term) ? allCalculators : allCalculators.Where(i => search.IsMatch(i.Module.Function.FunctionInfo, term, CalculatorFilterTarget.All));
+            var nonEmptyTerms = terms == null ? new string[0] : terms.Where(i => !string.IsNullOrWhiteSpace(i)).ToArray();
+
+            var selectedCalculators = nonEmptyTerms.Length == 0 ? allCalculators : allCalculators.Where(i => search.IsMatch(i.Module.Function.FunctionInfo, nonEmptyTerms, CalculatorFilterTarget.All));
 
             return selectedCalculators
                     .OrderBy(i => i.Module.Function.FunctionInfo.Name)

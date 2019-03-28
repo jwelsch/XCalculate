@@ -35,10 +35,10 @@
             <div class="d-flex">
                 <div class="mt-1">
                     <ul id="sidebar" class="nav flex-column">
-                        <li class="nav-item"><a class="nav-link" href="/Calculator/?s=algebra" onclick="return onClickAjaxHelper(this);">Algebra</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/Search/?s=geometry">Geometry</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/Search/?s=trigonometry">Trigonometry</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/Search/?s=financial">Financial</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Browse/?s=algebra">Algebra</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Browse/?s=geometry">Geometry</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Browse/?s=trigonometry">Trigonometry</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Browse/?s=financial">Financial</a></li>
                     </ul>
                 </div>
                 <main class="container mt-2">
@@ -55,75 +55,17 @@
     <script src="~/js/navigationUrl.js"></script>
     @RenderSection("Scripts", required: false)
     <script type="text/javascript">
-        //var observer = new MutationObserver(onMutationObserved);
-
-        $(document).ready(function () {
-            //observer.observe($("main"), {
-            //    childList: true
-            //});
-        });
-
-        function onMutationObserved(mutationsList, observer) {
-            for (var mutation of mutationsList) {
-                if (mutation.type == "childList") {
-                    console.log("A child node has been added or removed.");
-                }
-            }
-        }
-
-        function onClickAjaxHelper(e, config) {
-            config = config ? config : {};
-
-            var url = "";
-
-            if (e instanceof String) {
-                url = e;
-            }
-            else if (e instanceof HTMLAnchorElement) {
-                url = e.toString();
-            }
-            else {
-                throw new Error("Unknown type of URL input.");
-            }
-
-            var type = config.type ? config.type : "GET";
-            var contentType = config.contentType ? config.contentType : false;
-            var node = config.node ? config.node : "main";
-            var action = config.action ? config.action : "contain";
-
-            $.ajax({
-                type: type,
-                url: url,
-                contentType: contentType,
-                success: function (data, status) {
-                    navigationUrl().updateUrl({ url: url });
-                    if (action === "contain") {
-                        $(node).html(data);
-                    }
-                    else if (action === "replace") {
-                        $(node).replaceWith(data);
-                    }
-                    else {
-                        throw new Error("Unknown action");
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.log(`AJAX error - status: ${status}; error: ${JSON.string(error)}`);
-                }
-            });
-
-            return false;
-        }
-
         function onClickNavSearch(e) {
-            var term = $("#nav-search").val();
-
+            var $navSearch = $("#nav-search");
+            var term = $navSearch.val();
             if (term) {
                 var authority = `${location.protocol}//${location.host}`;
-                var url = `${authority}/Calculator/?s=${term}`;
+                var url = `${authority}/Browse/?s=${term}`;
 
                 var navUrl = navigationUrl();
                 navUrl.goToUrl(url);
+
+                $navSearch.val("");
             }
             return false;
         }

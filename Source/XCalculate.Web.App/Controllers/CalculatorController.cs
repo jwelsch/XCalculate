@@ -7,7 +7,6 @@ using XCalculateLib;
 
 namespace XCalculate.Web.App.Controllers
 {
-    [Route("[controller]")]
     public class CalculatorController : Controller
     {
         private readonly ICalculatorService calculatorService;
@@ -17,38 +16,23 @@ namespace XCalculate.Web.App.Controllers
             this.calculatorService = calculatorService;
         }
 
-        [Route("{calculatorId?}")]
+        [Route("[controller]/{calculatorId}")]
         [HttpGet]
-        public IActionResult Index([FromRoute] int? calculatorId = null, [FromQuery] string s = null)
+        public IActionResult Index([FromRoute] int calculatorId)
         {
-            if (calculatorId != null)
+            var calculator = this.calculatorService.GetById(calculatorId);
+
+            var vm = new CalculatorIndexModel
             {
-                var calculator = this.calculatorService.GetById(calculatorId.Value);
+                Id = calculator.Id,
+                Name = calculator.Module.Function.FunctionInfo.Name,
+                Description = calculator.Module.Function.FunctionInfo.Description,
+                Tags = calculator.Module.Function.FunctionInfo.Tags,
+                Inputs = calculator.Module.Function.GetInputs().Select(i => new CalculatorValueModel { ValueLabel = i.GetName(), ValueType = i.GetValueType(), UnitLabel = i.GetUnitLabel(false), IsArray = i.IsArrayValue, Value = i.Value }).ToArray(),
+                Results = calculator.Module.Function.FunctionInfo.ResultInfo.Select(i => new CalculatorValueModel { ValueLabel = i.GetName(), UnitLabel = i.GetUnitLabel(false) }).ToArray()
+            };
 
-                var vm = new CalculatorIndexModel
-                {
-                    Id = calculator.Id,
-                    Name = calculator.Module.Function.FunctionInfo.Name,
-                    Description = calculator.Module.Function.FunctionInfo.Description,
-                    Tags = calculator.Module.Function.FunctionInfo.Tags,
-                    Inputs = calculator.Module.Function.GetInputs().Select(i => new CalculatorValueModel { ValueLabel = i.GetName(), ValueType = i.GetValueType(), UnitLabel = i.GetUnitLabel(false), IsArray = i.IsArrayValue, Value = i.Value }).ToArray(),
-                    Results = calculator.Module.Function.FunctionInfo.ResultInfo.Select(i => new CalculatorValueModel { ValueLabel = i.GetName(), UnitLabel = i.GetUnitLabel(false) }).ToArray()
-                };
-
-                return View(vm);
-            }
-            else
-            {
-                var calculators = this.calculatorService.Filter(s, Core.CalculatorFilterTarget.All, false, false);
-
-                var vm = new SearchModel
-                {
-                    CalculatorIds = calculators.Select(i => i.Id).ToList(),
-                    Filters = new[] { s }
-                };
-
-                return PartialView("Search", vm);
-            }
+            return View(vm);
         }
 
         /// <summary>
@@ -57,7 +41,7 @@ namespace XCalculate.Web.App.Controllers
         /// <param name="calculatorId">ID of the calculator.</param>
         /// <param name="calculatorInput">Inputs of the calculator.</param>
         /// <returns>The calculation result.</returns>
-        [Route("{calculatorId}/Calculate")]
+        [Route("[controller]/{calculatorId}/Calculate")]
         //[AutoValidateAntiforgeryToken]
         [HttpPost]
         public IActionResult Calculate(int calculatorId, [FromBody] CalculatorInput calculatorInput)

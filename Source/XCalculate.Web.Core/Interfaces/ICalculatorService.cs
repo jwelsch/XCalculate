@@ -6,6 +6,6 @@
 
         ICalculator GetById(int id);
 
-        ICalculator[] Filter(string term, CalculatorFilterTarget target, bool matchCase, bool matchWholeString);
+        ICalculator[] Filter(string[] terms, CalculatorFilterTarget target, bool matchCase, bool matchWholeString, MultipleFilterMatch multipleFilterMatch);
     }
 }

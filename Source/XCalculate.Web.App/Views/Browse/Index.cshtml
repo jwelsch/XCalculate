@@ -1,0 +1,42 @@
+﻿@model BrowseModel
+
+@{
+    ViewData["Title"] = "Browse Calculators";
+}
+
+<div class="row">
+    <h4 class="mr-2">Filters:</h4>
+    @foreach (var filter in Model.Filters)
+    {
+        <h4><span class="badge badge-dark d-flex align-items-center">@filter<button type="button" class="close ml-1" onclick="onClickFilterClose(this);">&times;</button></span></h4>
+    }
+</div>
+
+<div class="row">
+    @foreach (var id in Model.CalculatorIds)
+    {
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <vc:calculator-card-control calculator-id="@id" />
+        </div>
+    }
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        function onClickFilterClose(e) {
+            var parent = $(e).parent();
+            var text = parent.text();
+            text = text.substring(0, text.length - 1);
+            var navUrl = navigationUrl();
+            for (var i = 0; i < navUrl.url.queryParams.params.length; i++) {
+                var param = navUrl.url.queryParams.params[i];
+                if (param.key === "s" && param.value === text) {
+                    navUrl.url.queryParams.params.splice(i, 1);
+                    break;
+                }
+            }
+            var url = navUrl.buildUrl(navUrl.url.location.protocol, navUrl.url.location.host, navUrl.url.location.port, navUrl.url.path.components, navUrl.url.queryParams.params, navUrl.url.location.hash);
+            navUrl.goToUrl(url);
+        }
+    </script>
+}

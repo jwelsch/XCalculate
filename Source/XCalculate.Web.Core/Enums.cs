@@ -25,4 +25,20 @@
         /// </summary>
         Description
     }
+
+    /// <summary>
+    /// When multiple filters are being matched, determines how the filters are combined.
+    /// </summary>
+    public enum MultipleFilterMatch
+    {
+        /// <summary>
+        /// The filter results are combined using logical AND.
+        /// </summary>
+        And,
+
+        /// <summary>
+        /// The filter results are combined using logical OR.
+        /// </summary>
+        Or
+    }
 }

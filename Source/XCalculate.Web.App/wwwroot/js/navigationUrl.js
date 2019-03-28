@@ -63,9 +63,9 @@ function navigationUrl() {
 
     function pushNewState(settings) {
         if (settings.replace) {
-            history.replaceState(settings ? settings.state : null, !settings || (settings.title === null || settings.title === undefined) ? "" : settings.title, buildUrl());
+            history.replaceState(settings ? settings.state : null, !settings || (settings.title === null || settings.title === undefined) ? "" : settings.title, buildUrl(url.location.protocol, url.location.hostname, url.location.port, url.path.components, + url.queryParams.params, url.location.hash));
         } else {
-            history.pushState(settings ? settings.state : null, !settings || (settings.title === null || settings.title === undefined) ? "" : settings.title, buildUrl());
+            history.pushState(settings ? settings.state : null, !settings || (settings.title === null || settings.title === undefined) ? "" : settings.title, buildUrl(url.location.protocol, url.location.hostname, url.location.port, url.path.components, + url.queryParams.params, url.location.hash));
         }
         if (settings.raisePopState) {
             var event = new PopStateEvent("popstate", { state: settings.state });
@@ -231,8 +231,83 @@ function navigationUrl() {
         return result;
     }
 
-    function buildUrl() {
-        return url.location.protocol + "//" + url.location.host + url.path.toString() + url.queryParams.toString() + url.location.hash;
+    //
+    // Builds a URL string given the components of a URL.
+    //
+    // Returns: String representation of a URL.
+    //
+    // protocol: (String) Protocol of the URL.
+    // hostname: (String) Hostname of the URL.
+    // port: (Number) Port of the URL.
+    // paths: (Array of Strings) Individual paths of the URL.
+    // queries: (Array of Objects) Individual query parameters (in the form { key: string, value: string }) of the URL.
+    // hash: (String) Hash part of the URL.
+    //
+    function buildUrl(protocol, hostname, port, paths, queries, hash) {
+        return buildUrlProtocol(protocol) + "//" + hostname + buildUrlPort(port) + buildUrlPath(paths) + buildUrlQuery(queries) + buildUrlHash(hash);
+    }
+
+    function buildUrlProtocol(protocol) {
+        var str = "";
+        if (protocol) {
+            str = protocol[protocol.length - 1] === ':' ? protocol : protocol + ":";
+        }
+        return str;
+    }
+
+    function buildUrlPort(port) {
+        var str = "";
+        if (port) {
+            if (port instanceof Number) {
+                str = ":" + port;
+            }
+            else if (port instanceof String) {
+                str = port[0] === ':' ? port : ":" + port;
+            }
+        }
+        return str;
+    }
+
+    function buildUrlPath(paths) {
+        var str = "";
+        if (paths) {
+            if (paths instanceof Array) {
+                for (var i = 0; i < paths.length; i++) {
+                    str += "/" + paths[i];
+                }
+            }
+            else if (paths instanceof String) {
+                if (paths.length > 0) {
+                    str = paths[0] === '/' ? paths : "/" + paths;
+                }
+            }
+        }
+        return str;
+    }
+
+    function buildUrlQuery(queries) {
+        var str = "";
+        if (queries) {
+            if (queries instanceof Array) {
+                for (var i = 0; i < queries.length; i++) {
+                    str += (i > 0 ? "&" : "?") + queries[i].key + "=" + queries[i].value;
+                }
+            }
+            else if (queries instanceof String) {
+                if (queries.length > 0) {
+                    str = queries[0] === '?' ? queries : "?" + queries;
+                }
+            }
+        }
+        return str;
+    }
+
+    function buildUrlHash(hash) {
+        var str = "";
+        if (hash) {
+            str = hash[0] === '#' ? hash : "#" + hash;
+        }
+        return str;
     }
 
     //
@@ -541,7 +616,8 @@ function navigationUrl() {
         removeQueryParam: removeQueryParam,
         updateUrl: updateUrl,
         goToUrl: goToUrl,
-        splitUrl: splitUrl
+        splitUrl: splitUrl,
+        buildUrl: buildUrl
     };
 }
 

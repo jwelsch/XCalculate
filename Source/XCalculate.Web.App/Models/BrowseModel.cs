@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace XCalculate.Web.App.Models
 {
-    public class SearchModel
+    public class BrowseModel
     {
         public IList<int> CalculatorIds
         {
