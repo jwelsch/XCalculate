@@ -13,11 +13,18 @@
 </div>
 
 <div class="row">
-    @foreach (var id in Model.CalculatorIds)
+    @if (Model.CalculatorIds == null || Model.CalculatorIds.Count == 0)
     {
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            <vc:calculator-card-control calculator-id="@id" />
-        </div>
+        <span class="mt-2 ml-2">No calculators found</span>
+    }
+    else
+    {
+        foreach (var id in Model.CalculatorIds)
+        {
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <vc:calculator-card-control calculator-id="@id" />
+            </div>
+        }
     }
 </div>
 
