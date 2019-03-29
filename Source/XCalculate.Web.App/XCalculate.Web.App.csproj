@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -15,5 +15,11 @@
     <ProjectReference Include="..\XCalculate.Web.Core\XCalculate.Web.Core.csproj" />
     <ProjectReference Include="..\XCalculate.Web.Infrastructure\XCalculate.Web.Infrastructure.csproj" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <Content Include="Calculators\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  
 </Project>
