@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Source\XCalculate.Web.App\Calculators&quot; /y" />
+    <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Source\XCalculate.Web.App\Calculators&quot; /y /I" />
   </Target>
 
 </Project>
