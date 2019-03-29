@@ -4,12 +4,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Source\XCalculateLib\XCalculateLib.csproj" />
-  </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Source\XCalculate.Web.App\Calculators&quot; /y" />
   </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XCalculateLib\XCalculateLib.csproj" />
+  </ItemGroup>
 
 </Project>
