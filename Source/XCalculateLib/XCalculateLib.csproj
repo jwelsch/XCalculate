@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="&quot;$(ProjectDir)\Build Events\prebuild.bat&quot; &quot;$(SolutionDir)&quot; &quot;$(ProjectDir)&quot;" />
+    <Exec Command="&quot;$(ProjectDir)\Build Events\prebuild.bat&quot; &quot;../../&quot; &quot;$(ProjectDir)&quot;" />
   </Target>
 
 </Project>
