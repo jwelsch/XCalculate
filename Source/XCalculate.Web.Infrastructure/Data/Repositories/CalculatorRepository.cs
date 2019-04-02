@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using XCalculate.Web.Core.Entities;
 using XCalculate.Web.Core.Interfaces;
 
 namespace XCalculate.Web.Infrastructure.Data.Repositories
@@ -24,17 +25,23 @@ namespace XCalculate.Web.Infrastructure.Data.Repositories
             this.calculators.AddRange(calculators);
         }
 
-        public string[] GetAllTags()
+        public Tag[] GetAllTags()
         {
-            var tags = new List<string>();
+            var tags = new List<Tag>();
 
             foreach (var calculator in this.calculators)
             {
-                foreach (var tag in calculator.Module.Function.FunctionInfo.Tags)
+                foreach (var tagText in calculator.Module.Function.FunctionInfo.Tags)
                 {
-                    if (!tags.Contains(tag))
+                    var tag = tags.FirstOrDefault(i => i.Text == tagText);
+
+                    if (tag == null)
                     {
-                        tags.Add(tag);
+                        tags.Add(new Tag(tagText));
+                    }
+                    else
+                    {
+                        tag.IncrementCount();
                     }
                 }
             }

@@ -36,7 +36,6 @@ namespace XCalculate.Web.App.Controllers
 
         [Route("[controller]/[action]")]
         [HttpGet]
-        //[ChildActionOnly]
         public IActionResult NavigationTags()
         {
             var vm = new NavigationTagsControlModel

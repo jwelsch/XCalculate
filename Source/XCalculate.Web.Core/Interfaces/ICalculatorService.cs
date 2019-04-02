@@ -1,4 +1,6 @@
-﻿namespace XCalculate.Web.Core.Interfaces
+﻿using XCalculate.Web.Core.Entities;
+
+namespace XCalculate.Web.Core.Interfaces
 {
     public interface ICalculatorService
     {
@@ -8,6 +10,6 @@
 
         ICalculator[] Filter(string[] terms, CalculatorFilterTarget target, bool matchCase, bool matchWholeString, MultipleFilterMatch multipleFilterMatch);
 
-        string[] GetAllTags();
+        Tag[] GetAllTags();
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using XCalculate.Web.Core.Entities;
 using XCalculate.Web.Core.Interfaces;
 
 namespace XCalculate.Web.Core.Services
@@ -37,7 +38,7 @@ namespace XCalculate.Web.Core.Services
                     .ToArray();
         }
 
-        public string[] GetAllTags()
+        public Tag[] GetAllTags()
         {
             return this.repository.GetAllTags();
         }
