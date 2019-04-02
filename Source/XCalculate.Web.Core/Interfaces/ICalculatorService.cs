@@ -7,5 +7,7 @@
         ICalculator GetById(int id);
 
         ICalculator[] Filter(string[] terms, CalculatorFilterTarget target, bool matchCase, bool matchWholeString, MultipleFilterMatch multipleFilterMatch);
+
+        string[] GetAllTags();
     }
 }

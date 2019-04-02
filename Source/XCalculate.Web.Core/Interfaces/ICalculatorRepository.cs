@@ -9,5 +9,7 @@ namespace XCalculate.Web.Core.Interfaces
         ICalculator GetById(int id);
 
         void UpdateStore(IEnumerable<ICalculator> calculators);
+
+        string[] GetAllTags();
     }
 }

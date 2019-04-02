@@ -26,7 +26,7 @@ namespace XCalculate.Web.Core.Services
         public ICalculator[] Filter(string[] terms, CalculatorFilterTarget target, bool matchCase, bool matchWholeString, MultipleFilterMatch multipleFilterMatch)
         {
             var search = new FunctionInfoSearch(matchCase, matchWholeString, multipleFilterMatch);
-            var allCalculators = repository.GetAll();
+            var allCalculators = this.repository.GetAll();
 
             var nonEmptyTerms = terms == null ? new string[0] : terms.Where(i => !string.IsNullOrWhiteSpace(i)).ToArray();
 
@@ -35,6 +35,11 @@ namespace XCalculate.Web.Core.Services
             return selectedCalculators
                     .OrderBy(i => i.Module.Function.FunctionInfo.Name)
                     .ToArray();
+        }
+
+        public string[] GetAllTags()
+        {
+            return this.repository.GetAllTags();
         }
     }
 }

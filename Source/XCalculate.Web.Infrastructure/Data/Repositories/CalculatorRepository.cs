@@ -23,5 +23,23 @@ namespace XCalculate.Web.Infrastructure.Data.Repositories
             this.calculators.Clear();
             this.calculators.AddRange(calculators);
         }
+
+        public string[] GetAllTags()
+        {
+            var tags = new List<string>();
+
+            foreach (var calculator in this.calculators)
+            {
+                foreach (var tag in calculator.Module.Function.FunctionInfo.Tags)
+                {
+                    if (!tags.Contains(tag))
+                    {
+                        tags.Add(tag);
+                    }
+                }
+            }
+
+            return tags.ToArray();
+        }
     }
 }

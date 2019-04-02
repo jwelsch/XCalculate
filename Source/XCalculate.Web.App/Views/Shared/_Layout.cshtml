@@ -26,12 +26,8 @@
                     <span class="flex-column ml-4"><a href="/Browse">Browse</a></span>
                     <hr />
                     <span class="flex-column ml-4">Tags</span>
-                    <ul id="sidebar" class="nav flex-column ml-3">
-                        <li class="nav-item"><a class="nav-link" href="/Browse/?s=algebra">Algebra</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/Browse/?s=geometry">Geometry</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/Browse/?s=trigonometry">Trigonometry</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/Browse/?s=financial">Financial</a></li>
-                    </ul>
+                    <!-- Navigation Tags -->
+                    <vc:navigation-tags-control />
                 </div>
                 <main class="container mt-2">
                     @RenderBody()

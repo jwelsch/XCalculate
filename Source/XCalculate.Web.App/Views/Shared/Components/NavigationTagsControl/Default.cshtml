@@ -1,0 +1,8 @@
+﻿@model XCalculate.Web.App.Components.NavigationTagsControlModel
+
+<ul id="sidebar" class="nav flex-column ml-3">
+    @foreach (var tags in Model.Tags)
+    {
+        <li class="nav-item"><a class="nav-link" href="/Browse/?s=@tags">@tags</a></li>
+    }
+</ul>

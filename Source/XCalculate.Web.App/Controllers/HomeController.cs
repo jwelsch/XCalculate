@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using XCalculate.Web.App.Components;
 using XCalculate.Web.App.Models;
 using XCalculate.Web.Core.Interfaces;
 
@@ -31,6 +32,19 @@ namespace XCalculate.Web.App.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Route("[controller]/[action]")]
+        [HttpGet]
+        //[ChildActionOnly]
+        public IActionResult NavigationTags()
+        {
+            var vm = new NavigationTagsControlModel
+            {
+                Tags = this.calculatorService.GetAllTags()
+            };
+
+            return PartialView(vm);
         }
     }
 }
