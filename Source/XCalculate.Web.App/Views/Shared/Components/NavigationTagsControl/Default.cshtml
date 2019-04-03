@@ -3,6 +3,6 @@
 <ul id="sidebar" class="nav flex-column ml-3">
     @foreach (var tag in Model.Tags)
     {
-        <li class="nav-item"><a class="nav-link" href="/Browse/?s=@tag.Text">@tag.DisplayText</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Browse/?s=@tag.Text">@tag.DisplayText (@tag.Count)</a></li>
     }
 </ul>

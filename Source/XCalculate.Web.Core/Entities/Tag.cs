@@ -28,6 +28,7 @@ namespace XCalculate.Web.Core.Entities
         {
             this.Text = text;
             this.DisplayText = displayText;
+            this.Count = 1;
         }
 
         public Tag(string text)
