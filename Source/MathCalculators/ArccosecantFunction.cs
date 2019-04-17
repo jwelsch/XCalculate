@@ -8,7 +8,7 @@ namespace MathCalculators
     {
         public ArccosecantFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Arccosecant", new ValueInfo("Result", "The arccosecant of the angle."), "Find the arccosecant of an angle.", "arccosecant", "arccsc"),
+                  new FunctionInfo(new Version("1.0.0"), "Arccosecant", new ValueInfo("Result", "The arccosecant of the angle."), "Find the arccosecant of an angle.", "arccosecant", "arccsc", "geometry"),
                   new AgnosticValue(0.0, new ValueInfo("Angle", "Angle to find the arccosecant of.", new RadianUnit())))
         {
         }

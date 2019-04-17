@@ -8,7 +8,7 @@ namespace MathCalculators
     {
         public ArccosineFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Arccosine", new ValueInfo("Result", "The arccosine of the angle."), "Find the arccosine of an angle.", "arccosine", "arccos"),
+                  new FunctionInfo(new Version("1.0.0"), "Arccosine", new ValueInfo("Result", "The arccosine of the angle."), "Find the arccosine of an angle.", "arccosine", "arccos", "geometry"),
                   new AgnosticValue(0.0, new ValueInfo("Angle", "Angle to find the arccosine of.", new RadianUnit())))
         {
         }

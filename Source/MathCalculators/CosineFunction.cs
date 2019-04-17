@@ -8,7 +8,7 @@ namespace MathCalculators
     {
         public CosineFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Cosine", new ValueInfo("Result", "The cosine of the angle."), "Find the cosine of an angle.", "cosine", "cos"),
+                  new FunctionInfo(new Version("1.0.0"), "Cosine", new ValueInfo("Result", "The cosine of the angle."), "Find the cosine of an angle.", "cosine", "cos", "geometry"),
                   new AgnosticValue(0.0, new ValueInfo("Angle", "Angle to find the cosine of.", new RadianUnit())))
         {
         }

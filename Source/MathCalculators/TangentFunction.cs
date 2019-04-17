@@ -8,7 +8,7 @@ namespace MathCalculators
     {
         public TangentFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Tangent", new ValueInfo("Result", "The tangent of the angle."), "Find the tangent of an angle.", "tangent", "tan"),
+                  new FunctionInfo(new Version("1.0.0"), "Tangent", new ValueInfo("Result", "The tangent of the angle."), "Find the tangent of an angle.", "tangent", "tan", "geometry"),
                   new AgnosticValue(0.0, new ValueInfo("Angle", "Angle to find the tangent of.", new RadianUnit())))
         {
         }

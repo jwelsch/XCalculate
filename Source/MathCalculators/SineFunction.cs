@@ -8,7 +8,7 @@ namespace MathCalculators
     {
         public SineFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Sine", new ValueInfo("Result", "The sine of the angle."), "Find the sine of an angle.", "sine", "sin"),
+                  new FunctionInfo(new Version("1.0.0"), "Sine", new ValueInfo("Result", "The sine of the angle."), "Find the sine of an angle.", "sine", "sin", "geometry"),
                   new AgnosticValue(0.0, new ValueInfo("Angle", "Angle to find the sine of.", new RadianUnit())))
         {
         }

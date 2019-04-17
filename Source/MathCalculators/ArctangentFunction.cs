@@ -8,7 +8,7 @@ namespace MathCalculators
     {
         public ArctangentFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Arctangent", new ValueInfo("Result", "The arctangent of the angle."), "Find the arctangent of an angle.", "arctangent", "arctan"),
+                  new FunctionInfo(new Version("1.0.0"), "Arctangent", new ValueInfo("Result", "The arctangent of the angle."), "Find the arctangent of an angle.", "arctangent", "arctan", "geometry"),
                   new AgnosticValue(0.0, new ValueInfo("Angle", "Angle to find the arctangent of.", new RadianUnit())))
         {
         }

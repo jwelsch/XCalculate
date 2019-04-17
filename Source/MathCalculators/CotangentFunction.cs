@@ -8,7 +8,7 @@ namespace MathCalculators
     {
         public CotangentFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Cosine", new ValueInfo("Result", "The cotangent of the angle."), "Find the cotangent of an angle.", "cotangent", "cot"),
+                  new FunctionInfo(new Version("1.0.0"), "Cosine", new ValueInfo("Result", "The cotangent of the angle."), "Find the cotangent of an angle.", "cotangent", "cot", "geometry"),
                   new AgnosticValue(0.0, new ValueInfo("Angle", "Angle to find the cotangent of.", new RadianUnit())))
         {
         }

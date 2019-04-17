@@ -8,7 +8,7 @@ namespace MathCalculators
     {
         public SecantFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Secant", new ValueInfo("Result", "The secant of the angle."), "Find the secant of an angle.", "secant", "sec"),
+                  new FunctionInfo(new Version("1.0.0"), "Secant", new ValueInfo("Result", "The secant of the angle."), "Find the secant of an angle.", "secant", "sec", "geometry"),
                   new AgnosticValue(0.0, new ValueInfo("Angle", "Angle to find the secant of.", new RadianUnit())))
         {
         }

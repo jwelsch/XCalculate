@@ -8,7 +8,7 @@ namespace MathCalculators
     {
         public CosecantFunction()
             : base(
-                  new FunctionInfo(new Version("1.0.0"), "Cosecant", new ValueInfo("Result", "The cosecant of the angle."), "Find the cosecant of an angle.", "cosecant", "csc"),
+                  new FunctionInfo(new Version("1.0.0"), "Cosecant", new ValueInfo("Result", "The cosecant of the angle."), "Find the cosecant of an angle.", "cosecant", "csc", "geometry"),
                   new AgnosticValue(0.0, new ValueInfo("Angle", "Angle to find the cosecant of.", new RadianUnit())))
         {
         }
