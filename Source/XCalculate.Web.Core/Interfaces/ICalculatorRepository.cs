@@ -12,5 +12,7 @@ namespace XCalculate.Web.Core.Interfaces
         void UpdateStore(IEnumerable<ICalculator> calculators);
 
         Tag[] GetAllTags();
+
+        int GetCount();
     }
 }

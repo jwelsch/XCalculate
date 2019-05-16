@@ -11,5 +11,7 @@ namespace XCalculate.Web.Core.Interfaces
         ICalculator[] Filter(string[] terms, CalculatorFilterTarget target, bool matchCase, bool matchWholeString, MultipleFilterMatch multipleFilterMatch);
 
         Tag[] GetAllTags();
+
+        int GetCount();
     }
 }

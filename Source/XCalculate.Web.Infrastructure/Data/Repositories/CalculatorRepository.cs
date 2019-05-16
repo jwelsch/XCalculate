@@ -48,5 +48,10 @@ namespace XCalculate.Web.Infrastructure.Data.Repositories
 
             return tags.ToArray();
         }
+
+        public int GetCount()
+        {
+            return this.calculators.Count;
+        }
     }
 }
