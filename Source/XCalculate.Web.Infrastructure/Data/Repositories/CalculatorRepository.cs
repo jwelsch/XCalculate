@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using XCalculate.Web.Core.Entities;
 using XCalculate.Web.Core.Interfaces;
@@ -47,6 +49,28 @@ namespace XCalculate.Web.Infrastructure.Data.Repositories
             }
 
             return tags.ToArray();
+        }
+
+        public Tag[] GetAllTags(ListSortDirection sort = ListSortDirection.Ascending)
+        {
+            var tags = this.GetAllTags();
+
+            if (sort == ListSortDirection.Ascending)
+            {
+                Array.Sort(tags, (a, b) =>
+                {
+                    return string.Compare(a.Text, b.Text, true);
+                });
+            }
+            else
+            {
+                Array.Sort(tags, (a, b) =>
+                {
+                    return -string.Compare(a.Text, b.Text, true);
+                });
+            }
+
+            return tags;
         }
 
         public int GetCount()

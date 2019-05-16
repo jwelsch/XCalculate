@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using XCalculate.Web.Core.Entities;
 
 namespace XCalculate.Web.Core.Interfaces
@@ -11,7 +12,7 @@ namespace XCalculate.Web.Core.Interfaces
 
         void UpdateStore(IEnumerable<ICalculator> calculators);
 
-        Tag[] GetAllTags();
+        Tag[] GetAllTags(ListSortDirection sort = ListSortDirection.Ascending);
 
         int GetCount();
     }

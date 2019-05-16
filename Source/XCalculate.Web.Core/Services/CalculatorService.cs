@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Linq;
 using XCalculate.Web.Core.Entities;
 using XCalculate.Web.Core.Interfaces;
@@ -39,7 +40,7 @@ namespace XCalculate.Web.Core.Services
 
         public Tag[] GetAllTags()
         {
-            return this.repository.GetAllTags();
+            return this.repository.GetAllTags(ListSortDirection.Ascending);
         }
 
         public int GetCount()
